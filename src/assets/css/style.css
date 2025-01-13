@@ -1,0 +1,527 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('general.css');
+
+:root {
+    --primary-color: #3382EB;
+    --secondary-color: #00DAB3;
+    --light-primary-color: rgba(51, 130, 235, 0.2);
+    --medium-primary-color: rgba(51, 130, 235, 0.5);
+    --light-secondary-color: rgba(0, 218, 179, 0.1);
+    --medium-secondary-color: rgba(0, 218, 179, 0.5);
+    --medium-orange-color: rgba(234, 107, 35, 0.5);
+    --medium-black-color: rgba(18, 18, 18, 0.5);
+    --light-black-color: rgba(18, 18, 18, 0.1);
+    --red-color: #ff0000;
+    --green-color: #009B27;
+    --white-color: #FFFFFF;
+    --text-color: #393939;
+    --text-color-light: #757575;
+    --my-shadow: 0 2px 2px 0px rgba(0, 0, 0, 0.1);
+}
+
+*,
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", serif;
+    letter-spacing: 0.25px;
+    color: var(--dark-color);
+    font-size: 14px;
+    background: #F0F2FB;
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.1s ease-in;
+}
+
+/* ================================ 
+Button styles section 
+=================================== */
+.btn1 {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    border: 1px solid var(--primary-color);
+    text-transform: capitalize;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    min-width: 150px;
+    border-radius: 0.313rem;
+    text-align: center;
+    transition: 0.25s ease-in-out all;
+}
+
+.btn1:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn2 {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    border: 1px solid #28A745;
+    text-transform: capitalize;
+    background-color: transparent;
+    color: #28A745;
+    min-width: 100px;
+    border-radius: 0.313rem;
+    transition: 0.25s ease-in-out all;
+}
+
+.btn2:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn3 {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    border: 1px solid var(--primary-color);
+    text-transform: capitalize;
+    background-color: transparent;
+    color: var(--primary-color);
+    min-width: 100px;
+    border-radius: 0.313rem;
+}
+
+.btn3:hover {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn1-sm {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    border: 1px solid var(--primary-color);
+    text-transform: capitalize;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    min-width: 100px;
+    border-radius: 0.313rem;
+}
+
+.btn1-sm:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn4 {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    border: 1px solid #28A745;
+    text-transform: capitalize;
+    background-color: #28A745;
+    color: var(--white-color);
+    min-width: 80px;
+    border-radius: 0.313rem;
+}
+
+.btn6 {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    border: 1px solid #ff0000;
+    text-transform: capitalize;
+    background-color: transparent;
+    color: var(--red-color);
+    min-width: 80px;
+    border-radius: 0.313rem;
+}
+
+/* ================================ 
+Custom Css section 
+=================================== */
+.home-wrapper {
+    background: url(../images/background/main-bg.jpg) no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.home-wrapper .logo {
+    position: absolute;
+    top: 3.5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.home-wrapper .elements .elem-1 {
+    position: absolute;
+    top: 10%;
+    right: 0;
+}
+
+.home-wrapper .elements .elem-2 {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+}
+
+.phn input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.login .or {
+    color: var(--medium-black-color);
+    font-size: 16px;
+}
+
+.login .or::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background-color: var(--medium-black-color);
+    margin-right: 10px;
+}
+
+.login .or::after {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background-color: var(--medium-black-color);
+    margin-left: 10px;
+}
+
+.login .form-control {
+    min-height: 50px;
+    padding-left: 1rem;
+    font-weight: 500;
+    color: #121212;
+    border-radius: 5px;
+}
+
+.login .form-control:focus,
+.login .form-control:hover {
+    border-color: var(--primary-color);
+}
+
+
+.otp-input-fields input {
+    height: 54px;
+    width: 54px;
+    background-color: transparent;
+    border-radius: 4px;
+    border: 1px solid #c3c3c3;
+    text-align: center;
+    outline: none;
+    font-size: 20px;
+    margin: 0 8px;
+}
+
+.otp-input-fields input::-webkit-outer-spin-button,
+.otp-input-fields input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.otp-input-fields input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.otp-input-fields input:focus {
+    border-color: var(--primary-color);
+}
+
+.otp-input-fields input:hover {
+    border-color: var(--primary-color);
+}
+
+/* ================================ 
+Login OTP section 
+=================================== */
+.login .otp-btn {
+    width: 100%;
+}
+
+/* ================================ 
+Dash Board header section 
+=================================== */
+.dashboard-header {
+    height: 54px;
+}
+
+.sticky {
+    position: fixed !important;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header .noti {
+    width: 8px;
+    height: 8px;
+}
+
+.overview .inner-contain {
+    min-height: 120px;
+    min-width: 170px;
+}
+
+.overview .my-badge {
+    width: 38px;
+    height: 20px;
+    display: grid;
+    place-items: center;
+    background: var(--light-secondary-color);
+}
+
+.overview .my-badge-red {
+    background: rgba(255, 59, 48, 0.1);
+}
+
+#chart {
+    max-height: 350px !important;
+    min-height: 365px !important;
+    overflow: hidden;
+}
+
+.apexcharts-title-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #212529;
+}
+
+.apexcharts-legend-series {
+    font-size: 12px;
+}
+
+/* Add alternating background colors for rows */
+.apexcharts-gridlines {
+    fill: none;
+}
+
+.apexcharts-grid-row:nth-child(even) {
+    fill: rgba(0, 0, 0, 0.05);
+}
+
+.apexcharts-yaxistooltip {
+    display: none;
+}
+
+.apexcharts-xaxistooltip {
+    display: none;
+}
+
+.main-chart {
+    max-height: 325px !important;
+}
+
+.form-switch .form-check-input {
+    width: 42px;
+    height: 26px;
+}
+
+.form-check-input:checked {
+    background-color: #34C759;
+    border-color: #34C759;
+}
+
+/* ================================ 
+Mobile Menu section 
+=================================== */
+.bottomMenu {
+    position: fixed;
+    bottom: 0;
+    width: 1000px;
+    max-width: 100%;
+    z-index: 99;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 -4px 10px 0 rgba(41, 41, 41, 0.04);
+}
+
+.menuBTM ul {
+    padding: 5px 0;
+    min-height: 80px;
+
+}
+
+.menuBTM ul li {
+    display: block;
+    flex: 1;
+}
+
+.menuBTM ul li a {
+    font-size: 11px;
+    line-height: 1.2;
+    color: #9DB2CE;
+}
+
+.menuBTM ul li a i {
+    font-size: 24px;
+}
+
+.menuBTM ul li a.active,
+.menuBTM ul li a:hover {
+    color: var(--primary-color);
+}
+
+.menuBTM ul li img {
+    margin-top: 5px;
+}
+
+
+
+/* ================================ 
+Notification section 
+=================================== */
+.notification {
+    width: 350px !important;
+}
+
+.notification .student-name {
+    max-width: 200px;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+/* ================================ 
+Student Page 
+=================================== */
+.search-form i {
+    top: 50%;
+    left: 12px;
+    color: var(--medium-black-color);
+    transform: translateY(-50%);
+}
+
+.search-form .form-control {
+    padding-left: 2.2rem;
+    font-size: 14px;
+    min-height: 40px;
+}
+
+.search-form .form-control:hover,
+.search-form .form-control:focus {
+    border-color: var(--primary-color);
+}
+
+
+.student-nav .inner-contain {
+    min-height: 50px;
+}
+
+.student-register .profile-contain img {
+    border: 10px solid #F0F2FB;
+    border-radius: 50%;
+    height: 120px;
+}
+
+.form-header-bg {
+    background: #00C19F;
+    height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.profile-pic {
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    border: 10px solid #F0F2FB;
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    vertical-align: middle;
+    text-align: center;
+    color: transparent;
+    transition: all .3s ease;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-pic:hover {
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 10000;
+    color: #fff;
+    transition: all .3s ease;
+    text-decoration: none;
+}
+.profile-pic span {
+    opacity: 0;
+}
+.profile-pic:hover span , .profile-pic:focus span {
+   opacity: 1;
+}
+
+form input[type="file"] {
+    display: none;
+    cursor: pointer;
+}
+
+
+
+/* ================================ 
+Media query section 
+=================================== */
+@media (min-width: 768px) {
+    .login .otp-btn {
+        width: 50%;
+    }
+
+    /* .overview .hori-scroll .row {
+        scrollbar-width: none;
+    }
+
+    .overview .hori-scroll .row::-webkit-scrollbar {
+        display: none;
+    } */
+    .main-chart {
+        max-height: 375px !important;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .overview .hori-scroll .row {
+        scrollbar-width: none;
+    }
+
+    .overview .hori-scroll .row::-webkit-scrollbar {
+        display: none;
+    }
+
+}

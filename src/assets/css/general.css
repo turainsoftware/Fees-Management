@@ -1,0 +1,471 @@
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 500;
+}
+
+h1 {
+    font-size: 48px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+h6 {
+    font-size: 16px;
+}
+
+ul,
+ol {
+    padding: 0;
+}
+
+/* ================================ 
+Color section 
+=================================== */
+.primary-color {
+    color: var(--primary-color) !important;
+}
+
+.second-color {
+    color: var(--secondary-color) !important;
+}
+
+.text-color {
+    color: var(--text-color) !important;
+}
+
+.text-color-2 {
+    color: var(--text-color-2) !important;
+}
+
+.blue-color {
+    color: #007CFF !important;
+}
+
+.green-color {
+    color: #28A745 !important;
+}
+
+.red-color {
+    color: #f00 !important;
+}
+
+.bg-green-opacity {
+    background: rgba(59, 168, 85, 0.09) !important;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+.w-45px {
+    width: 45px;
+}
+
+/* ================================ 
+Background section 
+=================================== */
+.bg-color {
+    background-color: #F4F8FD !important;
+}
+
+.bg-red {
+    background-color: var(--red-color) !important;
+}
+
+.bg-orange {
+    background: var(--primary-color) !important;
+}
+
+/* ================================ 
+Margin Padding section 
+=================================== */
+.mt-100 {
+    margin-top: 100px !important;
+}
+
+.mb-100 {
+    margin-bottom: 100px !important;
+}
+
+.my-100 {
+    margin-top: 100px !important;
+    margin-bottom: 100px !important;
+}
+
+.mt-80 {
+    margin-top: 80px !important;
+}
+
+.mb-80 {
+    margin-bottom: 80px !important;
+}
+
+.my-80 {
+    margin-top: 80px !important;
+    margin-bottom: 80px !important;
+}
+
+.mt-20 {
+    margin-top: 20px !important;
+}
+
+.mb-20 {
+    margin-bottom: 20px !important;
+}
+
+.my-20 {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.mt-30 {
+    margin-top: 30px !important;
+}
+
+.mb-30 {
+    margin-bottom: 30px !important;
+}
+
+.my-30 {
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+}
+
+.mt-10 {
+    margin-top: 10px !important;
+}
+
+.mb-10 {
+    margin-bottom: 10px !important;
+}
+
+.my-10 {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.mt-5px {
+    margin-top: 5px !important;
+}
+
+.mb-5px {
+    margin-bottom: 5px !important;
+}
+
+.my-5px {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+.mt-2px {
+    margin-top: 2px !important;
+}
+
+.mb-2px {
+    margin-bottom: 2px !important;
+}
+
+.my-2px {
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+.pt-10 {
+    padding-top: 10px !important;
+}
+
+.pb-10 {
+    padding-bottom: 10px !important;
+}
+
+.py-10 {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.pt-12 {
+    padding-top: 12px !important;
+}
+
+.pb-12 {
+    padding-bottom: 12px !important;
+}
+
+.py-12 {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+.pt-14 {
+    padding-top: 14px !important;
+}
+
+.pb-14 {
+    padding-bottom: 14px !important;
+}
+
+.py-14 {
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
+}
+
+.px-14 {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+}
+
+.pb-100 {
+    padding-bottom: 100px !important;
+}
+
+/* ================================ 
+Font Size section 
+=================================== */
+.fs-10 {
+    font-size: 10px !important;
+}
+
+.fs-11 {
+    font-size: 11px !important;
+}
+
+.fs-12 {
+    font-size: 12px !important;
+}
+
+.fs-13 {
+    font-size: 13px !important;
+}
+
+.fs-14 {
+    font-size: 14px !important;
+}
+
+.fs-15 {
+    font-size: 15px !important;
+}
+
+.fs-18 {
+    font-size: 18px !important;
+}
+
+.fs-20 {
+    font-size: 20px !important;
+}
+
+.fs-24 {
+    font-size: 24px !important;
+}
+
+.fs-36 {
+    font-size: 36px !important;
+}
+
+/* ================================ 
+Text Style section 
+=================================== */
+.text-capitalize {
+    text-transform: capitalize !important;
+}
+
+/* ================================ 
+Border section 
+=================================== */
+.border-orange {
+    border: 1px solid var(--primary-color) !important;
+}
+
+.border-orange-color {
+    border-color: var(--primary-color) !important;
+}
+
+.radius-5 {
+    border-radius: 5px !important;
+}
+
+.radius-8 {
+    border-radius: 8px !important;
+}
+
+.radius-10 {
+    border-radius: 10px !important;
+}
+
+.light-border-bottom {
+    border-bottom: 1px solid var(--light-black-color) !important;
+}
+
+.light-blue-border {
+    border: 1px solid #D1D7EF !important;
+}
+
+/* ================================ 
+Input section 
+=================================== */
+.input-container {
+    position: relative;
+}
+
+.form-select,
+.form-control {
+    min-height: 46px !important;
+}
+
+.form-select:hover,
+.form-control:hover,
+.form-select:focus,
+.form-control:focus {
+    border-color: var(--primary-color) !important
+}
+
+.input-container input,
+.input-container select {
+    height: 46px;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: transparent;
+    padding: 0 1rem;
+    outline: none;
+    border: 1px solid #dcdcdc;
+}
+
+.input-container label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    font-size: 14px;
+    line-height: 30px;
+    background-color: #fff;
+    z-index: 10;
+    border-radius: 50vw;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.input-container input:focus+label,
+.input-container input:not(:placeholder-shown)+label,
+.input-container textarea:focus+label,
+.input-container textarea:not(:placeholder-shown)+label {
+    top: 0px;
+    left: 10px;
+    font-size: 12px;
+    padding: 0 10px;
+    background-color: #fff;
+    font-weight: 500;
+    border-radius: 50vw;
+    color: var(--primary-color);
+}
+
+.my-text>textarea {
+    font-size: 14px;
+    padding: 0.75rem 1rem;
+    resize: none;
+    height: 100px;
+    border: 1px solid var(--primary-color);
+}
+
+.input-container input:focus,
+.input-container select:focus,
+.my-text>textarea:focus {
+    border-color: var(--primary-color);
+}
+
+
+.form-control:focus,
+.form-control:hover {
+    border-color: var(--primary-color) !important;
+}
+
+
+
+/* Select 2 */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    margin-top: 0 !important;
+    overflow: visible !important;
+    min-height: 28px !important;
+    display: grid !important;
+    place-items: center !important;
+    background-color: var(--primary-color) !important;
+    padding: 5px !important;
+    color: var(--white-color) !important;
+    border: none !important;
+    margin-left: 0 !important;
+    margin-top: 3px !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    padding-bottom: 0 !important;
+    min-height: 48px !important;
+    padding: .375rem .75rem !important;
+    padding-right: 2rem !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    position: relative !important;
+    border-color: #dadee1 !important;
+    padding-bottom: 0.7rem !important;
+}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    position: absolute !important;
+    top: -7px !important;
+    width: 18px !important;
+    height: 18px !important;
+    background-color: var(--red-color) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: var(--white-color) !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    border: none !important;
+    
+}
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 0 !important;
+    gap: 14px !important;
+}
+
+.select2-selection__choice {
+    position: relative !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    right: -9px !important;
+    left: auto !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear {
+    display: none !important;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__display {
+    font-size: 13px !important;
+    padding: 2px !important;
+    font-weight: 600 !important;
+}
