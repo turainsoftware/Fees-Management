@@ -3,4 +3,7 @@ import Login from "./Auth/Login";
 import Otp from "./Auth/Otp";
 
 
-export {Login,Otp}
+// Home Pages
+import { Dashboard } from "./Main/Dashboard";
+
+export {Login,Otp,Dashboard}
