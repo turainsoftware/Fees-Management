@@ -1,42 +1,6 @@
 import React from "react";
 
-const feesData = [
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    amount: 250,
-    date: "19-12-2024",
-    status: "green", // Use 'green' for received, 'red' for pending
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    amount: 250,
-    date: "19-12-2024",
-    status: "red",
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    amount: 250,
-    date: "19-12-2024",
-    status: "green",
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    amount: 250,
-    date: "19-12-2024",
-    status: "red",
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    amount: 250,
-    date: "19-12-2024",
-    status: "green",
-  },
-];
+import { feesData } from "../utils/dummy";
 
 const FeesList = () => {
   return (
@@ -46,7 +10,7 @@ const FeesList = () => {
           <div className="border-bottom d-flex align-items-center justify-content-between px-14 py-14">
             <h6 className="mb-0 fw-semibold">Fees List</h6>
             <a
-              href="javascript:void(0);"
+              href="#"
               className="d-flex align-items-center fs-6"
             >
               <i className="ri-equalizer-2-line fs-20 primary-color me-1"></i>
