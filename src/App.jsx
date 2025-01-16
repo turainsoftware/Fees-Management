@@ -3,17 +3,13 @@ import { Outlet } from "react-router-dom";
 import MobileNav from "./components/Navbar/MobileNav";
 
 const App = () => {
-  //Login Checker
-  const [isLogin, setIsLogin] = useState(false);
+  // Login checker
+  const [isLogin, setIsLogin] = useState(true);
 
-  return isLogin ? (
-    <>
+  return (
+    <div className={isLogin ? "" : "bg-white"}>
       <Outlet />
-      <MobileNav />
-    </>
-  ) : (
-    <div className="bg-white">
-      <Outlet />
+      {isLogin && <MobileNav />}{" "}
     </div>
   );
 };
