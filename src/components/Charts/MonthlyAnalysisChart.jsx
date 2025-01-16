@@ -1,51 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
+import { fullData, mobileData } from "./../../utils/dummy";
+
 const MonthlyAnalysisChart = () => {
-  const fullData = {
-    series: [
-      {
-        name: "Fees Received",
-        type: "column",
-        data: [600, 400, 500, 450, 700, 300, 550, 400, 650, 800, 450],
-      },
-      {
-        name: "Students",
-        type: "line",
-        data: [42, 25, 37, 22, 43, 27, 39, 22, 31, 50, 20],
-      },
-    ],
-    labels: [
-      "1 Jan",
-      "2 Jan",
-      "3 Jan",
-      "4 Jan",
-      "5 Jan",
-      "6 Jan",
-      "7 Jan",
-      "8 Jan",
-      "9 Jan",
-      "10 Jan",
-      "11 Jan",
-    ],
-  };
-
-  const mobileData = {
-    series: [
-      {
-        name: "Fees Received",
-        type: "column",
-        data: [450, 400, 250, 300],
-      },
-      {
-        name: "Students",
-        type: "line",
-        data: [42, 25, 37, 22],
-      },
-    ],
-    labels: ["1 Jan", "2 Jan", "3 Jan", "4 Jan"],
-  };
-
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const [chartOptions, setChartOptions] = useState({});
   const [chartSeries, setChartSeries] = useState([]);

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 // Images
-import Logo from './../../assets/images/logo.svg'
-import OtpSvg from './../../assets/images/otp.svg'
+import Logo from "./../../assets/images/logo.svg";
+import OtpSvg from "./../../assets/images/otp.svg";
 
 const Otp = () => {
   return (
@@ -27,9 +27,7 @@ const Otp = () => {
               <div className="mt-20 mb-30">
                 <div className="position-relative">
                   <div id="otp" className="">
-                    <div
-                      className="opt-area d-flex align-items-center justify-content-center otp-input-fields "
-                    >
+                    <div className="opt-area d-flex align-items-center justify-content-center otp-input-fields ">
                       <input
                         type="number"
                         id="txt_otp1"

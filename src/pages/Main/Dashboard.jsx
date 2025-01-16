@@ -3,11 +3,12 @@ import {
   ChartSection,
   DashboardHeader,
   FeesList,
+  ModelNotification,
   OverviewHeader,
   StudentList,
 } from "./../../components/index";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   return (
     <main className="wrapper home-wrapper">
       {/* DashBoard Header */}
@@ -20,10 +21,12 @@ export const Dashboard = () => {
       <ChartSection />
 
       {/* Student List */}
-      <StudentList />
+      <StudentList headerText={"Students List"} />
 
       {/* FeesList */}
       <FeesList />
     </main>
   );
 };
+
+export default Dashboard;

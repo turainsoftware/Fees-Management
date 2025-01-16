@@ -1,45 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import callIcon from "./../assets/images/dashboard/call-icon.svg";
 
-const students = [
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    isChecked: true,
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    isChecked: true,
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    isChecked: true,
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    isChecked: true,
-  },
-  {
-    name: "Bikash Dubay",
-    description: "Class 9th student",
-    isChecked: true,
-  },
-];
+// Data's
+import { students as initialStudents } from "../utils/dummy";
 
-const StudentList = () => {
+const StudentList = ({ headerText }) => {
+  const [students, setStudents] = useState(initialStudents);
   return (
-    <section className="mb-3 student-list">
+    <section
+      className="pb-80 mb-3 student-list"
+      style={{ marginBottom: "50px" }}
+    >
       <div className="container">
         <div className="inner-contain light-blue-border bg-white radius-8">
           <div className="border-bottom d-flex align-items-center justify-content-between px-14 py-14">
-            <h6 className="mb-0 fw-semibold">Students List</h6>
-            <a
-              href="javascript:void(0);"
-              className="d-flex align-items-center fs-6"
-            >
+            <h6 className="mb-0 fw-semibold">{headerText}</h6>
+            <a href="#" className="d-flex align-items-center fs-6">
               <i className="ri-equalizer-2-line fs-20 primary-color me-1"></i>
               <span className="fw-semibold primary-color">Filter</span>
             </a>

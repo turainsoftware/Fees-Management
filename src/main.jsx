@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./assets/css/style.css";
 
-
 import App from "./App.jsx";
 import {
   createBrowserRouter,
@@ -15,21 +14,21 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Dashboard, Login, Otp } from "./pages/index.js";
+import { Dashboard, Login, NewStudentRegister, Otp, StudentList, Students } from "./pages/index.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      
       {/* Auth Routes */}
 
-      <Route path="/" element={<Login/>}/>
-      <Route path="otp" element={<Otp/>}/>
-
+      <Route path="/" element={<Login />} />
+      <Route path="otp" element={<Otp />} />
 
       {/* Home Routes */}
-      <Route path="/dashboard" element={<Dashboard/>}/>
-
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/students" element={<Students />} />
+      <Route path="/student-list" element={<StudentList />} />
+      <Route path="/new-student" element={<NewStudentRegister />} />
     </Route>
   )
 );
