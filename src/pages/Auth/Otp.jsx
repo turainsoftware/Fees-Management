@@ -1,10 +1,43 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
 // Images
 import Logo from "./../../assets/images/logo.svg";
 import OtpSvg from "./../../assets/images/otp.svg";
 
 const Otp = () => {
+  const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
+
+  const handleInputChange = (e, index) => {
+    const value = e.target.value;
+    
+    // Allow only numbers
+    if (!/^\d*$/.test(value)) {
+      e.target.value = "";
+      return;
+    }
+
+      // Restrict to a single digit
+    if (value.length > 1) {
+      e.target.value = value.charAt(0);
+    }
+    
+
+    if (value.length === 1 && index < inputRefs.length - 1) {
+      inputRefs[index + 1].current.focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Backspace' && index > 0 && e.target.value === '') {
+        inputRefs[index - 1].current.focus();
+    }
+};
+
+  useEffect(() => {
+    //Focus on the first input when component mounts
+    inputRefs[0].current.focus();
+  },[])
+
   return (
     <main className="wrapper home-wrapper">
       {/* ================================ 
@@ -29,30 +62,50 @@ const Otp = () => {
                   <div id="otp" className="">
                     <div className="opt-area d-flex align-items-center justify-content-center otp-input-fields ">
                       <input
-                        type="number"
+                        type="text"
                         id="txt_otp1"
                         autoFocus
                         className="otp__digit otp__field__1 ms-0"
+                        maxLength="1"
+                        ref={inputRefs[0]}
+                        onChange={(e) => handleInputChange(e, 0)}
+                        onKeyDown={(e) => handleKeyDown(e, 0)}
                       />
                       <input
-                        type="number"
+                        type="text"
                         id="txt_otp2"
                         className="otp__digit otp__field__2"
+                        maxLength="1"
+                        ref={inputRefs[1]}
+                        onChange={(e) => handleInputChange(e, 1)}
+                        onKeyDown={(e) => handleKeyDown(e, 1)}
                       />
                       <input
-                        type="number"
+                        type="text"
                         id="txt_otp3"
                         className="otp__digit otp__field__3"
+                        maxLength="1"
+                        ref={inputRefs[2]}
+                         onChange={(e) => handleInputChange(e, 2)}
+                         onKeyDown={(e) => handleKeyDown(e, 2)}
                       />
                       <input
-                        type="number"
-                        id="txt_otp3"
-                        className="otp__digit otp__field__3"
-                      />
-                      <input
-                        type="number"
+                        type="text"
                         id="txt_otp4"
+                         className="otp__digit otp__field__3"
+                         maxLength="1"
+                        ref={inputRefs[3]}
+                        onChange={(e) => handleInputChange(e, 3)}
+                        onKeyDown={(e) => handleKeyDown(e, 3)}
+                      />
+                      <input
+                        type="text"
+                        id="txt_otp5"
                         className="otp__digit otp__field__4 me-0"
+                        maxLength="1"
+                        ref={inputRefs[4]}
+                        onChange={(e) => handleInputChange(e, 4)}
+                        onKeyDown={(e) => handleKeyDown(e, 4)}
                       />
                     </div>
                   </div>
