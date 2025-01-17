@@ -6,15 +6,11 @@ const App = () => {
   //Login Checker
   const [isLogin, setIsLogin] = useState(false);
 
-  return isLogin ? (
+  return (
     <>
       <Outlet />
-      <MobileNav />
+      {isLogin && <MobileNav />}
     </>
-  ) : (
-    <div className="bg-white">
-      <Outlet />
-    </div>
   );
 };
 
