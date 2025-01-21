@@ -4,7 +4,7 @@ import MobileNav from "./components/Navbar/MobileNav";
 
 const App = () => {
   //Login Checker
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <>

@@ -14,7 +14,16 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import { Dashboard, Login, NewStudentRegister, Otp, StudentList, Students } from "./pages/index.js";
+import {
+  Dashboard,
+  Login,
+  NewStudentRegister,
+  Otp,
+  StudentList,
+  Students,
+} from "./pages/index.js";
+import RequireAuth from "./Auth/RequireAuth.jsx";
+import AuthPages from "./Auth/AuthPages.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,10 +34,12 @@ const router = createBrowserRouter(
       <Route path="otp" element={<Otp />} />
 
       {/* Home Routes */}
+      {/* <Route element={<RequireAuth />}> */}
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/students" element={<Students />} />
       <Route path="/student-list" element={<StudentList />} />
       <Route path="/new-student" element={<NewStudentRegister />} />
+      {/* </Route> */}
     </Route>
   )
 );

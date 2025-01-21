@@ -7,7 +7,7 @@ const students = [
   {
     name: "Bikash Dubay",
     description: "Class 9th student",
-    isChecked: true,
+    isChecked: false,
   },
   {
     name: "Bikash Dubay",
