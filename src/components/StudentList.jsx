@@ -6,6 +6,18 @@ import { students as initialStudents } from "../utils/dummy";
 
 const StudentList = ({ headerText }) => {
   const [students, setStudents] = useState(initialStudents);
+
+  const handleOnchageCall = (index) => {
+    setStudents((prev) =>
+      prev.map((student, indexNo) => {
+        if (index === indexNo) {
+          return { ...student, isChecked: !student.isChecked };
+        }
+        return student;
+      })
+    );
+  };
+
   return (
     <section
       className="pb-80 mb-3 student-list"
@@ -41,7 +53,8 @@ const StudentList = ({ headerText }) => {
                     type="checkbox"
                     role="switch"
                     id={`flexSwitchCheckChecked-${index}`}
-                    checked={student.isChecked}
+                    // checked={student.isChecked}
+                    onClick={handleOnchageCall}
                   />
                 </div>
               </div>
