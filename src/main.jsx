@@ -15,6 +15,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import {
+  BatchList,
+  ClassList,
   Dashboard,
   Login,
   NewStudentRegister,
@@ -39,6 +41,8 @@ const router = createBrowserRouter(
       <Route path="/students" element={<Students />} />
       <Route path="/student-list" element={<StudentList />} />
       <Route path="/new-student" element={<NewStudentRegister />} />
+      <Route path="/batch-list" element={<BatchList/>}/>
+      <Route path="/class-list" element={<ClassList/>}/>
       {/* </Route> */}
     </Route>
   )

@@ -16,24 +16,24 @@ const StudentsNav = () => {
               <img src={studentListIcon} alt="Student List" />
             </div>
           </Link>
-          <a className="col-6" href="#">
+          <Link to={"/batch-list"} className="col-6" >
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">Batch List</h6>
               <img src={batchListIcon} alt="Student List" />
             </div>
-          </a>
+          </Link>
           <Link className="col-6" to={"/new-student"}>
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">New Register</h6>
               <img src={newRegisterIcon} alt="Student List" />
             </div>
           </Link>
-          <a className="col-6" href="#">
+          <Link to={"/class-list"} className="col-6">
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">Class List</h6>
               <img src={classListIcon} alt="Student List" />
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
