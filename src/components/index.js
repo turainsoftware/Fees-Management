@@ -10,6 +10,10 @@ import ChartSection from "./ChartSection";
 import StudentList from "./StudentList";
 import FeesList from "./FeesList";
 
+//Student Page Releted
+import ItemList from "./ItemList";
+
+
 // Notifications
 import ModelNotification from "./Notifications/ModelNotification";
 
@@ -28,5 +32,6 @@ export {
   SecondaryNavbar,
   StudentsListNav,
   StudentsNav,
-  StudentRegisterForm
+  StudentRegisterForm,
+  ItemList
 };
