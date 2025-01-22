@@ -25,6 +25,7 @@ import {
   Login,
   NewStudentRegister,
   Otp,
+  Register,
   StudentList,
   Students,
 } from "./pages/index.js";
@@ -38,7 +39,7 @@ const router = createBrowserRouter(
 
       <Route path="/" element={<AuthHome />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<AuthHome />} />
+      <Route path="/register" element={<Register />} />
       <Route path="otp" element={<Otp />} />
 
       {/* Home Routes */}

@@ -22,7 +22,8 @@ import ModelNotification from "./Notifications/ModelNotification";
 // Forms
 import StudentRegisterForm from "./Forms/StudentRegisterForm";
 import CreateBatchForm from "./Forms/CreateBatchForm";
-import StudentSearchFees from "./Forms/StudentSearchFees";
+import StudentSearchFees from "./Forms/StudentSearchFees"; 
+import TeacherRagistrationForm from './Forms/TeacherRagistrationForm'
 
 export {
   DashboardHeader,
@@ -37,5 +38,6 @@ export {
   StudentRegisterForm,
   ItemList,
   CreateBatchForm,
-  StudentSearchFees
+  StudentSearchFees,
+  TeacherRagistrationForm
 };

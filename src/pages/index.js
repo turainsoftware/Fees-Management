@@ -1,6 +1,7 @@
 // Auth Pages/Screens
 import AuthHome from "./Auth/AuthHome";
 import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 import Otp from "./Auth/Otp";
 
 // Main Pages
@@ -27,5 +28,6 @@ export {
   ClassList,
   BatchCreate,
   Fees,
-  FeesRevive
+  FeesRevive,
+  Register
 };

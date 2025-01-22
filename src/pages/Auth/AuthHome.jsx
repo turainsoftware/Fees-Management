@@ -30,12 +30,12 @@ const AuthHome = () => {
                 <span class="my-3 d-inline-block fs-6 text-muted fw-medium orr">
                   or
                 </span>
-                <a
-                  href="teacher-register.html"
+                <Link
+                  to={"/register"}
                   class="btn1 bg-transparent text-dark border-dark w-50"
                 >
                   Register
-                </a>
+                </Link>
               </div>
             </div>
           </div>
