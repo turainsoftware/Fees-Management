@@ -2,6 +2,7 @@
 import SecondaryNavbar from "./Navbar/SecondaryNavbar";
 import StudentsListNav from "./Navbar/StudentsListNav";
 import StudentsNav from "./Navbar/StudentsNav";
+import FeesNav from "./Navbar/FeesNav";
 
 // Dashboard Related
 import DashboardHeader from "./DashboardHeader";
@@ -20,7 +21,8 @@ import ModelNotification from "./Notifications/ModelNotification";
 
 // Forms
 import StudentRegisterForm from "./Forms/StudentRegisterForm";
-
+import CreateBatchForm from "./Forms/CreateBatchForm";
+import StudentSearchFees from "./Forms/StudentSearchFees";
 
 export {
   DashboardHeader,
@@ -33,5 +35,7 @@ export {
   StudentsListNav,
   StudentsNav,
   StudentRegisterForm,
-  ItemList
+  ItemList,
+  CreateBatchForm,
+  StudentSearchFees
 };
