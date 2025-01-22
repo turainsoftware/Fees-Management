@@ -20,11 +20,11 @@ const SecondaryNavbar = ({
             >
               <i className="ri-arrow-left-line fs-2"></i>
             </span>
-            <div class="col-11">
-              <div class="d-flex align-items-center justify-content-between">
-                <h1 class="mb-0 fs-6 ps-2">{title}</h1>
+            <div className="col-11">
+              <div className="d-flex align-items-center justify-content-between">
+                <h1 className="mb-0 fs-6 ps-2">{title}</h1>
                 {isCreateBtnActive && (
-                  <Link to={createBtnPath} class="btn1 p-2">
+                  <Link to={createBtnPath} className="btn1 p-2">
                     {crateBtnText} +
                   </Link>
                 )}
