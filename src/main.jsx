@@ -15,6 +15,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import {
+  AuthHome,
   BatchCreate,
   BatchList,
   ClassList,
@@ -35,7 +36,9 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       {/* Auth Routes */}
 
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<AuthHome />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<AuthHome />} />
       <Route path="otp" element={<Otp />} />
 
       {/* Home Routes */}

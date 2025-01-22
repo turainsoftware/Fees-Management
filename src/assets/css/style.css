@@ -161,6 +161,31 @@ Button styles section
 /* ================================ 
 Custom Css section 
 =================================== */
+.orr {
+    position: relative;
+    line-height: 1;
+}
+.orr::before {
+    position: absolute;
+    content: '';
+    top: 55%;
+    left: -25px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 2px;
+    background-color: #8f8f8f;
+}
+.orr::after {
+    position: absolute;
+    content: '';
+    top: 55%;
+    right: -25px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 2px;
+    background-color: #8f8f8f;
+}
+
 .home-wrapper {
     background: url(../images/background/main-bg.jpg) no-repeat;
     background-size: cover;

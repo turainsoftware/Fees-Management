@@ -469,3 +469,8 @@ Input section
     padding: 2px !important;
     font-weight: 600 !important;
 }
+.select2-container--default .select2-selection--multiple .select2-selection_choice_remove span {
+    position: absolute !important;
+    top: 0.5px !important;
+  
+}
