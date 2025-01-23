@@ -1,48 +1,71 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 // Images
 import Logo from "./../../assets/images/logo.svg";
 import OtpSvg from "./../../assets/images/otp.svg";
+import { Button } from "bootstrap";
 
 const Otp = () => {
-  const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
+  const inputRefs = [
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+    useRef(null),
+  ];
+  const [timeLeft, setTimeLeft] = useState(10); // 300 seconds for 5 minutes
 
   const handleInputChange = (e, index) => {
     const value = e.target.value;
-    
+
     // Allow only numbers
     if (!/^\d*$/.test(value)) {
       e.target.value = "";
       return;
     }
 
-      // Restrict to a single digit
+    // Restrict to a single digit
     if (value.length > 1) {
       e.target.value = value.charAt(0);
     }
-    
 
     if (value.length === 1 && index < inputRefs.length - 1) {
       inputRefs[index + 1].current.focus();
     }
+
+    if (index === inputRefs.length - 1 && value.length === 1) {
+      console.log("completed the last one");
+    }
   };
 
   const handleKeyDown = (e, index) => {
-    if (e.key === 'Backspace' && index > 0 && e.target.value === '') {
-        inputRefs[index - 1].current.focus();
+    if (e.key === "Backspace" && index > 0 && e.target.value === "") {
+      inputRefs[index - 1].current.focus();
     }
-};
+  };
 
   useEffect(() => {
-    //Focus on the first input when component mounts
+    // Focus on the first input when the component mounts
     inputRefs[0].current.focus();
-  },[])
+  }, []);
+
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setInterval(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearInterval(timer);
+    }
+  }, [timeLeft]);
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   return (
     <main className="wrapper home-wrapper">
-      {/* ================================ 
-          Login or Register 
-        =================================== */}
       <section className="py-5 login h-100 justify-content-center d-flex">
         <div className="logo">
           <img src={Logo} height="30px" alt="" />
@@ -60,7 +83,7 @@ const Otp = () => {
               <div className="mt-20 mb-30">
                 <div className="position-relative">
                   <div id="otp" className="">
-                    <div className="opt-area d-flex align-items-center justify-content-center otp-input-fields ">
+                    <div className="opt-area d-flex align-items-center justify-content-center otp-input-fields">
                       <input
                         type="text"
                         id="txt_otp1"
@@ -86,14 +109,14 @@ const Otp = () => {
                         className="otp__digit otp__field__3"
                         maxLength="1"
                         ref={inputRefs[2]}
-                         onChange={(e) => handleInputChange(e, 2)}
-                         onKeyDown={(e) => handleKeyDown(e, 2)}
+                        onChange={(e) => handleInputChange(e, 2)}
+                        onKeyDown={(e) => handleKeyDown(e, 2)}
                       />
                       <input
                         type="text"
                         id="txt_otp4"
-                         className="otp__digit otp__field__3"
-                         maxLength="1"
+                        className="otp__digit otp__field__3"
+                        maxLength="1"
                         ref={inputRefs[3]}
                         onChange={(e) => handleInputChange(e, 3)}
                         onKeyDown={(e) => handleKeyDown(e, 3)}
@@ -110,8 +133,11 @@ const Otp = () => {
                     </div>
                   </div>
                 </div>
+                <p className="timer mt-3 text-danger">
+                  Re-send OTP {timeLeft > 0 && `in ${formatTime(timeLeft)}`}
+                </p>
               </div>
-              <a href="otp.html" className="btn1 otp-btn">
+              <a href="#" className="btn1 otp-btn">
                 Login
               </a>
             </div>
