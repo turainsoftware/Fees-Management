@@ -1,65 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const ItemList = () => {
+const ItemList = ({ data = [] }) => {
   return (
-    <section class="student-nav my-3">
-      <div class="container px-0">
-        <div class="row justify-content-between g-0 bg-white">
-          <a
-            class="col-12 d-block border-bottom menu-border"
-            href="profile-setting.html"
-          >
-            <div class="menu-contain px-4 py-2 d-flex align-items-center justify-content-between">
-              <p class="mb-0 fs-14 text-color-2 fw-medium">Batch One</p>
-              <div>
-                <i class="ri-arrow-right-s-line fs-4 primary-color"></i>
-              </div>
-            </div>
-          </a>
-          <a
-            class="col-12 d-block border-bottom menu-border"
-            href="profile-setting.html"
-          >
-            <div class="menu-contain px-4 py-2 d-flex align-items-center justify-content-between">
-              <p class="mb-0 fs-14 text-color-2 fw-medium">Batch Two</p>
-              <div>
-                <i class="ri-arrow-right-s-line fs-4 primary-color"></i>
-              </div>
-            </div>
-          </a>
-          <a
-            class="col-12 d-block border-bottom menu-border"
-            href="profile-setting.html"
-          >
-            <div class="menu-contain px-4 py-2 d-flex align-items-center justify-content-between">
-              <p class="mb-0 fs-14 text-color-2 fw-medium">Batch Three</p>
-              <div>
-                <i class="ri-arrow-right-s-line fs-4 primary-color"></i>
-              </div>
-            </div>
-          </a>
-          <a
-            class="col-12 d-block border-bottom menu-border"
-            href="profile-setting.html"
-          >
-            <div class="menu-contain px-4 py-2 d-flex align-items-center justify-content-between">
-              <p class="mb-0 fs-14 text-color-2 fw-medium">Batch Four</p>
-              <div>
-                <i class="ri-arrow-right-s-line fs-4 primary-color"></i>
-              </div>
-            </div>
-          </a>
-          <a
-            class="col-12 d-block border-bottom menu-border"
-            href="profile-setting.html"
-          >
-            <div class="menu-contain px-4 py-2 d-flex align-items-center justify-content-between">
-              <p class="mb-0 fs-14 text-color-2 fw-medium">Batch Five</p>
-              <div>
-                <i class="ri-arrow-right-s-line fs-4 primary-color"></i>
-              </div>
-            </div>
-          </a>
+    <section className="student-nav my-3">
+      <div className="container px-0">
+        <div className="row justify-content-between g-0 bg-white">
+          {data.map((item, index) => {
+            return (
+              <Link
+                key={index}
+                className="col-12 d-block border-bottom menu-border"
+              >
+                <div className="menu-contain px-4 py-2 d-flex align-items-center justify-content-between">
+                  <p className="mb-0 fs-14 text-color-2 fw-medium">
+                    {item.name}
+                  </p>
+                  <div>
+                    <i className="ri-arrow-right-s-line fs-4 primary-color"></i>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

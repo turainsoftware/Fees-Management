@@ -6,6 +6,7 @@ import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./assets/css/style.css";
+import "react-toastify/ReactToastify.css";
 
 import App from "./App.jsx";
 import {
@@ -29,37 +30,39 @@ import {
   StudentList,
   Students,
 } from "./pages/index.js";
-import RequireAuth from "./Auth/RequireAuth.jsx";
-import AuthPages from "./Auth/AuthPages.jsx";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
+import ProtectedRoute from "./Auth/ProtectedRoute.jsx";
+import AuthHomeOrRedirect from "./Auth/AuthHomeOrRedirect.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      {/* Auth Routes */}
-
-      <Route path="/" element={<AuthHome />} />
+      {/* Public Routes */}
+      <Route path="/" element={<AuthHomeOrRedirect />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="otp" element={<Otp />} />
 
-      {/* Home Routes */}
-      {/* <Route element={<RequireAuth />}> */}
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/students" element={<Students />} />
-      <Route path="/student-list" element={<StudentList />} />
-      <Route path="/new-student" element={<NewStudentRegister />} />
-      <Route path="/batch-list" element={<BatchList/>}/>
-      <Route path="/class-list" element={<ClassList/>}/>
-      <Route path="/create-batch" element={<BatchCreate/>}/>
-      <Route path="/fees" element={<Fees/>}/>
-      <Route path="/fees-recive" element={<FeesRevive/>}/>
-      {/* </Route> */}
+      {/* Protected Routes */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/students" element={<Students />} />
+        <Route path="/student-list" element={<StudentList />} />
+        <Route path="/new-student" element={<NewStudentRegister />} />
+        <Route path="/batch-list" element={<BatchList />} />
+        <Route path="/class-list" element={<ClassList />} />
+        <Route path="/create-batch" element={<BatchCreate />} />
+        <Route path="/fees" element={<Fees />} />
+        <Route path="/fees-recive" element={<FeesRevive />} />
+      </Route>
     </Route>
   )
 );
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  <AuthProvider>
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
+  </AuthProvider>
 );

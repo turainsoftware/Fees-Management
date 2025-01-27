@@ -39,7 +39,31 @@ class AuthService {
       console.log(data);
       return data;
     } catch (error) {
-        const data=await error.response.data;
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async login({ mobile }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/auth/login?mobile=${mobile}`;
+      const response = await axios.post(uri);
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async validateOtp({ mobile, otp }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/auth/validate-otp?mobile=${mobile}&otp=${otp}`;
+      const response = await axios.get(uri);
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
       return data;
     }
   }

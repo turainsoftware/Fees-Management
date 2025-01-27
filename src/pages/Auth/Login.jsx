@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 // Images
 import Logo from "./../../assets/images/logo.svg";
 import loginImg from "./../../assets/images/login.webp";
+import { authService } from "../../services/AuthService";
+import Swal from "sweetalert2";
 
 const Login = () => {
   // Hooks
@@ -13,29 +15,27 @@ const Login = () => {
   const [mobile, setMobile] = useState("");
 
   // Error State Variables
-  const [error, setError] = useState({ status: false });
+  const [error, setError] = useState({ status: false, msg: "" });
 
   // Functions
-  const mobileNumberValidator = () => {
+  const mobileNumberValidator = (number) => {
     const regex = /^[6-9]\d{9}$/;
-    if (mobile.length < 10 && mobile.length > 10) {
-      return;
-    }
-    if (!mobile) {
-      setError((prev) => ({
+    if (!number) {
+      setError({
         status: true,
         msg: "Enter a valid mobile number",
-      }));
+      });
       return false;
     }
-
-    if (!regex.test(mobile)) {
-      setError((prev) => ({
+    if (!regex.test(number)) {
+      setError({
         status: true,
         msg: "Enter a valid mobile number",
-      }));
-      return;
+      });
+      return false;
     }
+    setError({ status: false, msg: "" });
+    return true;
   };
 
   // Handle onchange
@@ -43,12 +43,27 @@ const Login = () => {
     let value = e.target.value;
     if (value.length <= 10) {
       setMobile(value);
+      mobileNumberValidator(value);
     }
   };
 
-  const handleSubmit = () => {
-    mobileNumberValidator();
-    navigate("/otp");
+  const handleSubmit = async () => {
+    if (mobileNumberValidator(mobile)) {
+      const data = await authService.login({ mobile: mobile });
+      if (data?.status) {
+        navigate("/otp", {
+          state: {
+            mobile: mobile,
+          },
+        });
+      } else {
+        Swal.fire({
+          title: data?.message,
+          text: "Teacher not found. Please check the registration details",
+          icon: "error",
+        });
+      }
+    }
   };
 
   return (
@@ -75,7 +90,7 @@ const Login = () => {
                     <input
                       value={mobile}
                       onChange={handleMobilenchange}
-                      type="text"
+                      type="tel"
                       className={`form-control shadow-none bg-white ${
                         error.status ? "border-danger" : ""
                       }`}
@@ -84,6 +99,9 @@ const Login = () => {
                       autoFocus
                     />
                     <label>Phone number</label>
+                    {error.status && (
+                      <div className="text-danger fs-12 mt-1">{error.msg}</div>
+                    )}
                   </div>
                 </div>
                 <button onClick={handleSubmit} className="btn1 w-100">
@@ -97,5 +115,4 @@ const Login = () => {
     </>
   );
 };
-
 export default Login;

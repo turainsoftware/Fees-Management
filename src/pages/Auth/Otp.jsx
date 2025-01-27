@@ -4,8 +4,20 @@ import React, { useRef, useEffect, useState } from "react";
 import Logo from "./../../assets/images/logo.svg";
 import OtpSvg from "./../../assets/images/otp.svg";
 import { Button } from "bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
+import { replace, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Otp = () => {
+  //Hooks
+  const { validateOtp } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  // Previous page state values
+  const { mobile } = location.state || {};
+
+  //State variables
+  const [timeLeft, setTimeLeft] = useState(300); // 300 seconds for 5 minutes
   const inputRefs = [
     useRef(null),
     useRef(null),
@@ -13,8 +25,6 @@ const Otp = () => {
     useRef(null),
     useRef(null),
   ];
-  const [timeLeft, setTimeLeft] = useState(10); // 300 seconds for 5 minutes
-
   const handleInputChange = (e, index) => {
     const value = e.target.value;
 
@@ -34,8 +44,38 @@ const Otp = () => {
     }
 
     if (index === inputRefs.length - 1 && value.length === 1) {
-      console.log("completed the last one");
+      const combinedOtp = combineOtp().trim();
+      handleSubmit();
     }
+  };
+
+  const handleSubmit = async () => {
+    const combinedOtp = combineOtp();
+    if (combinedOtp.length !== 5) {
+      Swal.fire({
+        title: "Not Valid",
+        text: "Enter a valid otp to proced",
+        icon: "warning",
+      });
+      return;
+    }
+    const data = await validateOtp({ mobile: mobile, otp: combinedOtp });
+
+    if (data) {
+      navigate("/dashboard", {replace: true});
+    } else {
+      Swal.fire({
+        title: "Invalid otp",
+        text: "Enter a valid otp",
+        icon: "warning",
+      });
+    }
+  };
+
+  const combineOtp = () => {
+    const values = inputRefs.map((ref) => ref.current.value);
+    const combined = values.join("");
+    return combined;
   };
 
   const handleKeyDown = (e, index) => {
@@ -137,9 +177,9 @@ const Otp = () => {
                   Re-send OTP {timeLeft > 0 && `in ${formatTime(timeLeft)}`}
                 </p>
               </div>
-              <a href="#" className="btn1 otp-btn">
+              <button onClick={handleSubmit} className="btn1 otp-btn">
                 Login
-              </a>
+              </button>
             </div>
           </div>
         </div>
