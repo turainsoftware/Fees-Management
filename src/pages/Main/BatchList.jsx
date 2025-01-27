@@ -13,6 +13,7 @@ const BatchList = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchBatchData = async () => {
+    setIsLoading(true);
     try {
       const data = await batchService.getAllBatches({ authToken: authToken });
       setBatches(data);
@@ -25,7 +26,6 @@ const BatchList = () => {
 
   useEffect(() => {
     fetchBatchData();
-    setIsLoading(false);
   }, []);
 
   return (
