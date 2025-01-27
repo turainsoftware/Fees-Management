@@ -25,6 +25,9 @@ import CreateBatchForm from "./Forms/CreateBatchForm";
 import StudentSearchFees from "./Forms/StudentSearchFees"; 
 import TeacherRagistrationForm from './Forms/TeacherRagistrationForm'
 
+// Loader
+import GlobalLoader from "./Loaders/GlobalLoader";
+
 export {
   DashboardHeader,
   OverviewHeader,
@@ -39,5 +42,6 @@ export {
   ItemList,
   CreateBatchForm,
   StudentSearchFees,
-  TeacherRagistrationForm
+  TeacherRagistrationForm,
+  GlobalLoader
 };

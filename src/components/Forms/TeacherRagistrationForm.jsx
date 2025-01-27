@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import Swal from "sweetalert2";
 
 // Images
 import avatarImg from "./../../assets/images/profile/avatar.jpg";
+import { isValidMobile } from "../../utils/Validations";
+import { toast } from "react-toastify";
+import { authService } from "../../services/AuthService";
+import { useNavigate } from "react-router-dom";
 
 const TeacherRagistrationForm = ({
   language = [],
@@ -10,6 +15,12 @@ const TeacherRagistrationForm = ({
   subject = [],
   classes = [],
 }) => {
+  //Hooks
+  const navigate = useNavigate();
+
+  // Loading State
+  const [loading, setLoading] = useState(false);
+
   // Options for Multiple
   const languageOptions = language.map((item) => ({
     value: item.id,
@@ -29,6 +40,11 @@ const TeacherRagistrationForm = ({
   }));
 
   // Selected Values
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [gender, setGender] = useState("Male");
+  const [profileImage, setProfileImage] = useState(null);
+  const [profilePreviewImage, setProgilePreviewImage] = useState(avatarImg);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState([]);
@@ -66,11 +82,117 @@ const TeacherRagistrationForm = ({
     setSelectedClass(setOptions);
   };
 
+  const handleImageChange = (e) => {
+    const imagePath = e.target.files[0];
+    if (imagePath) {
+      const previewImage = URL.createObjectURL(imagePath);
+      setProgilePreviewImage(previewImage);
+    }
+    console.log(imagePath);
+    setProfileImage(imagePath);
+  };
 
-  const handleSubmit=(e)=>{
+  //Validation for before submit
+  const validateForm = () => {
+    if (profileImage === null) {
+      toast.error("Profile picture is required!");
+      return false;
+    }
+    if (!name.trim()) {
+      toast.error("Name is required!");
+      return false;
+    }
+    if (!mobile.trim() || !isValidMobile(mobile)) {
+      toast.error("Valid mobile number is required!");
+      return false;
+    }
+    if (selectedLanguage.length === 0) {
+      toast.error("Please select at least one language!");
+      return false;
+    }
+    if (selectedSubjects.length === 0) {
+      toast.error("Please select at least one subject!");
+      return false;
+    }
+    if (selectedBoard.length === 0) {
+      toast.error("Please select a board!");
+      return false;
+    }
+    if (selectedClass.length === 0) {
+      toast.error("Please select a class!");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(selectedBoard,selectedClass,selectedLanguage,selectedSubjects)
-  }
+
+    // Set loading to true *before* validation and API call
+    setLoading(true);
+
+    if (!validateForm()) {
+      // If validation fails, stop loading
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const data = await authService.signup({
+        name: name,
+        phoneNumber: mobile,
+        gender: gender,
+        subjects: selectedSubjects,
+        languages: selectedLanguage,
+        boards: selectedBoard,
+        classes: selectedClass,
+        profileImg: profileImage,
+      });
+      console.log(data);
+
+      if (data?.status) {
+        Swal.fire({
+          title: "Success!",
+          text: "The teacher has been successfully registered. You can now log in.",
+          icon: "success",
+          confirmButtonText: "Go to Login",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/login", {
+              replace: true,
+            });
+          }
+        });
+      } else {
+        Swal.fire({
+          title: data?.message || "Error",
+          text: "The teacher is already registered. Please check the details and try again.",
+          icon: "error",
+        });
+      }
+    } catch (error) {
+       console.error("An error occurred during signup:", error);
+       Swal.fire({
+         title: "Error",
+         text: "An error occurred during signup. Please try again.",
+         icon: "error",
+       });
+     } finally {
+      setLoading(false); // Ensure loading is turned off after API call
+    }
+  };
+
+  const resetFields = () => {
+    setGender("Male");
+    setMobile("");
+    setName("");
+    setProfileImage(null);
+    setProgilePreviewImage(avatarImg);
+    setSelectedBoard([]);
+    setSelectedClass([]);
+    setSelectedLanguage([]);
+    setSelectedSubjects([]);
+  };
 
   return (
     <section className="student-register mb-3 mt-80 pb-100">
@@ -84,7 +206,7 @@ const TeacherRagistrationForm = ({
                     <div
                       className="profile-pic"
                       style={{
-                        backgroundImage: `url(${avatarImg})`,
+                        backgroundImage: `url(${profilePreviewImage})`,
                       }}
                     >
                       <span>
@@ -92,7 +214,12 @@ const TeacherRagistrationForm = ({
                       </span>
                     </div>
                   </label>
-                  <input type="File" name="fileToUpload" id="fileToUpload" />
+                  <input
+                    type="File"
+                    name="fileToUpload"
+                    id="fileToUpload"
+                    onChange={handleImageChange}
+                  />
                 </div>
                 <div className="form-header-bg mt-5 px-14">
                   <h5 className="mb-0 fs-6 text-white fw-semibold">
@@ -109,6 +236,8 @@ const TeacherRagistrationForm = ({
                         type="text"
                         className="form-control shadow-none fs-14 fw-medium"
                         placeholder=""
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                       />
                     </div>
                     <div className="col-12">
@@ -119,6 +248,12 @@ const TeacherRagistrationForm = ({
                         type="text"
                         className="form-control shadow-none fs-14 fw-medium"
                         placeholder=""
+                        value={mobile}
+                        onChange={(e) => {
+                          if (e.target.value.length <= 10) {
+                            setMobile(e.target.value);
+                          }
+                        }}
                       />
                     </div>
                     <div className="col-12">
@@ -129,10 +264,12 @@ const TeacherRagistrationForm = ({
                         name=""
                         id=""
                         className="form-select shadow-none fs-14 fw-medium"
+                        value={gender}
+                        onChange={(e) => setGender(e.target.value)}
                       >
-                        <option value="">Male</option>
-                        <option value="">Female</option>
-                        <option value="">Others</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Others">Others</option>
                       </select>
                     </div>
                     <div className="col-12">
@@ -178,8 +315,14 @@ const TeacherRagistrationForm = ({
                   </div>
                 </div>
                 <div className="mt-4 mb-2 text-center">
-                  <button className="btn1" type="submit">
-                    Register
+                  <button disabled={loading} className="btn1" type="submit">
+                    {loading ? (
+                      <div class="spinner-grow text-light" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    ) : (
+                      "Register"
+                    )}
                   </button>
                 </div>
               </form>
