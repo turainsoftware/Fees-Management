@@ -10,14 +10,14 @@ const StudentsListNav = ({ searchName, setSearchName }) => {
             <div class="inner-contain px-14 py-14 bg-white light-blue-border radius-8">
               <div>
                 <label for="" class="fs-13 mb-2 fw-medium">
-                  Student Name
+                  Select Batch<span class="red-color">*</span>
                 </label>
                 <select
                   id=""
                   className="form-select shadow-none fs-14 fw-medium"
                 >
                   <option value="" defaultValue={true}>
-                    Select a session
+                    Select a batch
                   </option>
                   <option value="2023-2024">2023-2024</option>
                   <option value="2024-2025">2024-2025</option>
@@ -30,7 +30,7 @@ const StudentsListNav = ({ searchName, setSearchName }) => {
               </div>
               <div class="mt-3">
                 <label for="" class="fs-13 mb-2 fw-medium">
-                  Select Batch<span class="red-color">*</span>
+                  Student Name<span class="red-color">*</span>
                 </label>
                 <input
                   type="text"
