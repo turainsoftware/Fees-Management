@@ -3,7 +3,7 @@ import { SecondaryNavbar, StudentRegisterForm } from "../../components";
 
 const NewStudentRegister = () => {
   return (
-    <main class="wrapper home-wrapper">
+    <main className="wrapper home-wrapper">
       {/* Header Section */}
       <SecondaryNavbar title={"New Student Register"} />
 

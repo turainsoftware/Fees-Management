@@ -14,19 +14,20 @@ import FeesList from "./FeesList";
 //Student Page Releted
 import ItemList from "./ItemList";
 
-
 // Notifications
 import ModelNotification from "./Notifications/ModelNotification";
-
 
 // Forms
 import StudentRegisterForm from "./Forms/StudentRegisterForm";
 import CreateBatchForm from "./Forms/CreateBatchForm";
-import StudentSearchFees from "./Forms/StudentSearchFees"; 
-import TeacherRagistrationForm from './Forms/TeacherRagistrationForm'
+import StudentSearchFees from "./Forms/StudentSearchFees";
+import TeacherRagistrationForm from "./Forms/TeacherRagistrationForm";
 
 // Loader
 import GlobalLoader from "./Loaders/GlobalLoader";
+
+// Cards
+import ProfileCard from "./Cards/ProfileCard";
 
 export {
   DashboardHeader,
@@ -43,5 +44,6 @@ export {
   CreateBatchForm,
   StudentSearchFees,
   TeacherRagistrationForm,
-  GlobalLoader
+  GlobalLoader,
+  ProfileCard,
 };

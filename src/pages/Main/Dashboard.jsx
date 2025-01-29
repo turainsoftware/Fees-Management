@@ -41,7 +41,7 @@ const Dashboard = () => {
       <ChartSection />
 
       {/* Student List */}
-      <StudentList headerText={"Students List"} />
+      <StudentList headerText={"Students List"} isRecent={false} />
 
       {/* FeesList */}
       <FeesList />

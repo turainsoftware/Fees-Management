@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Images
 import Avatar from "./../assets/images/profile/avatar.jpg";
@@ -6,8 +6,16 @@ import Avatar from "./../assets/images/profile/avatar.jpg";
 // Components
 import ModelNotification from "./Notifications/ModelNotification";
 import { getGreetingBasedOnTime } from "../utils/Common";
+import ProfileCard from "./Cards/ProfileCard";
 
-const DashboardHeader = ({avatar=Avatar, name="User"}) => {
+const DashboardHeader = ({ avatar = Avatar, name = "User" }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleProfileDropdown = () => {
+    setIsOpen((prev) => !prev);
+    console.log(isOpen)
+  };
+
   return (
     <section
       className="dashboard-header w-100 d-flex align-items-center light-border-bottom bg-white"
@@ -17,7 +25,14 @@ const DashboardHeader = ({avatar=Avatar, name="User"}) => {
         <div className="row align-items-center justify-content-between gx-0">
           <div className="col-auto">
             <div className="small-logo d-flex align-items-center justify-content-center border-orange rounded-circle bg-white overflow-hidden">
-              <img src={avatar} height="40px" alt="" />
+              <img
+                onClick={handleProfileDropdown}
+                style={{ cursor: "pointer" }}
+                src={avatar}
+                height="40px"
+                alt=""
+              />
+              {isOpen && <ProfileCard/>}
             </div>
           </div>
           <div className="col-8">
