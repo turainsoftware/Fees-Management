@@ -1,6 +1,7 @@
 import React from "react";
 import "./NotFound.css";
 import { Link } from "react-router-dom";
+import notfound from './../../assets/images/not-found.png'
 
 const NotFound = () => {
   return (
@@ -23,7 +24,7 @@ const NotFound = () => {
         <div className="circle circle-pink"></div>
         <div className="circle circle-green"></div>
         <img
-          src="https://images.unsplash.com/photo-1552082455-f24775e42973?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bG9zdCUyMGJvdXQlMjB0aGVtZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+          src={notfound}
           alt="Illustration of a person looking confused or lost"
           className="illustration-image"
         />
