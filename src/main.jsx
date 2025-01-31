@@ -25,6 +25,7 @@ import {
   FeesRevive,
   Login,
   NewStudentRegister,
+  NotFound,
   Otp,
   Register,
   StudentList,
@@ -55,6 +56,11 @@ const router = createBrowserRouter(
         <Route path="/fees" element={<Fees />} />
         <Route path="/fees-recive" element={<FeesRevive />} />
       </Route>
+
+
+      {/* For Not Found Page */}
+      <Route path="*" element={<NotFound/>}/>
+
     </Route>
   )
 );

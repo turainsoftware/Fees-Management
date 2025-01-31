@@ -83,18 +83,6 @@ const PersonalDetails = ({
       <div className="px-14 mt-2 pt-2">
         <div className="row g-3">
           <div className="col-12">
-            <label htmlFor="studentName" className="fs-13 mb-2 fw-medium">
-              Student Name
-            </label>
-            <input
-              type="text"
-              id="studentName"
-              className="form-control shadow-none fs-14 fw-medium"
-              value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
-            />
-          </div>
-          <div className="col-12">
             <label htmlFor="contactNumber" className="fs-13 mb-2 fw-medium">
               Contact Number<span className="red-color">*</span>
             </label>
@@ -113,6 +101,18 @@ const PersonalDetails = ({
             {contactNumberError && (
               <div className="invalid-feedback">{contactNumberError}</div>
             )}
+          </div>
+          <div className="col-12">
+            <label htmlFor="studentName" className="fs-13 mb-2 fw-medium">
+              Student Name
+            </label>
+            <input
+              type="text"
+              id="studentName"
+              className="form-control shadow-none fs-14 fw-medium"
+              value={studentName}
+              onChange={(e) => setStudentName(e.target.value)}
+            />
           </div>
           <div className="col-12">
             <label htmlFor="gender" className="fs-13 mb-2 fw-medium">
@@ -191,7 +191,6 @@ const PersonalDetails = ({
               {/* Add other months as needed */}
             </select>
           </div>
-          
         </div>
       </div>
     </>

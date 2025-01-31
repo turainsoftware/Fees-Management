@@ -15,6 +15,9 @@ import BatchCreate from "./Main/BatchCreate";
 import Fees from "./Main/Fees";
 import FeesRevive from "./Main/FeesRevive";
 
+// Common Pages
+import NotFound from "./Common/NotFound";
+
 //Export
 export {
   AuthHome,
@@ -29,5 +32,6 @@ export {
   BatchCreate,
   Fees,
   FeesRevive,
-  Register
+  Register,
+  NotFound,
 };

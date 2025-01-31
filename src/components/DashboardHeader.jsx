@@ -13,7 +13,7 @@ const DashboardHeader = ({ avatar = Avatar, name = "User" }) => {
 
   const handleProfileDropdown = () => {
     setIsOpen((prev) => !prev);
-    console.log(isOpen)
+    console.log(isOpen);
   };
 
   return (
@@ -32,7 +32,6 @@ const DashboardHeader = ({ avatar = Avatar, name = "User" }) => {
                 height="40px"
                 alt=""
               />
-              {isOpen && <ProfileCard/>}
             </div>
           </div>
           <div className="col-8">

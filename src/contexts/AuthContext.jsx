@@ -49,6 +49,7 @@ const AuthProvider = ({ children }) => {
     localStorage.removeItem("authToken");
     setAuthToken(null);
     setIsAuthenticated(() => false);
+    check();
   };
 
   useEffect(() => {

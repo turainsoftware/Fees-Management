@@ -1,0 +1,142 @@
+/* Container for the entire page */
+.not-found-container {
+    min-height: 100vh;
+    background-color: #f9f9f9; /* Slightly off-white */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem; /* Increased padding */
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Content section (left side) */
+  .not-found-content {
+    position: relative;
+    z-index: 10;
+    max-width: 32rem;
+    text-align: center; /* Center text for better layout */
+  }
+  
+  /* Circles for background decoration */
+  .circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+    transition: transform 0.5s ease;
+  }
+  
+  .circle-yellow {
+    background-color: #ffdd5e; /* More vibrant yellow */
+    width: 12rem; /* Reduced size */
+    height: 12rem;
+    top: -6rem;
+    left: -6rem;
+  }
+  .not-found-container:hover .circle-yellow {
+    transform: scale(1.1);
+  }
+  
+  .circle-pink {
+    background-color: #ffa8a8; /* Softer pink */
+    width: 10rem; /* Reduced size */
+    height: 10rem;
+    top: -4rem;
+    right: -2rem;
+  }
+  .not-found-container:hover .circle-pink {
+    transform: scale(1.1);
+  }
+  .circle-green {
+    background-color: #a0e9a0; /* Lighter green */
+    width: 8rem; /* Reduced size */
+    height: 8rem;
+    top: 8rem;
+    right: -6rem;
+  }
+  .not-found-container:hover .circle-green {
+    transform: scale(1.1);
+  }
+  /* Typography styles */
+  .not-found-title {
+    font-size: 6rem; /* Slightly smaller */
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+  
+  .not-found-subtitle {
+    font-size: 1.8rem; /* Smaller subtitle */
+    font-weight: 600;
+    margin-top: 0.8rem;
+    color: #555;
+  }
+  
+  .not-found-message {
+    font-size: 1.3rem; /* Reduced size */
+    margin-top: 0.5rem;
+    color: #555;
+  }
+  
+  .not-found-description {
+    color: #777;
+    margin-top: 1rem;
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  
+  /* Button styles */
+  .not-found-button {
+    display: inline-block;
+    margin-top: 1.5rem; /* Reduced spacing */
+    padding: 0.75rem 1.75rem; /* Slightly smaller button*/
+    background-color: #6a73e9; /* Softer purple */
+    color: white;
+    text-decoration: none;
+    border-radius: 9999px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+  }
+  
+  .not-found-button:hover {
+    background-color: #555ecf; /* Darken on hover */
+  }
+  
+  /* Illustration section (right side) */
+  .not-found-illustration {
+      position: absolute;
+      right: 5%; /* Adjusted for responsive positioning */
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none; /* Prevent interaction */
+  }
+    
+  .illustration-image {
+      width: 300px; /* Responsive size */
+      height: 300px;
+      object-fit: contain;
+      position: relative;
+      z-index: 10;
+      transition: transform 0.4s ease; /* Added animation */
+  }
+  .not-found-container:hover .illustration-image {
+    transform: translate(5px, -5px);
+  }
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+      .not-found-content {
+          max-width: 90%; /* Ensure content takes the full width on smaller screens */
+      }
+      .not-found-illustration{
+        display: none;
+      }
+      .not-found-title {
+        font-size: 4rem; /* Reduced size */
+      }
+      .not-found-subtitle {
+        font-size: 1.5rem;
+      }
+      .not-found-message {
+        font-size: 1.2rem;
+      }
+  }
