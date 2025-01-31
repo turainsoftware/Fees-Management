@@ -112,8 +112,8 @@
   }
     
   .illustration-image {
-      width: 300px; /* Responsive size */
-      height: 300px;
+      width: 700px; /* Responsive size */
+      height: 700px;
       object-fit: contain;
       position: relative;
       z-index: 10;

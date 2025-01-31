@@ -17,7 +17,6 @@ const Dashboard = () => {
   const profile=async ()=>{
     try {
       const data=await teacherService.profile({authToken: authToken});
-      console.log(data)
       setUserData(data)
     } catch (error) {
       console.log(error);

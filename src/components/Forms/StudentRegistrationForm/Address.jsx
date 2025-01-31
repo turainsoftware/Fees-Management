@@ -9,9 +9,9 @@ const Address = ({
   setDistrict,
   pincode,
   setPincode,
+  isFieldsEnable = true,
 }) => {
   // State variables for each form field
-
 
   return (
     <>
@@ -31,6 +31,7 @@ const Address = ({
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               placeholder="Enter your address"
+              disabled={!isFieldsEnable}
             />
           </div>
           <div className="col-12">
@@ -42,6 +43,7 @@ const Address = ({
               className="form-select shadow-none fs-14 fw-medium"
               value={state}
               onChange={(e) => setState(e.target.value)}
+              disabled={!isFieldsEnable}
             >
               <option value="">Select State</option>
               <option value="West Bengal">West Bengal</option>
@@ -58,6 +60,7 @@ const Address = ({
               className="form-select shadow-none fs-14 fw-medium"
               value={district}
               onChange={(e) => setDistrict(e.target.value)}
+              disabled={!isFieldsEnable}
             >
               <option value="">Select District</option>
               <option value="Kolkata">Kolkata</option>
@@ -76,6 +79,7 @@ const Address = ({
               value={pincode}
               onChange={(e) => setPincode(e.target.value)}
               placeholder="Enter pincode"
+              disabled={!isFieldsEnable}
             />
           </div>
         </div>

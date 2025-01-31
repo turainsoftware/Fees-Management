@@ -20,6 +20,7 @@ const PersonalDetails = ({
   setJoiningMonth,
   profileImage,
   setProfileImage,
+  isFieldEnable=true
 }) => {
   const [contactNumberError, setContactNumberError] = useState(""); // State for mobile validation error
   const [guardianNumberError, setGuardianNumberError] = useState(""); // State for guardian mobile validation error
@@ -33,7 +34,7 @@ const PersonalDetails = ({
 
   const validateContactNumber = (number) => {
     if (!isValidMobile(number)) {
-      setContactNumberError("Invalid mobile number");
+      setContactNumberError("Enter a valid mobile number");
     } else {
       setContactNumberError("");
     }
@@ -41,7 +42,7 @@ const PersonalDetails = ({
 
   const validateGuardianNumber = (number) => {
     if (!isValidMobile(number)) {
-      setGuardianNumberError("Invalid mobile number");
+      setGuardianNumberError("Enter a valid mobile number");
     } else {
       setGuardianNumberError("");
     }
@@ -75,6 +76,7 @@ const PersonalDetails = ({
           accept="image/*"
           onChange={handleFileUpload} // Handle file upload
           style={{ display: "none" }} // Hide the default file input
+          disabled={!isFieldEnable}
         />
       </div>
       <div className="form-header-bg mt-5 px-14">
@@ -94,9 +96,14 @@ const PersonalDetails = ({
               }`}
               value={contactNumber}
               onChange={(e) => {
-                setContactNumber(e.target.value);
-                validateContactNumber(e.target.value);
+                const value = e.target.value;
+                // Allow only digits and limit to 10 characters
+                if (/^\d*$/.test(value) && value.length <= 10) {
+                  setContactNumber(value);
+                  validateContactNumber(value);
+                }
               }}
+              maxLength={10}
             />
             {contactNumberError && (
               <div className="invalid-feedback">{contactNumberError}</div>
@@ -112,6 +119,7 @@ const PersonalDetails = ({
               className="form-control shadow-none fs-14 fw-medium"
               value={studentName}
               onChange={(e) => setStudentName(e.target.value)}
+              disabled={!isFieldEnable}
             />
           </div>
           <div className="col-12">
@@ -123,6 +131,7 @@ const PersonalDetails = ({
               className="form-select shadow-none fs-14 fw-medium"
               value={gender}
               onChange={(e) => setGender(e.target.value)}
+              disabled={!isFieldEnable}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
@@ -140,6 +149,7 @@ const PersonalDetails = ({
               className="form-control shadow-none fs-14 fw-medium"
               value={guardianName}
               onChange={(e) => setGuardianName(e.target.value)}
+              disabled={!isFieldEnable}
             />
           </div>
           <div className="col-12">
@@ -154,9 +164,13 @@ const PersonalDetails = ({
               }`}
               value={guardianNumber}
               onChange={(e) => {
-                setGuardianNumber(e.target.value);
-                validateGuardianNumber(e.target.value); // Validate on change
+                const value = e.target.value;
+                if (/^\d*$/.test(value) && value.length <= 10) {
+                  setGuardianNumber(value);
+                  validateGuardianNumber(value);
+                }
               }}
+              disabled={!isFieldEnable}
             />
             {guardianNumberError && (
               <div className="invalid-feedback">{guardianNumberError}</div>
@@ -172,6 +186,7 @@ const PersonalDetails = ({
               className="form-control shadow-none fs-14 fw-medium"
               value={emailAddress}
               onChange={(e) => setEmailAddress(e.target.value)}
+              disabled={!isFieldEnable}
             />
           </div>
           <div className="col-12">

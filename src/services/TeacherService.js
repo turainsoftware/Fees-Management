@@ -7,7 +7,6 @@ class TeacherService {
 
   // Teacher's Profile Data
   async profile({ authToken }) {
-    console.log(authToken);
     const uri = `${this.baseUrl}/api/v1/teacher/profile`;
     try {
       const response = await axios.get(uri, {

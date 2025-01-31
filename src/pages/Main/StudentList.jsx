@@ -13,7 +13,7 @@ const StudentList = () => {
   const [searchSession, setSearchSession] = useState("");
 
   return (
-    <main class="wrapper home-wrapper">
+    <main className="wrapper home-wrapper">
       {/* Common Header */}
       <SecondaryNavbar title={"Student List"} />
 

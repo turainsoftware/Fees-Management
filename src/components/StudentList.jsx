@@ -24,7 +24,6 @@ const StudentList = ({ headerText, isRecent = true }) => {
         authToken: authToken,
         isRecent: isRecentState,
       });
-      console.log(data);
       setStudents(data);
       setFilteredStudents(data);
     } catch (error) {
@@ -59,7 +58,7 @@ const StudentList = ({ headerText, isRecent = true }) => {
               {isRecentState ? (
                 <i className="ri-sort-asc fs-20 me-1 primary-color"></i>
               ) : (
-                <i class="ri-sort-desc fs-20 me-1 primary-color"></i>
+                <i className="ri-sort-desc fs-20 me-1 primary-color"></i>
               )}
               <span className="fw-semibold primary-color">Sort</span>
             </Link>
@@ -86,8 +85,8 @@ const StudentList = ({ headerText, isRecent = true }) => {
                       type="checkbox"
                       role="switch"
                       id={`flexSwitchCheckChecked-${index}`}
-                      // checked={student.isChecked}
-                      checked
+                      checked={true}
+                      readOnly
                     />
                   </div>
                 </div>

@@ -3,14 +3,14 @@ import React, { useState } from "react";
 const StudentsListNav = ({ searchName, setSearchName }) => {
   const [searchSession, setSearchSession] = useState("");
   return (
-    <section class="student-nav my-3">
-      <div class="container">
-        <div class="row g-2">
-          <div class="col-12">
-            <div class="inner-contain px-14 py-14 bg-white light-blue-border radius-8">
+    <section className="student-nav my-3">
+      <div className="container">
+        <div className="row g-2">
+          <div className="col-12">
+            <div className="inner-contain px-14 py-14 bg-white light-blue-border radius-8">
               <div>
-                <label for="" class="fs-13 mb-2 fw-medium">
-                  Select Batch<span class="red-color">*</span>
+                <label htmlFor="" className="fs-13 mb-2 fw-medium">
+                  Select Batch<span className="red-color">*</span>
                 </label>
                 <select
                   id=""
@@ -28,9 +28,9 @@ const StudentsListNav = ({ searchName, setSearchName }) => {
                   <option value="2029-2030">2029-2030</option>
                 </select>
               </div>
-              <div class="mt-3">
-                <label for="" class="fs-13 mb-2 fw-medium">
-                  Student Name<span class="red-color">*</span>
+              <div className="mt-3">
+                <label htmlFor="" className="fs-13 mb-2 fw-medium">
+                  Student Name<span className="red-color">*</span>
                 </label>
                 <input
                   type="text"
@@ -39,7 +39,7 @@ const StudentsListNav = ({ searchName, setSearchName }) => {
                     setSearchName(e.target.value);
                     console.log(searchName);
                   }}
-                  class="form-control shadow-none fs-14 fw-medium"
+                  className="form-control shadow-none fs-14 fw-medium"
                   placeholder="Eg : Rahul Kumar"
                 />
               </div>
