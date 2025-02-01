@@ -74,7 +74,23 @@ class StudentService {
           },
         }
       );
-      const data=await response.data;
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async studentsByBatch({ authToken, batchId }) {
+    const uri = `${this.baseUrl}/api/v1/student/batch?batchId=${batchId}`;
+    try {
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
       return data;
     } catch (error) {
       const data = await error.response.data;

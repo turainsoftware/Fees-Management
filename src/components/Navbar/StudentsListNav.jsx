@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 
-const StudentsListNav = ({ searchName, setSearchName }) => {
-  const [searchSession, setSearchSession] = useState("");
+const StudentsListNav = ({
+  searchName,
+  setSearchName,
+  selectedBatch,
+  setSelectedBatch,
+  batches = [],
+}) => {
   return (
     <section className="student-nav my-3">
       <div className="container">
@@ -15,17 +20,24 @@ const StudentsListNav = ({ searchName, setSearchName }) => {
                 <select
                   id=""
                   className="form-select shadow-none fs-14 fw-medium"
+                  onChange={(e) => {
+                    const id = e.target.value;
+                    const data = batches.find(
+                      (item) => item.id === parseInt(id)
+                    );
+                    setSelectedBatch(data);
+                  }}
                 >
                   <option value="" defaultValue={true}>
                     Select a batch
                   </option>
-                  <option value="2023-2024">2023-2024</option>
-                  <option value="2024-2025">2024-2025</option>
-                  <option value="2025-2026">2025-2026</option>
-                  <option value="2026-2027">2026-2027</option>
-                  <option value="2027-2028">2027-2028</option>
-                  <option value="2028-2029">2028-2029</option>
-                  <option value="2029-2030">2029-2030</option>
+                  {batches.map((item, index) => {
+                    return (
+                      <option key={index} value={item.id}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div className="mt-3">
@@ -37,7 +49,6 @@ const StudentsListNav = ({ searchName, setSearchName }) => {
                   value={searchName}
                   onChange={(e) => {
                     setSearchName(e.target.value);
-                    console.log(searchName);
                   }}
                   className="form-control shadow-none fs-14 fw-medium"
                   placeholder="Eg : Rahul Kumar"

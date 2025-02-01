@@ -24,7 +24,7 @@ const ItemListShimmer = ({ count = 5 }) => {
       {/* Inject shimmer keyframes */}
       <style>{shimmerKeyframes}</style>
 
-      <div className="row justify-content-between g-0 bg-white mx-2" style={{borderRadius: 10}}>
+      <div className="row justify-content-between g-0 bg-white mx-2 mb-3" style={{borderRadius: 10}}>
         {Array.from({ length: count }).map((_, index) => (
           <div
             key={index}

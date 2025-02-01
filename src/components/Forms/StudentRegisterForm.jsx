@@ -203,6 +203,17 @@ const StudentRegisterForm = () => {
           studentId: studentId,
         });
         console.info(data);
+        if (data.status) {
+          Swal.fire({
+            text: data?.message,
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            text: data?.message,
+            icon: "error",
+          });
+        }
       } catch (error) {
         console.error(error);
       } finally {

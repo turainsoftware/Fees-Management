@@ -13,6 +13,7 @@ import FeesList from "./FeesList";
 
 //Student Page Releted
 import ItemList from "./ItemList";
+import StudentListData from "./StudentListData";
 
 // Notifications
 import ModelNotification from "./Notifications/ModelNotification";
@@ -46,4 +47,5 @@ export {
   TeacherRagistrationForm,
   GlobalLoader,
   ProfileCard,
+  StudentListData,
 };
