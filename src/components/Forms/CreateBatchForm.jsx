@@ -29,7 +29,6 @@ const CreateBatchForm = () => {
 
   // Form Variables
   const [name, setName] = useState("");
-  const [batchSession, setBatchSession] = useState("");
   const [selectedClassName, setSelectedClassName] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState("");
@@ -39,6 +38,10 @@ const CreateBatchForm = () => {
   const [batchEndTime, setBatchEndTime] = useState("");
   const [monthlyFees, setMonthlyFees] = useState("");
   const [monthlyExamFees, setMonthlyExamFees] = useState("");
+  const [startYear, setStartYear] = useState(new Date().getFullYear());
+  const [startMonth, setStartMonth] = useState(new Date().getMonth() + 1);
+  const [endYear, setEndYear] = useState(null);
+  const [endMonth, setEndMonth] = useState(null);
 
   const fetchUserData = async ({ authToken }) => {
     try {
@@ -55,12 +58,15 @@ const CreateBatchForm = () => {
 
   useEffect(() => {
     fetchUserData({ authToken: authToken });
+    const currentDate = new Date();
+    const endDate = new Date(currentDate.setMonth(currentDate.getMonth() + 18));
+    setEndYear(endDate.getFullYear());
+    setEndMonth(endDate.getMonth() + 1);
   }, []);
 
   const validateFields = () => {
     if (
       !name ||
-      !batchSession ||
       selectedClassName.length === 0 ||
       selectedSubjects.length === 0 ||
       !selectedBoard ||
@@ -76,13 +82,30 @@ const CreateBatchForm = () => {
     return true;
   };
 
+  const validateDates = () => {
+    const startDate = new Date(startYear, startMonth - 1);
+    const endDate = new Date(endYear, endMonth - 1);
+    if (startDate > endDate) {
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateDates()) {
+      toast.info("Start date cannot be later than end date!");
+      return;
+    }
+
     if (validateFields()) {
       const data = await batchService.createBatch({
         authToken: authToken,
         name: name,
-        batchSession: batchSession,
+        startYear: startYear,
+        endYear: endYear,
+        startMonth: startMonth,
+        endMonth: endMonth,
         startTime: batchStartTime,
         endTime: batchEndTime,
         days: selectedDays,
@@ -100,7 +123,6 @@ const CreateBatchForm = () => {
           text: "Operation completed successfully",
           icon: "success",
         });
-        
       } else {
         Swal.fire({
           title: "Error",
@@ -109,7 +131,7 @@ const CreateBatchForm = () => {
         });
       }
     } else {
-      toast.error("Please fill all fields");
+      toast.info("All fields are required!");
       return;
     }
   };
@@ -141,25 +163,155 @@ const CreateBatchForm = () => {
                       />
                     </div>
                     <div className="col-12">
-                      <label htmlFor="" className="fs-13 mb-2 fw-medium">
-                        Batch Session<span className="red-color">*</span>
-                      </label>
-                      <select
-                        onChange={(e) => setBatchSession(e.target.value)}
-                        id=""
-                        className="form-select shadow-none fs-14 fw-medium"
-                      >
-                        <option value="" defaultValue={true}>
-                          Select a session
-                        </option>
-                        <option value="2023-2024">2023-2024</option>
-                        <option value="2024-2025">2024-2025</option>
-                        <option value="2025-2026">2025-2026</option>
-                        <option value="2026-2027">2026-2027</option>
-                        <option value="2027-2028">2027-2028</option>
-                        <option value="2028-2029">2028-2029</option>
-                        <option value="2029-2030">2029-2030</option>
-                      </select>
+                      {/* Start Year and Start Month in one line */}
+                      <div className="row">
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="startYear"
+                            className="fs-13 mb-2 fw-medium"
+                          >
+                            Start Year<span className="red-color">*</span>
+                          </label>
+                          <select
+                            value={startYear}
+                            onChange={(e) =>
+                              setStartYear(parseInt(e.target.value))
+                            }
+                            id="startYear"
+                            className="form-select shadow-none fs-14 fw-medium"
+                          >
+                            <option value="" disabled selected>
+                              Select start year
+                            </option>
+                            {Array.from(
+                              { length: 10 },
+                              (_, i) => new Date().getFullYear() + i
+                            ).map((year) => (
+                              <option key={year} value={year}>
+                                {year}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="startMonth"
+                            className="fs-13 mb-2 fw-medium"
+                          >
+                            Start Month<span className="red-color">*</span>
+                          </label>
+                          <select
+                            onChange={(e) =>
+                              setStartMonth(parseInt(e.target.value))
+                            }
+                            value={startMonth}
+                            id="startMonth"
+                            className="form-select shadow-none fs-14 fw-medium"
+                          >
+                            <option value="" disabled selected>
+                              Select start month
+                            </option>
+                            {Array.from({ length: 12 }, (_, i) => i + 1).map(
+                              (month) => {
+                                const currentYear = new Date().getFullYear();
+                                const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed in JavaScript
+                                const isDisabled =
+                                  startYear === currentYear &&
+                                  month < currentMonth;
+                                return (
+                                  <option
+                                    key={month}
+                                    value={month}
+                                    disabled={isDisabled}
+                                  >
+                                    {new Date(0, month - 1).toLocaleString(
+                                      "default",
+                                      {
+                                        month: "long",
+                                      }
+                                    )}
+                                  </option>
+                                );
+                              }
+                            )}
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* End Year and End Month in one line */}
+                      <div className="row mt-3">
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="endYear"
+                            className="fs-13 mb-2 fw-medium"
+                          >
+                            End Year<span className="red-color">*</span>
+                          </label>
+                          <select
+                            value={endYear}
+                            onChange={(e) =>
+                              setEndYear(parseInt(e.target.value))
+                            }
+                            id="endYear"
+                            className="form-select shadow-none fs-14 fw-medium"
+                          >
+                            <option value="" disabled selected>
+                              Select end year
+                            </option>
+                            {Array.from(
+                              { length: 10 },
+                              (_, i) => new Date().getFullYear() + i
+                            ).map((year) => (
+                              <option key={year} value={year}>
+                                {year}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                        <div className="col-md-6">
+                          <label
+                            htmlFor="endMonth"
+                            className="fs-13 mb-2 fw-medium"
+                          >
+                            End Month<span className="red-color">*</span>
+                          </label>
+                          <select
+                            value={endMonth}
+                            onChange={(e) =>
+                              setEndMonth(parseInt(e.target.value))
+                            }
+                            id="endMonth"
+                            className="form-select shadow-none fs-14 fw-medium"
+                          >
+                            <option value="" disabled selected>
+                              Select end month
+                            </option>
+                            {Array.from({ length: 12 }, (_, i) => i + 1).map(
+                              (month) => {
+                                const currentYear = new Date().getFullYear();
+                                const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed in JavaScript
+                                const isDisabled =
+                                  endYear === currentYear &&
+                                  month < currentMonth;
+                                return (
+                                  <option
+                                    key={month}
+                                    value={month}
+                                    disabled={isDisabled}
+                                  >
+                                    {new Date(0, month - 1).toLocaleString(
+                                      "default",
+                                      {
+                                        month: "long",
+                                      }
+                                    )}
+                                  </option>
+                                );
+                              }
+                            )}
+                          </select>
+                        </div>
+                      </div>
                     </div>
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
