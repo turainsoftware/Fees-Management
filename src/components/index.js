@@ -29,6 +29,7 @@ import GlobalLoader from "./Loaders/GlobalLoader";
 
 // Cards
 import ProfileCard from "./Cards/ProfileCard";
+import DetailsCard from "./Cards/DetailsCard";
 
 export {
   DashboardHeader,
@@ -48,4 +49,5 @@ export {
   GlobalLoader,
   ProfileCard,
   StudentListData,
+  DetailsCard
 };

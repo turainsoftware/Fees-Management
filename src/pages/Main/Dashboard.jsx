@@ -11,30 +11,37 @@ import { teacherService } from "../../services/TeacherService";
 import { useAuth } from "../../contexts/AuthContext";
 
 const Dashboard = () => {
-  const authToken=localStorage.getItem("authToken");
-  const [userData,setUserData]=useState({});
+  const authToken = localStorage.getItem("authToken");
+  const [userData, setUserData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
-  const profile=async ()=>{
+  const profile = async () => {
+    setIsLoading(true);
     try {
-      const data=await teacherService.profile({authToken: authToken});
-      setUserData(data)
+      const data = await teacherService.profile({ authToken: authToken });
+      setUserData(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
 
-  useEffect(()=>{
+  useEffect(() => {
     profile();
-  },[])
+  }, []);
 
   return (
     <main className="wrapper home-wrapper">
       {/* DashBoard Header */}
-      <DashboardHeader avatar={userData?.profilePic} 
-      name={userData?.name} />
+      <DashboardHeader
+        avatar={userData?.profilePic}
+        name={userData?.name}
+        isLoading={isLoading}
+      />
 
       {/* OverviewHeader */}
-      <OverviewHeader />
+      <OverviewHeader/>
 
       {/* Chart Section */}
       <ChartSection />
