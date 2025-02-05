@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
       {
-        name: "myapp",
+        name: "fees-management",
         script: "npm run preview",
         port: 4173,
       },
