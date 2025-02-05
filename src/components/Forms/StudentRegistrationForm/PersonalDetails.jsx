@@ -189,23 +189,6 @@ const PersonalDetails = ({
               disabled={!isFieldEnable}
             />
           </div>
-          <div className="col-12">
-            <label htmlFor="joiningMonth" className="fs-13 mb-2 fw-medium">
-              Joining Month<span className="red-color">*</span>
-            </label>
-            <select
-              id="joiningMonth"
-              className="form-select shadow-none fs-14 fw-medium"
-              value={joiningMonth}
-              onChange={(e) => setJoiningMonth(e.target.value)}
-            >
-              <option value="">Select Month</option>
-              <option value="JANUARY">January</option>
-              <option value="FEBRUARY">February</option>
-              <option value="MARCH">March</option>
-              {/* Add other months as needed */}
-            </select>
-          </div>
         </div>
       </div>
     </>

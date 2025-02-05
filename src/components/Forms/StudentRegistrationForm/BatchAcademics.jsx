@@ -10,6 +10,10 @@ const BatchAcademics = ({
   setSelectedBatch,
   selectedClass,
   setSelectedClass,
+  joiningYear,
+  setJoininYear,
+  joiningMonth,
+  setJoiningMonth,
 }) => {
   const [batchInfo, setBatchInfo] = useState([]);
 
@@ -19,6 +23,7 @@ const BatchAcademics = ({
     try {
       const data = await batchService.getAllBatches({ authToken: authToken });
       setBatchInfo(data);
+      setJoininYear(data?.startYear);
     } catch (error) {
       console.error(error);
     }
@@ -32,6 +37,10 @@ const BatchAcademics = ({
     const id = e.target.value;
     const batchSelected = batchInfo.find((item) => item.id === parseInt(id));
     setSelectedBatch(batchSelected);
+    setJoininYear((prev)=>{
+      return batchSelected?.startYear}
+    );
+    console.log(batchSelected);
   };
 
   const handleClassChange = (e) => {
@@ -86,12 +95,93 @@ const BatchAcademics = ({
                 Select Class
               </option>
               {selectedBatch?.classes
-                ? selectedBatch?.classes.map((item) => (
-                    <option value={item.id}>{item.name}</option>
+                ? selectedBatch?.classes.map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.name}
+                    </option>
                   ))
                 : null}
             </select>
           </div>
+          <div className="col-12">
+            <div className="row">
+              {/* Start Year Dropdown */}
+              <div className="col-md-6">
+                <label htmlFor="startYear" className="fs-13 mb-2 fw-medium">
+                  Joining Year<span className="red-color">*</span>
+                </label>
+                <select
+                  id="startYear"
+                  className="form-select shadow-none fs-14 fw-medium"
+                  value={joiningYear}
+                  onChange={(e) => {
+                    const year = parseInt(e.target.value, 10);
+                    setJoininYear(year);
+                    setJoiningMonth("");
+                    console.log(joiningYear);
+                  }}
+                >
+                  <option value="" disabled>
+                    Select start year
+                  </option>
+                  {Array.from(
+                    {
+                      length:
+                        selectedBatch.endYear - selectedBatch.startYear + 1,
+                    },
+                    (_, i) => selectedBatch.startYear + i
+                  ).map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Start Month Dropdown */}
+              <div className="col-md-6">
+                <label htmlFor="startMonth" className="fs-13 mb-2 fw-medium">
+                  Joining Month<span className="red-color">*</span>
+                </label>
+                <select
+                  id="startMonth"
+                  className="form-select shadow-none fs-14 fw-medium"
+                  value={joiningMonth}
+                  onChange={(e) =>
+                    setJoiningMonth(parseInt(e.target.value, 10))
+                  }
+                >
+                  <option value="" disabled>
+                    Select start month
+                  </option>
+                  {Array.from({ length: 12 }, (_, i) => i + 1)
+                    .filter((month) => {
+                      if (
+                        joiningYear === selectedBatch.startYear &&
+                        month < selectedBatch.startMonth
+                      ) {
+                        return false;
+                      }
+                      if (
+                        joiningYear === selectedBatch.endYear &&
+                        month > selectedBatch.endMonth
+                      ) {
+                        return false;
+                      }
+                      return true;
+                    })
+                    .map((month) => (
+                      <option key={month} value={month}>
+                        {new Date(0, month - 1).toLocaleString("default", {
+                          month: "long",
+                        })}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div className="col-12">
             <label htmlFor="" className="fs-13 mb-2 fw-medium">
               Batch Fees

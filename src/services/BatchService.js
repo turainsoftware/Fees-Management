@@ -18,6 +18,10 @@ class BatchService {
     language,
     subjects,
     classes,
+    startYear,
+    endYear,
+    startMonth,
+    endMonth,
   }) {
     const uri = `${this.baseUrl}/api/v1/batch`;
     const payload = {
@@ -25,6 +29,10 @@ class BatchService {
       batchSession: batchSession,
       startTime: startTime,
       endTime: endTime,
+      startYear: startYear,
+      endYear: endYear,
+      startMonth: startMonth,
+      endMonth: endMonth,
       days: days,
       monthlyFees: monthlyFees,
       monthlyExamFees: monthlyExamFees,
@@ -37,6 +45,7 @@ class BatchService {
       subjects: subjects,
       classes: classes,
     };
+    console.log(payload);
     try {
       console.log(JSON.stringify(payload));
       const response = await axios.post(uri, payload, {
@@ -60,7 +69,7 @@ class BatchService {
           Authorization: `Bearer ${authToken}`,
         },
       });
-      const data=await response.data;
+      const data = await response.data;
       return data;
     } catch (error) {
       const data = await error.response.data;

@@ -23,8 +23,6 @@ const StudentRegisterForm = () => {
   const [guardianName, setGuardianName] = useState("");
   const [guardianNumber, setGuardianNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
-  const [joiningMonth, setJoiningMonth] = useState("");
-  const [joiningYear, setJoiningYear] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [selectedBatch, setSelectedBatch] = useState({});
   const [selectedClass, setSelectedClass] = useState({});
@@ -32,6 +30,8 @@ const StudentRegisterForm = () => {
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
   const [pincode, setPincode] = useState("");
+  const [joiningYear, setJoininYear] = useState(null);
+  const [joiningMonth, setJoiningMonth] = useState("");
 
   // Database Validations
   const [isFieldsEnable, setIsFieldsEnable] = useState(true);
@@ -69,7 +69,7 @@ const StudentRegisterForm = () => {
       setIsLoading(false);
       return false;
     }
-    if (!joiningMonth.trim()) {
+    if (!joiningMonth) {
       toast.error("Joining Month is required");
       setIsLoading(false);
       return false;
@@ -159,7 +159,6 @@ const StudentRegisterForm = () => {
           guardianPhone: guardianNumber,
           email: emailAddress,
           gender: gender,
-          joiningMonth: joiningMonth,
           joiningClass: {
             id: selectedClass.id,
           },
@@ -169,12 +168,16 @@ const StudentRegisterForm = () => {
           pinCode: pincode,
         };
         try {
+          console.info("hitting before the regiter student api call")
           const data = await studentService.registerStudent({
             authToken: authToken,
             studentData: studentPayload,
             batchId: selectedBatch.id,
             profileImage: profileImage,
+            joiningMonth: joiningMonth,
+            joiningYear: joiningYear
           });
+          console.info("hitting after the regiter student api call")
           console.log(data);
           if (data.status) {
             Swal.fire({
@@ -201,6 +204,8 @@ const StudentRegisterForm = () => {
           authToken: authToken,
           batchId: selectedBatch.id,
           studentId: studentId,
+          joiningMonth: joiningMonth,
+          joiningYear: joiningYear
         });
         console.info(data);
         if (data.status) {
@@ -225,10 +230,6 @@ const StudentRegisterForm = () => {
   //Fetching the studentdetails
   const studentDetails = async () => {
     try {
-      // const data = await studentService.studentByMobile({
-      //   authToken: authToken,
-      //   mobile: contactNumber,
-      // });
       const data = await studentService.isStudentExistByMobileNumber({
         mobile: contactNumber,
         authToken: authToken,
@@ -315,6 +316,10 @@ const StudentRegisterForm = () => {
                   setSelectedBatch={setSelectedBatch}
                   selectedClass={selectedClass}
                   setSelectedClass={setSelectedClass}
+                  joiningMonth={joiningMonth}
+                  joiningYear={joiningYear}
+                  setJoiningMonth={setJoiningMonth}
+                  setJoininYear={setJoininYear}
                 />
 
                 {/* Address Fields */}

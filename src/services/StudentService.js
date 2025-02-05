@@ -5,7 +5,7 @@ class StudentService {
     this.baseUrl = import.meta.env.VITE_BASEURL;
   }
 
-  async registerStudent({ authToken, studentData, batchId, profileImage }) {
+  async registerStudent({ authToken, studentData, batchId, profileImage, joiningYear,joiningMonth }) {
     // console.log(JSON.stringify(studentData));
     console.log(studentData);
     const uri = `${this.baseUrl}/api/v1/student/registration`;
@@ -14,6 +14,8 @@ class StudentService {
       formData.append("student", JSON.stringify(studentData));
       formData.append("batchId", batchId);
       formData.append("profile", profileImage);
+      formData.append("joiningYear",joiningYear);
+      formData.append("joiningMonth",joiningMonth);
 
       const response = await axios.post(uri, formData, {
         headers: {
@@ -62,8 +64,9 @@ class StudentService {
     }
   }
 
-  async assignStudent({ authToken, studentId, batchId }) {
-    const uri = `${this.baseUrl}/api/v1/student/assign-batch?studentId=${studentId}&batchId=${batchId}`;
+  async assignStudent({ authToken, studentId, batchId,joiningMonth,joiningYear }) {
+    const uri = `${this.baseUrl}/api/v1/student/assign-batch?studentId=${studentId}&batchId=${batchId}&joiningYear=${joiningYear}&joiningMonth=${joiningMonth}`;
+    console.log(joiningMonth,joiningYear)
     try {
       const response = await axios.patch(
         uri,

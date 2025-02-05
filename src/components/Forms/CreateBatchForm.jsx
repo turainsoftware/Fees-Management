@@ -97,6 +97,7 @@ const CreateBatchForm = () => {
       toast.info("Start date cannot be later than end date!");
       return;
     }
+    console.log(startYear, endYear, startMonth, endMonth);
 
     if (validateFields()) {
       const data = await batchService.createBatch({
