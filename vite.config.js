@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     // This allows the server to be accessed externally, e.g. through your domain
-    host: '0.0.0.0',  // Make the server listen on all network interfaces
-    port: 4173,  // Ensure the port matches the port your app is running on
+    // host: '0.0.0.0',  // Make the server listen on all network interfaces
+    // port: 4173,  // Ensure the port matches the port your app is running on
   },
   preview: {
     // Allow requests from your domain to avoid the "Blocked request" error

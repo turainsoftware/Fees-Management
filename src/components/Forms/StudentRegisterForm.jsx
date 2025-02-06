@@ -168,16 +168,16 @@ const StudentRegisterForm = () => {
           pinCode: pincode,
         };
         try {
-          console.info("hitting before the regiter student api call")
+          console.info("hitting before the regiter student api call");
           const data = await studentService.registerStudent({
             authToken: authToken,
             studentData: studentPayload,
             batchId: selectedBatch.id,
             profileImage: profileImage,
             joiningMonth: joiningMonth,
-            joiningYear: joiningYear
+            joiningYear: joiningYear,
           });
-          console.info("hitting after the regiter student api call")
+          console.info("hitting after the regiter student api call");
           console.log(data);
           if (data.status) {
             Swal.fire({
@@ -185,6 +185,7 @@ const StudentRegisterForm = () => {
               text: "Registration successful! Welcome aboard—get ready to start your journey!",
               icon: "success",
             });
+            resetForm();
           } else {
             Swal.fire({
               titleText: data?.message,
@@ -205,7 +206,7 @@ const StudentRegisterForm = () => {
           batchId: selectedBatch.id,
           studentId: studentId,
           joiningMonth: joiningMonth,
-          joiningYear: joiningYear
+          joiningYear: joiningYear,
         });
         console.info(data);
         if (data.status) {
@@ -213,6 +214,7 @@ const StudentRegisterForm = () => {
             text: data?.message,
             icon: "success",
           });
+          resetForm();
         } else {
           Swal.fire({
             text: data?.message,
@@ -267,6 +269,23 @@ const StudentRegisterForm = () => {
     } catch (error) {
       setIsFieldsEnable(true);
     }
+  };
+  const resetForm = () => {
+    setStudentName("");
+    setContactNumber("");
+    setGender("Male");
+    setGuardianName("");
+    setGuardianNumber("");
+    setEmailAddress("");
+    setProfileImage(null);
+    setSelectedBatch({});
+    setSelectedClass({});
+    setAddress("");
+    setState("");
+    setDistrict("");
+    setPincode("");
+    setJoininYear(null);
+    setJoiningMonth("");
   };
 
   //Checking validation on when mobile will gonna be 10 digit
