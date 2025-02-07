@@ -9,9 +9,11 @@ import {
 } from "./../../components/index";
 import { teacherService } from "../../services/TeacherService";
 import { useAuth } from "../../contexts/AuthContext";
+import { RiLogoutCircleRFill } from "@remixicon/react";
 
 const Dashboard = () => {
   const authToken = localStorage.getItem("authToken");
+  const {logout} = useAuth();
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,9 +21,14 @@ const Dashboard = () => {
     setIsLoading(true);
     try {
       const data = await teacherService.profile({ authToken: authToken });
+      if(!data){
+        logout();
+        return;
+      }
       setUserData(data);
     } catch (error) {
       console.log(error);
+      
     } finally {
       setIsLoading(false);
     }

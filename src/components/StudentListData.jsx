@@ -99,16 +99,80 @@ const StudentListData = ({
           ) : (
             Array.isArray(filteredData) &&
             filteredData.map((student, index) => (
+              //Depricated
+              // <div
+              //   key={index}
+              //   className="px-14 d-flex align-items-center justify-content-between py-14 border-bottom"
+              // >
+              //   <div>
+              //     <h6 className="mb-1 fs-15 fw-semibold">{student.name}</h6>
+              //     <span className="text-muted fs-13 fw-medium">
+              //       {student.email}
+              //     </span>
+              //   </div>
+              //   <div className="d-flex align-items-center">
+              //     <a href={`tel:${student.phone}`} className="me-2">
+              //       <img src={callIcon} height="32" alt="call-icon" />
+              //     </a>
+              //     <div className="form-check form-switch mb-0 ms-1 ps-0">
+              //       <input
+              //         className="form-check-input shadow-none ms-0 mt-0"
+              //         type="checkbox"
+              //         role="switch"
+              //         id={`flexSwitchCheckChecked-${index}`}
+              //         checked={true}
+              //         readOnly
+              //       />
+              //     </div>
+              //   </div>
+              // </div>
               <div
                 key={index}
                 className="px-14 d-flex align-items-center justify-content-between py-14 border-bottom"
               >
-                <div>
-                  <h6 className="mb-1 fs-15 fw-semibold">{student.name}</h6>
-                  <span className="text-muted fs-13 fw-medium">
-                    {student.email}
-                  </span>
+                <div className="d-flex align-items-center">
+                  {/* Profile Picture */}
+                  <div className="me-3">
+                    {student.profilePic ? (
+                      <img
+                        src={student.profilePic}
+                        alt={student.name}
+                        className="rounded-circle"
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="rounded-circle d-flex align-items-center justify-content-center"
+                        style={{
+                          width: "40px",
+                          height: "40px",
+                          backgroundColor: "#f0f0f0",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {student.name
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Student Info */}
+                  <div>
+                    <h6 className="mb-1 fs-15 fw-semibold">{student.name}</h6>
+                    <span className="text-muted fs-13 fw-medium">
+                      +91 {student.phone}
+                    </span>
+                  </div>
                 </div>
+
+                {/* Call Icon */}
                 <div className="d-flex align-items-center">
                   <a href={`tel:${student.phone}`} className="me-2">
                     <img src={callIcon} height="32" alt="call-icon" />
@@ -124,6 +188,7 @@ const StudentListData = ({
                     />
                   </div>
                 </div>
+                
               </div>
             ))
           )}
