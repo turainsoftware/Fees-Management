@@ -58,6 +58,7 @@ const Dashboard = () => {
 
       {/* FeesList */}
       <FeesList />
+
     </main>
   );
 };

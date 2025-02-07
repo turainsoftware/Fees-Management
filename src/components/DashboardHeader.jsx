@@ -123,11 +123,13 @@ const shimmerStyles = {
 };
 
 const DashboardHeader = ({
-  avatar = Avatar,
+  avatar,
   name = "User",
   isLoading = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(avatar)
+
 
   const handleProfileDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -183,7 +185,7 @@ const DashboardHeader = ({
               <img
                 onClick={handleProfileDropdown}
                 style={{ cursor: "pointer" }}
-                src={avatar}
+                src={import.meta.env.VITE_PROFILEURL+avatar}
                 height="40px"
                 alt=""
               />
