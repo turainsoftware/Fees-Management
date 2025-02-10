@@ -14,7 +14,10 @@ import FeesList from "./FeesList";
 //Student Page Releted
 import ItemList from "./ItemList";
 import StudentListData from "./StudentListData";
+
+//Student Fees Related
 import StudentPaymentSummary from "./StudentPaymentSummary";
+import FeesPayment from "./FeesPayment";
 
 // Notifications
 import ModelNotification from "./Notifications/ModelNotification";
@@ -27,6 +30,7 @@ import TeacherRagistrationForm from "./Forms/TeacherRagistrationForm";
 
 // Loader
 import GlobalLoader from "./Loaders/GlobalLoader";
+import CommonLoader from "./Loaders/CommonLoader";
 
 // Cards
 import ProfileCard from "./Cards/ProfileCard";
@@ -52,4 +56,6 @@ export {
   StudentListData,
   DetailsCard,
   StudentPaymentSummary,
+  FeesPayment,
+  CommonLoader
 };

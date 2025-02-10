@@ -20,8 +20,32 @@ class FeesService {
       return data;
     }
   }
+
+  async payFees({ authToken, studentId, batchId, amount, year, month }) {
+    const uri = `${this.baseUrl}/api/v1/fees/student/${studentId}/batch/${batchId}/payment`;
+    const payload = {
+      amountPaid: amount,
+      year: year,
+      month: month,
+    };
+
+    try {
+      const response = await axios.post(uri, payload, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.data;
+      console.log(data);
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
 }
 
-const feesService=new FeesService();
+const feesService = new FeesService();
 
-export {feesService}
+export { feesService };

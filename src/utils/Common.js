@@ -14,11 +14,43 @@ function getGreetingBasedOnTime() {
 }
 
 function formatYearMonth({ year, month }) {
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
-  const formatDate=`${monthNames[month-1]}, ${year}`;
+  const formatDate = `${monthNames[month - 1]}, ${year}`;
   return formatDate;
 }
 
-export { getGreetingBasedOnTime, formatYearMonth };
+function formatDate({ isoString }) {
+  const date = new Date(isoString);
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
+}
+
+const checkIfBefore = ({ year, month }) => {
+  const currentDate = new Date();
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth() + 1;
+
+  if (year < currentYear || (year === currentYear && month <= currentMonth)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export { getGreetingBasedOnTime, formatYearMonth, formatDate, checkIfBefore };
