@@ -13,6 +13,12 @@ function getGreetingBasedOnTime() {
   }
 }
 
+function formatYearMonth({ year, month }) {
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const formatDate=`${monthNames[month-1]}, ${year}`;
+  return formatDate;
+}
 
-
-export {getGreetingBasedOnTime}
+export { getGreetingBasedOnTime, formatYearMonth };

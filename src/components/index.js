@@ -14,6 +14,7 @@ import FeesList from "./FeesList";
 //Student Page Releted
 import ItemList from "./ItemList";
 import StudentListData from "./StudentListData";
+import StudentPaymentSummary from "./StudentPaymentSummary";
 
 // Notifications
 import ModelNotification from "./Notifications/ModelNotification";
@@ -49,5 +50,6 @@ export {
   GlobalLoader,
   ProfileCard,
   StudentListData,
-  DetailsCard
+  DetailsCard,
+  StudentPaymentSummary,
 };

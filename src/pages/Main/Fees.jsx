@@ -9,7 +9,7 @@ const Fees = () => {
     logout();
   };
   return (
-    <main class="wrapper home-wrapper">
+    <main className="wrapper home-wrapper">
       <SecondaryNavbar title={"Fees"} />
       <FeesNav />
       <button
