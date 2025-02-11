@@ -44,6 +44,39 @@ class FeesService {
       return data;
     }
   }
+
+  async latestFees({ authToken }) {
+    const uri = `${this.baseUrl}/api/v1/fees-history/teacher/latest`;
+    try {
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async feesHistory({ authToken }) {
+    const uri = `${this.baseUrl}/api/v1/fees-history/teacher`;
+    try {
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
 }
 
 const feesService = new FeesService();

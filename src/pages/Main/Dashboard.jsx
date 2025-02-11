@@ -57,7 +57,7 @@ const Dashboard = () => {
       <StudentList headerText={"Students List"} isRecent={false} />
 
       {/* FeesList */}
-      <FeesList />
+      <FeesList/>
 
     </main>
   );

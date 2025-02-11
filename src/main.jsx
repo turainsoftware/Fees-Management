@@ -22,6 +22,7 @@ import {
   ClassList,
   Dashboard,
   Fees,
+  FeesListPage,
   FeesRevive,
   Login,
   NewStudentRegister,
@@ -34,6 +35,7 @@ import {
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import ProtectedRoute from "./Auth/ProtectedRoute.jsx";
 import AuthHomeOrRedirect from "./Auth/AuthHomeOrRedirect.jsx";
+import FeesHome from "./pages/Main/FeesHome.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -53,14 +55,15 @@ const router = createBrowserRouter(
         <Route path="/batch-list" element={<BatchList />} />
         <Route path="/class-list" element={<ClassList />} />
         <Route path="/create-batch" element={<BatchCreate />} />
-        <Route path="/fees" element={<Fees />} />
-        <Route path="/fees-recive" element={<FeesRevive />} />
+        <Route path="/fees" element={<Fees />}>
+          <Route path="/fees" element={<FeesHome />} />
+          <Route path="fees-recive" element={<FeesRevive />} />
+          <Route path="fees-list" element={<FeesListPage />} />
+        </Route>
       </Route>
 
-
       {/* For Not Found Page */}
-      <Route path="*" element={<NotFound/>}/>
-
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
