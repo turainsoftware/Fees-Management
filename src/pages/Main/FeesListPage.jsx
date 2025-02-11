@@ -5,7 +5,7 @@ const FeesListPage = () => {
   return (
     <>
       <SecondaryNavbar title={"Fees"} />
-      <FeesList isLatest={false} />
+      <FeesList pageNo={0} size={50} isLatest={false} />
     </>
   );
 };

@@ -77,6 +77,22 @@ class FeesService {
       return data;
     }
   }
+
+  async feesHistoryInRange({ authToken, pageNo, size }) {
+    const uri = `${this.baseUrl}/api/v1/fees-history/teacher/range?pageNo=${pageNo}&size=${size}`;
+    try {
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
 }
 
 const feesService = new FeesService();

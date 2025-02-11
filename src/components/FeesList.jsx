@@ -7,7 +7,7 @@ import { FeesListShimmer } from "../Shimmers";
 import { formatDate } from "../utils/Common";
 import { Link } from "react-router-dom";
 
-const FeesList = ({ isLatest = true }) => {
+const FeesList = ({ isLatest = true,pageNo,size }) => {
   const { authToken } = useAuth();
 
   // State Variables

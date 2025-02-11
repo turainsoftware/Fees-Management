@@ -135,7 +135,7 @@ const StudentListData = ({
                   <div className="me-3">
                     {student.profilePic ? (
                       <img
-                        src={student.profilePic}
+                        src={import.meta.env.VITE_PROFILEURL+student.profilePic}
                         alt={student.name}
                         className="rounded-circle"
                         style={{
