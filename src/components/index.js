@@ -36,6 +36,9 @@ import CommonLoader from "./Loaders/CommonLoader";
 import ProfileCard from "./Cards/ProfileCard";
 import DetailsCard from "./Cards/DetailsCard";
 
+// Common
+import ScrollToTop from "./ScrollToTop";
+
 export {
   DashboardHeader,
   OverviewHeader,
@@ -57,5 +60,6 @@ export {
   DetailsCard,
   StudentPaymentSummary,
   FeesPayment,
-  CommonLoader
+  CommonLoader,
+  ScrollToTop
 };

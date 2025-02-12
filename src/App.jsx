@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import MobileNav from "./components/Navbar/MobileNav";
 import { ToastContainer } from "react-toastify";
 import { useAuth } from "./contexts/AuthContext";
+import { ScrollToTop } from "./components";
 
 const App = () => {
   const { isAuthenticated } = useAuth();
@@ -12,6 +13,7 @@ const App = () => {
       <Outlet />
       {isAuthenticated && <MobileNav />}
       <ToastContainer />
+      <ScrollToTop />
     </>
   );
 };
