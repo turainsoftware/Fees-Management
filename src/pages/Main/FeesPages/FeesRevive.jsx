@@ -5,13 +5,13 @@ import {
   SecondaryNavbar,
   StudentPaymentSummary,
   StudentSearchFees,
-} from "./../../components/index";
-import { useAuth } from "../../contexts/AuthContext";
-import { feesService } from "../../services/FeesService";
-import { formatYearMonth } from "../../utils/Common";
+} from "../../../components/index";
+import { useAuth } from "../../../contexts/AuthContext";
+import { feesService } from "../../../services/FeesService";
+import { formatYearMonth } from "../../../utils/Common";
 import { toast } from "react-toastify";
-import { teacherService } from "../../services/TeacherService";
-import { studentService } from "../../services/StudentService";
+import { teacherService } from "../../../services/TeacherService";
+import { studentService } from "../../../services/StudentService";
 
 const FeesRevive = () => {
   const { authToken } = useAuth();

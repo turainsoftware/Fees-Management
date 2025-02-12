@@ -16,12 +16,12 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import {
-  AuthHome,
   BatchCreate,
   BatchList,
   ClassList,
   Dashboard,
   Fees,
+  FeesHome,
   FeesListPage,
   FeesRevive,
   Login,
@@ -35,7 +35,6 @@ import {
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import ProtectedRoute from "./Auth/ProtectedRoute.jsx";
 import AuthHomeOrRedirect from "./Auth/AuthHomeOrRedirect.jsx";
-import FeesHome from "./pages/Main/FeesHome.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 
 const router = createBrowserRouter(

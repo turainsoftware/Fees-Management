@@ -1,6 +1,6 @@
 import React from "react";
-import FeesNav from "../../components/Navbar/FeesNav";
-import { FeesList, SecondaryNavbar } from "../../components";
+import FeesNav from "../../../components/Navbar/FeesNav";
+import { FeesList, SecondaryNavbar } from "../../../components";
 
 const FeesHome = () => {
   return (

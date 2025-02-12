@@ -1,5 +1,5 @@
 import React from "react";
-import { FeesList, SecondaryNavbar } from "../../components";
+import { FeesList, SecondaryNavbar } from "../../../components";
 
 const FeesListPage = () => {
   return (

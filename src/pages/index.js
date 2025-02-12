@@ -13,8 +13,9 @@ import BatchList from "./Main/BatchList";
 import ClassList from "./Main/ClassList";
 import BatchCreate from "./Main/BatchCreate";
 import Fees from "./Main/Fees";
-import FeesRevive from "./Main/FeesRevive";
-import FeesListPage from "./Main/FeesListPage";
+import FeesRevive from "./Main/FeesPages/FeesRevive";
+import FeesListPage from "./Main/FeesPages/FeesListPage";
+import FeesHome from "./Main/FeesPages/FeesHome";
 
 // Common Pages
 import NotFound from "./Common/NotFound";
@@ -35,5 +36,6 @@ export {
   FeesRevive,
   Register,
   NotFound,
-  FeesListPage
+  FeesListPage,
+  FeesHome
 };
