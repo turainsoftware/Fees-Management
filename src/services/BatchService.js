@@ -76,6 +76,23 @@ class BatchService {
       return data;
     }
   }
+
+  async getAnalysis({ authToken }) {
+    const uri = `${this.baseUrl}/api/v1/batch/analysis`;
+    try {
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data=await response.data;
+      return data;
+      
+    } catch (error) {
+      const data = await error.response.error;
+      return data;
+    }
+  }
 }
 
 const batchService = new BatchService();
