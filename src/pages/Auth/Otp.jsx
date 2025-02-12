@@ -125,7 +125,7 @@ const Otp = () => {
                   <div id="otp" className="">
                     <div className="opt-area d-flex align-items-center justify-content-center otp-input-fields">
                       <input
-                        type="text"
+                        type="number"
                         id="txt_otp1"
                         autoFocus
                         className="otp__digit otp__field__1 ms-0"
@@ -135,7 +135,7 @@ const Otp = () => {
                         onKeyDown={(e) => handleKeyDown(e, 0)}
                       />
                       <input
-                        type="text"
+                        type="number"
                         id="txt_otp2"
                         className="otp__digit otp__field__2"
                         maxLength="1"
@@ -144,7 +144,7 @@ const Otp = () => {
                         onKeyDown={(e) => handleKeyDown(e, 1)}
                       />
                       <input
-                        type="text"
+                        type="number"
                         id="txt_otp3"
                         className="otp__digit otp__field__3"
                         maxLength="1"
@@ -153,7 +153,7 @@ const Otp = () => {
                         onKeyDown={(e) => handleKeyDown(e, 2)}
                       />
                       <input
-                        type="text"
+                        type="number"
                         id="txt_otp4"
                         className="otp__digit otp__field__3"
                         maxLength="1"
@@ -162,7 +162,7 @@ const Otp = () => {
                         onKeyDown={(e) => handleKeyDown(e, 3)}
                       />
                       <input
-                        type="text"
+                        type="number"
                         id="txt_otp5"
                         className="otp__digit otp__field__4 me-0"
                         maxLength="1"
