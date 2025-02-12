@@ -48,7 +48,7 @@ const Dashboard = () => {
       />
 
       {/* OverviewHeader */}
-      <OverviewHeader/>
+      <OverviewHeader authToken={authToken}/>
 
       {/* Chart Section */}
       <ChartSection />

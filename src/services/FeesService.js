@@ -93,6 +93,22 @@ class FeesService {
       return data;
     }
   }
+
+  async feesAnalysis({ authToken }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/fees-history/analysis`;
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data=response.data;
+      return data;
+    } catch (error) {
+      const date = await error.response.data;
+      return data;
+    }
+  }
 }
 
 const feesService = new FeesService();

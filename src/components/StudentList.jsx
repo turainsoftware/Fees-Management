@@ -29,7 +29,6 @@ const StudentList = ({ headerText, isRecent = true }) => {
       });
       setStudents(data);
       setFilteredStudents(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {

@@ -20,7 +20,6 @@ const FeesList = ({ isLatest = true,pageNo,size }) => {
       const data = isLatest
         ? await feesService.latestFees({ authToken: authToken })
         : await feesService.feesHistory({ authToken: authToken });
-      console.log(data);
       setFeesDetails(data);
     } catch (error) {
       console.error(error);

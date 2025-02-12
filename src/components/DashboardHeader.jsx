@@ -124,11 +124,9 @@ const shimmerStyles = {
 
 const DashboardHeader = ({ avatar, name = "User", isLoading = false }) => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(avatar);
 
   const handleProfileDropdown = () => {
     setIsOpen((prev) => !prev);
-    console.log(isOpen);
   };
 
   return isLoading ? (
