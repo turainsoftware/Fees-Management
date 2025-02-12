@@ -75,11 +75,11 @@ const MobileNav = () => {
           </li>
           <li className="text-center">
             <NavLink
-              to={"menu"}
+              to={"batches"}
               className="d-flex align-items-center flex-column justify-content-around text-center position-relative"
             >
               <i className="ri-menu-line"></i>
-              <span>Menu</span>
+              <span>Batch</span>
               <img
                 src={
                   location.pathname.includes("menu")
