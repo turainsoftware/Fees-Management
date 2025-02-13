@@ -10,7 +10,7 @@ const StudentsNav = () => {
     <section className="student-nav my-3">
       <div className="container">
         <div className="row g-2">
-          <Link className="col-6" to={'/student-list'}>
+          <Link className="col-6" to={'/students/student-list'}>
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">Student’s List</h6>
               <img src={studentListIcon} alt="Student List" />
@@ -22,7 +22,7 @@ const StudentsNav = () => {
               <img src={batchListIcon} alt="Student List" />
             </div>
           </Link>
-          <Link className="col-6" to={"/new-student"}>
+          <Link className="col-6" to={"/students/new-student"}>
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">New Register</h6>
               <img src={newRegisterIcon} alt="Student List" />

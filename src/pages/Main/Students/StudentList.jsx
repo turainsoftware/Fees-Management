@@ -3,11 +3,11 @@ import {
   SecondaryNavbar,
   StudentsListNav,
   StudentListData,
-} from "../../components";
-import { useAuth } from "../../contexts/AuthContext";
-import { teacherService } from "../../services/TeacherService";
-import { ItemListShimmer } from "./../../Shimmers/index";
-import { studentService } from "../../services/StudentService";
+} from "../../../components";
+import { useAuth } from "../../../contexts/AuthContext";
+import { teacherService } from "../../../services/TeacherService";
+import { ItemListShimmer } from "../../../Shimmers/index";
+import { studentService } from "../../../services/StudentService";
 
 const StudentList = () => {
   // Auth Token

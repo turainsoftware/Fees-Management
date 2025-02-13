@@ -29,6 +29,7 @@ import {
   NotFound,
   Otp,
   Register,
+  StudentHome,
   StudentList,
   Students,
 } from "./pages/index.js";
@@ -49,17 +50,25 @@ const router = createBrowserRouter(
       {/* Protected Routes */}
       <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/students" element={<Students />} />
-        <Route path="/student-list" element={<StudentList />} />
-        <Route path="/new-student" element={<NewStudentRegister />} />
+        {/* Studennt Routes Start*/}
+        <Route path="/students" element={<Students />}>
+          <Route path="/students" element={<StudentHome />} />
+          <Route path="student-list" element={<StudentList />} />
+          <Route path="new-student" element={<NewStudentRegister />} />
+        </Route>
+        {/* Studennt Routes End*/}
+
         <Route path="/batch-list" element={<BatchList />} />
         <Route path="/class-list" element={<ClassList />} />
         <Route path="/create-batch" element={<BatchCreate />} />
+
+        {/* Fees Routes Start*/}
         <Route path="/fees" element={<Fees />}>
           <Route path="/fees" element={<FeesHome />} />
           <Route path="fees-recive" element={<FeesRevive />} />
           <Route path="fees-list" element={<FeesListPage />} />
         </Route>
+        {/* Fees Routes End*/}
       </Route>
 
       {/* For Not Found Page */}

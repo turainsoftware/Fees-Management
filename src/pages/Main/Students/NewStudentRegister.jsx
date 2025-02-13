@@ -1,5 +1,5 @@
 import React from "react";
-import { SecondaryNavbar, StudentRegisterForm } from "../../components";
+import { SecondaryNavbar, StudentRegisterForm } from "../../../components";
 
 const NewStudentRegister = () => {
   return (

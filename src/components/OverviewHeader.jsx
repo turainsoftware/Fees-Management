@@ -90,11 +90,9 @@ const OverviewHeader = ({ isLoading = false }) => {
                       feesData?.percentage >= 0 ? "green-color" : "red-color"
                     }
                     changeType={`${feesData?.trend} by`}
-                    changeValue={
-                      feesData.percentage >= 0
-                        ? `+${feesData.percentage}%`
-                        : `-${feesData.percentage}%`
-                    }
+                    changeValue={`${
+                      feesData.percentage >= 0 ? "+" : "-"
+                    }${new Number(feesData.percentage).toFixed(1)}%`}
                   />
                 )}
 

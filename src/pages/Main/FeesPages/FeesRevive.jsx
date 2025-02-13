@@ -14,7 +14,7 @@ import { teacherService } from "../../../services/TeacherService";
 import { studentService } from "../../../services/StudentService";
 
 const FeesRevive = () => {
-  const { authToken } = useAuth();
+  const { authToken, logout } = useAuth();
   const [selectedBatch, setSelectedBatch] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [feesDetails, setFeesDetails] = useState({});
@@ -201,6 +201,13 @@ const FeesRevive = () => {
           )}
         </>
       )}
+      <button
+        onClick={() => {
+          logout();
+        }}
+      >
+        Logout
+      </button>
     </main>
   );
 };
