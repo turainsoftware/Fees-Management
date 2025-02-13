@@ -35,6 +35,7 @@ const StudentRegisterForm = () => {
 
   // Database Validations
   const [isFieldsEnable, setIsFieldsEnable] = useState(true);
+  const [isValidBatch, setIsValidBatch] = useState(true);
 
   // Form Validations
 
@@ -241,7 +242,6 @@ const StudentRegisterForm = () => {
           authToken: authToken,
           mobile: contactNumber,
         });
-        console.log(userData);
         setStudentId(userData?.id);
         setStudentName(userData?.name);
         setGender(userData?.gender);
@@ -252,9 +252,9 @@ const StudentRegisterForm = () => {
         setState(userData?.state);
         setDistrict(userData?.district);
         setPincode(userData?.pinCode);
+        setSelectedClass(userData?.joiningClass);
         setIsFieldsEnable(false);
       } else {
-        console.log(data);
         setStudentName("");
         setGender("Male");
         setGuardianName("");
@@ -291,7 +291,6 @@ const StudentRegisterForm = () => {
   //Checking validation on when mobile will gonna be 10 digit
   useEffect(() => {
     if (contactNumber.length == 10 && isValidMobile(contactNumber)) {
-      console.log(contactNumber);
       studentDetails();
     }
   }, [contactNumber]);
@@ -339,6 +338,9 @@ const StudentRegisterForm = () => {
                   joiningYear={joiningYear}
                   setJoiningMonth={setJoiningMonth}
                   setJoininYear={setJoininYear}
+                  isFieldsEnable={isFieldsEnable}
+                  isValidBatch={isValidBatch}
+                  setIsValidBatch={setIsValidBatch}
                 />
 
                 {/* Address Fields */}
@@ -355,7 +357,7 @@ const StudentRegisterForm = () => {
                 />
 
                 <div className="mt-4 mb-2 text-center">
-                  <button onClick={handleSubmit} className="btn1" type="submit">
+                  <button disabled={!isValidBatch} onClick={handleSubmit} className="btn1" type="submit">
                     {isLoading
                       ? "Loading..."
                       : isFieldsEnable

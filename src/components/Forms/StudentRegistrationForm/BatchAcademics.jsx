@@ -14,6 +14,9 @@ const BatchAcademics = ({
   setJoininYear,
   joiningMonth,
   setJoiningMonth,
+  isFieldsEnable,
+  isValidBatch,
+  setIsValidBatch,
 }) => {
   const [batchInfo, setBatchInfo] = useState([]);
 
@@ -37,10 +40,17 @@ const BatchAcademics = ({
     const id = e.target.value;
     const batchSelected = batchInfo.find((item) => item.id === parseInt(id));
     setSelectedBatch(batchSelected);
-    setJoininYear((prev)=>{
-      return batchSelected?.startYear}
-    );
+    setJoininYear((prev) => {
+      return batchSelected?.startYear;
+    });
     console.log(batchSelected);
+    if (!isFieldsEnable) {
+      const classes = batchSelected?.classes;
+      const isValidB = classes.some((item) => item.id === selectedClass.id);
+      console.log(isValidB);
+      console.log(selectedClass);
+      setIsValidBatch(isValidB);
+    }
   };
 
   const handleClassChange = (e) => {
@@ -90,11 +100,26 @@ const BatchAcademics = ({
               id="joiningMonth"
               className="form-select shadow-none fs-14 fw-medium"
               onChange={handleClassChange}
+              disabled={!isFieldsEnable}
             >
-              <option value={{}} defaultValue={true} disabled selected>
-                Select Class
-              </option>
-              {selectedBatch?.classes
+              {!isFieldsEnable && (
+                <option
+                  value={selectedClass.id}
+                  defaultValue={true}
+                  disabled
+                  selected
+                >
+                  {selectedClass.name}
+                </option>
+              )}
+
+              {isFieldsEnable && (
+                <option value={{}} defaultValue={true} disabled selected>
+                  Select Class
+                </option>
+              )}
+
+              {isFieldsEnable && selectedBatch?.classes
                 ? selectedBatch?.classes.map((item, index) => (
                     <option key={index} value={item.id}>
                       {item.name}
@@ -102,6 +127,11 @@ const BatchAcademics = ({
                   ))
                 : null}
             </select>
+            {!isValidBatch && (
+              <span className="text-danger ps-2 pe-2 py-1 d-block mt-1 fs-14 fw-semibold" style={{ fontFamily: "'Poppins', sans-serif" }}>
+              The selected batch is not valid for the student.
+            </span>
+            )}
           </div>
           <div className="col-12">
             <div className="row">
