@@ -70,7 +70,7 @@ const BatchAcademics = ({
               id=""
               className="form-select shadow-none fs-14 fw-medium"
             >
-              <option value={{}} defaultValue={true}>
+              <option value={{}} defaultValue={true} disabled selected>
                 Select Batch
               </option>
               {batchInfo.map((item, index) => {
@@ -91,7 +91,7 @@ const BatchAcademics = ({
               className="form-select shadow-none fs-14 fw-medium"
               onChange={handleClassChange}
             >
-              <option value={{}} defaultValue={true}>
+              <option value={{}} defaultValue={true} disabled selected>
                 Select Class
               </option>
               {selectedBatch?.classes
