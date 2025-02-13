@@ -3,7 +3,12 @@ import { feesService } from "../services/FeesService";
 import { useAuth } from "../contexts/AuthContext";
 import { ItemListShimmer } from "../Shimmers";
 import Empty from "./../assets/images/empty.svg";
-import { checkIfBefore, formatDate, formatYearMonth } from "../utils/Common";
+import {
+  checkIfBefore,
+  formatDate,
+  formatYearMonth,
+  isAdvanceDate,
+} from "../utils/Common";
 import { toast } from "react-toastify";
 
 const FeesPayment = ({
@@ -90,6 +95,7 @@ const FeesPayment = ({
                 const isPaid = paidFees.some(
                   (fee) => fee.month === item.month && fee.year === item.year
                 );
+
                 const feeDetails = paidFees.find(
                   (fee) => fee.month === item.month && fee.year === item.year
                 );
@@ -101,6 +107,16 @@ const FeesPayment = ({
                     month: item.month,
                     year: item.year,
                   }) && !isPaid;
+
+                const isAdv =
+                  isPaid &&
+                  isAdvanceDate({
+                    month: item.month,
+                    year: item.year,
+                    paymentDate: paymentDate,
+                  });
+                console.log(isAdv);
+                console.log(item);
 
                 return (
                   <li
@@ -120,6 +136,7 @@ const FeesPayment = ({
                         </p>
                       )}
                       {isDue && <span class="badge text-bg-danger">Due</span>}
+                      {isAdv && <span class="badge bg-success">Prepaid</span>}
                     </div>
                     <div className="d-flex align-items-center">
                       <span className="me-3 fw-bold">₹ {monthlyFees}</span>

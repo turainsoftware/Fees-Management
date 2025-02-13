@@ -1,77 +1,83 @@
 import React from "react";
-import { formatYearMonth } from "../utils/Common"; // Assuming this is still needed
+import { FaWallet } from "react-icons/fa";
+import { CiCalendarDate } from "react-icons/ci";
+import { FaMoneyBillWave, FaCheckCircle, FaUserPlus } from "react-icons/fa"; // More icons
 
 const StudentPaymentSummary = ({
-  name,
-  batchName,
   monthlyFees,
-  yearlyFees,
   totalDue,
   totalPaid,
   joiningDate,
-  endDate,
 }) => {
-  console.log(monthlyFees)
   return (
-    <div className="container mt-4">  {/* General Container for Spacing */}
-      <div className="card shadow-sm"> {/* Added shadow for depth */}
-        <div className="card-header bg-primary text-white py-3"> {/* Improved Header */}
-          <h5 className="card-title mb-0 fw-bold">Payment Summary</h5> {/* Make the title stand out */}
+    <div className="container mt-4">
+      <div
+        className="card shadow-lg border-0"
+        style={{ backgroundColor: "#D0EFFF" }}
+      >
+        {" "}
+        <div className="card-body p-4">
+          <h5 className="card-title mb-4 text-center" style={{ color: "#333" }}>
+            <FaWallet size={25} color="#28a745" className="me-2"/> Payment Summary
+          </h5>
+          <div className="row g-3">
+            {" "}
+            {/* Grid with gap for spacing */}
+            {/* Monthly Fees */}
+            <div className="col-md-6">
+              <div
+                className="d-flex justify-content-between align-items-center p-3 rounded shadow-sm"
+                style={{ backgroundColor: "#fff" }}
+              >
+                <span className="text-muted d-flex align-items-center">
+                  <CiCalendarDate size={24} color="#007bff" className="me-2"/>
+                  Monthly Fees
+                </span>
+                <span className="text-success fw-semibold">
+                  ₹ {monthlyFees}
+                </span>
+              </div>
+            </div>
+            {/* Total Due */}
+            <div className="col-md-6">
+              <div
+                className="d-flex justify-content-between align-items-center p-3 rounded shadow-sm"
+                style={{ backgroundColor: "#fff" }}
+              >
+                <span className="text-muted d-flex align-items-center">
+                  <FaMoneyBillWave size={24} color="#dc3545" className="me-2"/> Total Due
+                </span>
+                <span className="text-danger fw-semibold"> {totalDue===0?"Fully Paid":`₹${totalDue}`}</span>
+              </div>
+            </div>
+            {/* Total Paid */}
+            <div className="col-md-6">
+              <div
+                className="d-flex justify-content-between align-items-center p-3 rounded shadow-sm"
+                style={{ backgroundColor: "#fff" }}
+              >
+                <span className="text-muted d-flex align-items-center">
+                  <FaCheckCircle size={24} color="#28a745" className="me-2"/> Total Paid
+                </span>
+                <span className="text-primary fw-semibold">₹ {totalPaid}</span>
+              </div>
+            </div>
+            {/* Joining Date */}
+            <div className="col-md-6">
+              <div
+                className="d-flex justify-content-between align-items-center p-3 rounded shadow-sm"
+                style={{ backgroundColor: "#fff" }}
+              >
+                <span className="text-muted d-flex align-items-center">
+                  <FaUserPlus size={24} color="#6c757d" className="me-2"/> Joining Date
+                </span>
+                <span className="fw-semibold">{joiningDate}</span>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div className="card-body p-0"> {/* Card body for content spacing */}
-          <div className="list-group list-group-flush"> {/* Using list-group for cleaner structure */}
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">Student Name</span>
-              <span className="fw-semibold">{name}</span>
-            </div>
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">Batch Name</span>
-              <span className="fw-semibold">{batchName}</span>
-            </div>
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">Monthly Fees</span>
-              <span className="text-success fw-semibold">₹ {monthlyFees}</span>
-            </div>
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">Total Fees</span>
-              <span className="text-success fw-semibold">₹ {yearlyFees}</span>
-            </div>
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">Total Due</span>
-              <span className="text-danger fw-semibold">₹ {totalDue}</span>
-            </div>
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">Total Paid</span>
-              <span className="text-primary fw-semibold">₹ {totalPaid}</span>
-            </div>
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">Join Date</span>
-              <span className="fw-semibold">{joiningDate}</span>
-            </div>
-
-            <div className="list-group-item d-flex justify-content-between align-items-center px-3 py-3">
-              <span className="text-muted fw-medium">End Date</span>
-              <span className="fw-semibold">{endDate}</span>
-            </div>
-
-          </div> {/* End list-group */}
-        </div> {/* End card-body */}
-
-        <div className="card-footer text-center bg-light py-3"> {/* Footer for button */}
-          <button className="btn btn-primary" type="button"> {/* Use primary button style */}
-            Search
-          </button>
-        </div>
-      </div> {/* End Card */}
-    </div>  //End Container
+      </div>
+    </div>
   );
 };
 

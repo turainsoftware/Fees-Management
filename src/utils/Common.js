@@ -53,4 +53,16 @@ const checkIfBefore = ({ year, month }) => {
   }
 };
 
-export { getGreetingBasedOnTime, formatYearMonth, formatDate, checkIfBefore };
+function isAdvanceDate({ year, month, paymentDate }) {
+  const checkDate = new Date(year, month - 1, 1);
+  const payment = new Date(paymentDate);
+  return checkDate > payment;
+}
+
+export {
+  getGreetingBasedOnTime,
+  formatYearMonth,
+  formatDate,
+  checkIfBefore,
+  isAdvanceDate,
+};
