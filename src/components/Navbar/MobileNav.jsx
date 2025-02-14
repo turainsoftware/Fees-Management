@@ -75,7 +75,28 @@ const MobileNav = () => {
           </li>
           <li className="text-center">
             <NavLink
-              to={"batches"}
+              to={"batch"}
+              className="d-flex align-items-center flex-column justify-content-around text-center position-relative"
+            >
+              <i className="ri-menu-line"></i>
+              <span>Batch</span>
+              <img
+                src={
+                  location.pathname.includes("batch")
+                    ? menuActive
+                    : menuNotActive
+                }
+                alt={
+                  location.pathname.includes("batch")
+                    ? "Active Menu"
+                    : "Not Active Menu"
+                }
+              />
+            </NavLink>
+          </li>
+          {/* <li className="text-center">
+            <NavLink
+              to={"batch"}
               className="d-flex align-items-center flex-column justify-content-around text-center position-relative"
             >
               <i className="ri-menu-line"></i>
@@ -93,7 +114,7 @@ const MobileNav = () => {
                 }
               />
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

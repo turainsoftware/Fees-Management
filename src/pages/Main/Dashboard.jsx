@@ -59,8 +59,7 @@ const Dashboard = () => {
 
       {/* FeesList */}
       <FeesList pageNo={0} size={10} />
-      <Logout/>
-    </main>
+   </main>
   );
 };
 

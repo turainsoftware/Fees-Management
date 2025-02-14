@@ -7,6 +7,7 @@ import { teacherService } from "./../../services/TeacherService";
 import { toast } from "react-toastify";
 import { batchService } from "../../services/BatchService";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const dayOptions = [
   { value: "Monday", label: "Monday" },
@@ -20,6 +21,7 @@ const dayOptions = [
 
 const CreateBatchForm = () => {
   const { authToken } = useAuth();
+  const navigate = useNavigate();
 
   //State variables
   const [boards, setBoards] = useState([]);
@@ -123,6 +125,8 @@ const CreateBatchForm = () => {
           title: data?.message || "Success",
           text: "Operation completed successfully",
           icon: "success",
+        }).then((result) => {
+          navigate("/batch", { replace: true });
         });
       } else {
         Swal.fire({

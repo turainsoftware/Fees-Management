@@ -1,5 +1,5 @@
 import React from 'react'
-import {CreateBatchForm, SecondaryNavbar} from './../../components/index'
+import {CreateBatchForm, SecondaryNavbar} from '../../../components/index'
 
 const BatchCreate = () => {
   return (

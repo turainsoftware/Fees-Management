@@ -10,7 +10,7 @@ import StudentList from "./Main/Students/StudentList";
 import NewStudentRegister from "./Main/Students/NewStudentRegister";
 import BatchList from "./Main/BatchList";
 import ClassList from "./Main/ClassList";
-import BatchCreate from "./Main/BatchCreate";
+import BatchCreate from "./Main/Batch/BatchCreate";
 import Fees from "./Main/Fees";
 import FeesRevive from "./Main/FeesPages/FeesRevive";
 import FeesListPage from "./Main/FeesPages/FeesListPage";
@@ -20,11 +20,16 @@ import FeesHome from "./Main/FeesPages/FeesHome";
 import Students from "./Main/Students";
 import StudentHome from "./Main/Students/StudentHome";
 
+// Batch Related
+import BatchHome from "./Main/Batch/BatchHome";
+
 // Common Pages
 import NotFound from "./Common/NotFound";
 
+
 //Export
 export {
+  BatchHome,
   StudentHome,
   AuthHome,
   Login,

@@ -10,13 +10,13 @@ const StudentsNav = () => {
     <section className="student-nav my-3">
       <div className="container">
         <div className="row g-2">
-          <Link className="col-6" to={'/students/student-list'}>
+          <Link className="col-6" to={"/students/student-list"}>
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">Student’s List</h6>
               <img src={studentListIcon} alt="Student List" />
             </div>
           </Link>
-          <Link to={"/batch-list"} className="col-6" >
+          <Link to={"/batch"} className="col-6">
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">Batch List</h6>
               <img src={batchListIcon} alt="Student List" />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   RiEditLine,
   RiUserLine,
@@ -18,6 +18,7 @@ import Logout from "../Buttons/Logout";
 import { ConfigProvider, Image } from "antd";
 
 const ModelProfile = ({ name, mobile, profilePic }) => {
+  
   return (
     <div
       className="offcanvas offcanvas-start profile"

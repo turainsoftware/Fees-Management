@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ItemList = ({ data = [] }) => {
+  console.log(data)
   return (
     <section className="student-nav my-3">
       <div className="container px-0">

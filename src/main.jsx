@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 import {
   BatchCreate,
+  BatchHome,
   BatchList,
   ClassList,
   Dashboard,
@@ -56,9 +57,14 @@ const router = createBrowserRouter(
         </Route>
         {/* Studennt Routes End*/}
 
-        <Route path="/batch-list" element={<BatchList />} />
+        <Route path="/batch" element={<BatchList />} >
+          <Route path="/batch" element={<BatchHome/>}/>
+          <Route path="create-batch" element={<BatchCreate />} />
+
+        </Route>
+
+
         <Route path="/class-list" element={<ClassList />} />
-        <Route path="/create-batch" element={<BatchCreate />} />
 
         {/* Fees Routes Start*/}
         <Route path="/fees" element={<Fees />}>

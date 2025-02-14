@@ -210,7 +210,11 @@ const DashboardHeader = ({
       </div>
       {/* Model Notification */}
       <ModelNotification />
-      <ModelProfile mobile={userData?.phone} profilePic={userData?.profilePic} name={userData?.name} />
+      <ModelProfile
+        mobile={userData?.phone}
+        profilePic={userData?.profilePic}
+        name={userData?.name}
+      />
     </section>
   );
 };
