@@ -36,8 +36,15 @@ import CommonLoader from "./Loaders/CommonLoader";
 import ProfileCard from "./Cards/ProfileCard";
 import DetailsCard from "./Cards/DetailsCard";
 
+// Modals
+import ModelProfile from "./Modals/ModelProfile";
+
 // Common
 import ScrollToTop from "./ScrollToTop";
+
+
+// Buttons
+import Logout from "./Buttons/Logout";
 
 export {
   DashboardHeader,
@@ -61,5 +68,7 @@ export {
   StudentPaymentSummary,
   FeesPayment,
   CommonLoader,
-  ScrollToTop
+  ScrollToTop,
+  ModelProfile,
+  Logout
 };

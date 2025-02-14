@@ -6,7 +6,7 @@ import Avatar from "./../assets/images/profile/avatar.jpg";
 // Components
 import ModelNotification from "./Notifications/ModelNotification";
 import { getGreetingBasedOnTime } from "../utils/Common";
-import ProfileCard from "./Cards/ProfileCard";
+import ModelProfile from "./Modals/ModelProfile";
 
 const shimmerStyles = {
   shimmerWrapper: {
@@ -122,13 +122,13 @@ const shimmerStyles = {
   },
 };
 
-const DashboardHeader = ({ avatar, name = "User", isLoading = false }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleProfileDropdown = () => {
-    setIsOpen((prev) => !prev);
-  };
-
+const DashboardHeader = ({
+  avatar,
+  name = "User",
+  isLoading = false,
+  userData = {},
+}) => {
+  console.log(userData);
   return isLoading ? (
     <section
       style={shimmerStyles.shimmerWrapper}
@@ -176,7 +176,9 @@ const DashboardHeader = ({ avatar, name = "User", isLoading = false }) => {
           <div className="col-auto">
             <div className="small-logo d-flex align-items-center justify-content-center border-orange rounded-circle bg-white overflow-hidden">
               <img
-                onClick={handleProfileDropdown}
+                data-bs-toggle="offcanvas"
+                data-bs-target="#profile"
+                aria-controls="profile"
                 style={{ cursor: "pointer" }}
                 src={import.meta.env.VITE_PROFILEURL + avatar}
                 height="40px"
@@ -208,6 +210,7 @@ const DashboardHeader = ({ avatar, name = "User", isLoading = false }) => {
       </div>
       {/* Model Notification */}
       <ModelNotification />
+      <ModelProfile mobile={userData?.phone} profilePic={userData?.profilePic} name={userData?.name} />
     </section>
   );
 };

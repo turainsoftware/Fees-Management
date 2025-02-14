@@ -3,6 +3,7 @@ import {
   ChartSection,
   DashboardHeader,
   FeesList,
+  Logout,
   ModelNotification,
   OverviewHeader,
   StudentList,
@@ -13,7 +14,7 @@ import { RiLogoutCircleRFill } from "@remixicon/react";
 
 const Dashboard = () => {
   const authToken = localStorage.getItem("authToken");
-  const {logout} = useAuth();
+  const { logout } = useAuth();
   const [userData, setUserData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,14 +22,13 @@ const Dashboard = () => {
     setIsLoading(true);
     try {
       const data = await teacherService.profile({ authToken: authToken });
-      if(!data){
+      if (!data) {
         logout();
         return;
       }
       setUserData(data);
     } catch (error) {
       console.log(error);
-      
     } finally {
       setIsLoading(false);
     }
@@ -45,10 +45,11 @@ const Dashboard = () => {
         avatar={userData?.profilePic}
         name={userData?.name}
         isLoading={isLoading}
+        userData={userData}
       />
 
       {/* OverviewHeader */}
-      <OverviewHeader authToken={authToken}/>
+      <OverviewHeader authToken={authToken} />
 
       {/* Chart Section */}
       <ChartSection />
@@ -57,8 +58,8 @@ const Dashboard = () => {
       <StudentList headerText={"Students List"} isRecent={false} />
 
       {/* FeesList */}
-      <FeesList pageNo={0} size={10}/>
-
+      <FeesList pageNo={0} size={10} />
+      <Logout/>
     </main>
   );
 };

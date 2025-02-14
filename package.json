@@ -13,6 +13,7 @@
   "dependencies": {
     "@remixicon/react": "^4.6.0",
     "ag-charts-react": "^11.0.3",
+    "antd": "^5.24.0",
     "apexcharts": "^4.3.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",

@@ -36,8 +36,6 @@ import {
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import ProtectedRoute from "./Auth/ProtectedRoute.jsx";
 import AuthHomeOrRedirect from "./Auth/AuthHomeOrRedirect.jsx";
-import ScrollToTop from "./components/ScrollToTop.jsx";
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
@@ -80,7 +78,7 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <StrictMode>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </StrictMode>
   </AuthProvider>
 );
