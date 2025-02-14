@@ -10,7 +10,7 @@ const ProtectedRoute = () => {
     return <GlobalLoader />;
   }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default ProtectedRoute;
