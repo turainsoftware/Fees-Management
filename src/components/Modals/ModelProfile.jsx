@@ -15,6 +15,7 @@ import {
 } from "react-icons/ri";
 import avatar from "./../../assets/images/profile/avatar.jpg";
 import Logout from "../Buttons/Logout";
+import { ConfigProvider, Image } from "antd";
 
 const ModelProfile = ({ name, mobile, profilePic }) => {
   return (
@@ -48,13 +49,26 @@ const ModelProfile = ({ name, mobile, profilePic }) => {
       <div className="offcanvas-body pt-3 px-0">
         {/* Profile Image and Name */}
         <div className="d-flex flex-column align-items-center border-bottom py-4 px-3">
-          <img
-            src={import.meta.env.VITE_PROFILEURL + profilePic}
-            height="80px"
-            width="80px"
-            className="rounded-circle mb-3 border border-3 border-primary"
-            alt="Profile Image"
-          />
+          <ConfigProvider
+            theme={{
+              token: {
+                zIndexPopupBase: 2000, // Set a high base z-index for popups
+              },
+            }}
+          >
+            <Image
+              src={import.meta.env.VITE_PROFILEURL + profilePic}
+              height="80px"
+              width="80px"
+              preview={{
+                maskStyle: {
+                  backgroundColor: "rgba(173, 216, 230, 0.5)", // Light blue with transparency
+                },
+              }}
+              className="rounded-circle mb-3 border border-3 border-primary custom-rounded-image "
+              alt="Profile Image"
+            />
+          </ConfigProvider>
           <h6 className="mb-1 fs-16 fw-semibold text-dark">{name}</h6>
           <p className="mb-0 fs-12 text-muted">+91 {mobile}</p>
         </div>
@@ -82,7 +96,7 @@ const ModelProfile = ({ name, mobile, profilePic }) => {
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
           >
             <RiBookLine className="me-2 fs-18 text-info" /> {/* Courses Icon */}
-            <span>My Courses</span>
+            <span>My Batches</span>
           </a>
           <a
             href="#"
@@ -128,8 +142,11 @@ const ModelProfile = ({ name, mobile, profilePic }) => {
           <RiLogoutBoxLine className="fs-16 me-2" />
           Logout
         </a> */}
-        <Logout/>
-        <a href="#" className="btn btn-primary btn-sm d-flex align-items-center">
+        <Logout />
+        <a
+          href="#"
+          className="btn btn-primary btn-sm d-flex align-items-center"
+        >
           <RiEditLine className="fs-16 me-2" /> {/* Edit Icon */}
           Edit Profile
         </a>

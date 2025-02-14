@@ -136,7 +136,11 @@ const FeesPayment = ({
                         </p>
                       )}
                       {isDue && <span class="badge text-bg-danger">Due</span>}
-                      {isAdv && <span class="badge bg-success">Prepaid</span>}
+                      {isAdv ? (
+                        <span class="badge bg-info">Prepaid</span>
+                      ) : (
+                        isPaid && <span class="badge bg-warning">BelatedPayment</span>
+                      )}
                     </div>
                     <div className="d-flex align-items-center">
                       <span className="me-3 fw-bold">₹ {monthlyFees}</span>

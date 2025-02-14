@@ -1,3 +1,8 @@
+
+.custom-rounded-image .ant-image-mask {
+  border-radius: 50% !important;
+}
+
 .col-12 {
   position: relative;
 }
