@@ -42,7 +42,7 @@ const BatchHome = () => {
       />
       {/* {isLoading ? <ItemListShimmer /> : <ItemList data={batches} />} */}
 
-      <div className="d-flex mt-3 flex-column align-items-center justify-content-center min-vh-100">
+      <div className="d-flex mt-3 flex-column align-items-center min-vh-100">
         <div className="container pb-100">
           <div className="row">
             {isLoading
