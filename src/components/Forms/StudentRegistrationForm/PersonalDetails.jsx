@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import profileAvatar from "./../../../assets/images/profile/avatar.jpg";
 import cameraIcon from "./../../../assets/images/camera-line.svg"; // Uncommented
-import { isValidMobile } from "../../../utils/Validations"; // Import validation function
+import { isValidMobile, isValidName,checkOnChangeMobile } from "../../../utils/Validations"; // Import validation function
 
 const PersonalDetails = ({
   studentName,
@@ -20,7 +20,7 @@ const PersonalDetails = ({
   setJoiningMonth,
   profileImage,
   setProfileImage,
-  isFieldEnable=true
+  isFieldEnable = true,
 }) => {
   const [contactNumberError, setContactNumberError] = useState(""); // State for mobile validation error
   const [guardianNumberError, setGuardianNumberError] = useState(""); // State for guardian mobile validation error
@@ -98,10 +98,11 @@ const PersonalDetails = ({
               onChange={(e) => {
                 const value = e.target.value;
                 // Allow only digits and limit to 10 characters
-                if (/^\d*$/.test(value) && value.length <= 10) {
+                if (checkOnChangeMobile(value) && value.length <= 10) {
                   setContactNumber(value);
                   validateContactNumber(value);
                 }
+                
               }}
               maxLength={10}
             />
@@ -118,7 +119,12 @@ const PersonalDetails = ({
               id="studentName"
               className="form-control shadow-none fs-14 fw-medium"
               value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (isValidName(val)) {
+                  setStudentName(val);
+                }
+              }}
               disabled={!isFieldEnable}
             />
           </div>
@@ -148,7 +154,12 @@ const PersonalDetails = ({
               id="guardianName"
               className="form-control shadow-none fs-14 fw-medium"
               value={guardianName}
-              onChange={(e) => setGuardianName(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (isValidName(val)) {
+                  setGuardianName(e.target.value);
+                }
+              }}
               disabled={!isFieldEnable}
             />
           </div>
@@ -165,7 +176,7 @@ const PersonalDetails = ({
               value={guardianNumber}
               onChange={(e) => {
                 const value = e.target.value;
-                if (/^\d*$/.test(value) && value.length <= 10) {
+                if (checkOnChangeMobile(value) && value.length <= 10) {
                   setGuardianNumber(value);
                   validateGuardianNumber(value);
                 }
