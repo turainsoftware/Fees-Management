@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 // Images
 import avatarImg from "./../../assets/images/profile/avatar.jpg";
-import { isValidMobile } from "../../utils/Validations";
+import { isValidMobile, isValidName } from "../../utils/Validations";
 import { toast } from "react-toastify";
 import { authService } from "../../services/AuthService";
 import { useNavigate } from "react-router-dom";
@@ -98,7 +98,7 @@ const TeacherRagistrationForm = ({
       toast.error("Profile picture is required!");
       return false;
     }
-    if (!name.trim()) {
+    if (!name.trim() || (name.length > 2 && name.length <= 50)) {
       toast.error("Name is required!");
       return false;
     }
@@ -171,13 +171,13 @@ const TeacherRagistrationForm = ({
         });
       }
     } catch (error) {
-       console.error("An error occurred during signup:", error);
-       Swal.fire({
-         title: "Error",
-         text: "An error occurred during signup. Please try again.",
-         icon: "error",
-       });
-     } finally {
+      console.error("An error occurred during signup:", error);
+      Swal.fire({
+        title: "Error",
+        text: "An error occurred during signup. Please try again.",
+        icon: "error",
+      });
+    } finally {
       setLoading(false); // Ensure loading is turned off after API call
     }
   };
@@ -237,7 +237,12 @@ const TeacherRagistrationForm = ({
                         className="form-control shadow-none fs-14 fw-medium"
                         placeholder=""
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (isValidName(val)) {
+                            setName(e.target.value);
+                          }
+                        }}
                       />
                     </div>
                     <div className="col-12">
@@ -250,8 +255,15 @@ const TeacherRagistrationForm = ({
                         placeholder=""
                         value={mobile}
                         onChange={(e) => {
-                          if (e.target.value.length <= 10) {
-                            setMobile(e.target.value);
+                          const val = e.target.value;
+                          const numRegex = /^\d*$/;
+                          if (
+                            val.length <= 10 &&
+                            numRegex.test(val) &&
+                            (val.length===0 || val[0] >= 5 &&
+                            val[0] <= 9)
+                          ) {
+                            setMobile(val);
                           }
                         }}
                       />
