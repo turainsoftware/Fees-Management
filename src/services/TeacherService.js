@@ -5,7 +5,7 @@ class TeacherService {
     this.baseUrl = import.meta.env.VITE_BASEURL;
   }
 
-  // Teacher's Profile Data
+  // Teacher's Profile
   async profile({ authToken }) {
     const uri = `${this.baseUrl}/api/v1/teacher/profile`;
     try {
@@ -22,6 +22,7 @@ class TeacherService {
     }
   }
 
+  // Batches of Teahcers
   async batches({ authToken }) {
     const uri = `${this.baseUrl}/api/v1/teacher/batches`;
     try {
@@ -38,7 +39,8 @@ class TeacherService {
     }
   }
 
-  async students({ authToken,isRecent=false }) {
+  // Students of Teachers
+  async students({ authToken, isRecent = false }) {
     const uri = `${this.baseUrl}/api/v1/student/students?isRecent=${isRecent}`;
     try {
       const response = await axios.get(uri, {
@@ -46,6 +48,18 @@ class TeacherService {
           Authorization: `Bearer ${authToken}`,
         },
       });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async isTeacherExist({ mobile }) {
+    const uri = `${this.baseUrl}/api/v1/teacher/check-by-mobile?mobile=${mobile}`;
+    try {
+      const response = await axios.get(uri);
       const data = await response.data;
       return data;
     } catch (error) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Images
@@ -6,6 +6,7 @@ import Logo from "./../../assets/images/logo.svg";
 import loginImg from "./../../assets/images/login.webp";
 import { authService } from "../../services/AuthService";
 import Swal from "sweetalert2";
+import { teacherService } from "./../../services/TeacherService";
 
 const Login = () => {
   // Hooks
@@ -16,6 +17,8 @@ const Login = () => {
 
   // Error State Variables
   const [error, setError] = useState({ status: false, msg: "" });
+
+  const [isTeacherExist, setIsTeacherExist] = useState(true);
 
   // Functions
   const mobileNumberValidator = (number) => {
@@ -42,7 +45,11 @@ const Login = () => {
   const handleMobilenchange = (e) => {
     let value = e.target.value;
     const numRegex = /^\d*$/;
-    if (value.length <= 10 && numRegex.test(value) && (value.length===0 || (value[0]>=6 && value[0]<=9))) {
+    if (
+      value.length <= 10 &&
+      numRegex.test(value) &&
+      (value.length === 0 || (value[0] >= 6 && value[0] <= 9))
+    ) {
       setMobile(value);
       mobileNumberValidator(value);
     }
@@ -67,9 +74,29 @@ const Login = () => {
     }
   };
 
+  const checkIsMobileExist = async () => {
+    try {
+      const data = await teacherService.isTeacherExist({ mobile: mobile });
+      if (!data) {
+        console.log("yes not registered");
+        setIsTeacherExist(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (mobile.length === 10) {
+      checkIsMobileExist();
+    } else {
+      setIsTeacherExist(true);
+    }
+  }, [mobile]);
+
   return (
     <>
-      <main className="wrapper home-wrapper bg-white">
+      <main className="wrapper home-wrapper">
         {/* Login or Register  */}
 
         <section className="py-5 login h-100 justify-content-center d-flex">
@@ -95,17 +122,32 @@ const Login = () => {
                       className={`form-control shadow-none bg-white ${
                         error.status ? "border-danger" : ""
                       }`}
-                      placeholder=""
+                      placeholder="Enter Mobile Number"
                       autoComplete="off"
                       autoFocus
                     />
-                    <label>Phone number</label>
+                    {!isTeacherExist && (
+                      <span
+                        className="text-danger ps-2 pe-2 d-block mt-1 fs-14 fw-semibold"
+                        style={{ fontFamily: "'Poppins', sans-serif" }}
+                      >
+                        Number not registered! Go for{" "}
+                        <Link to={"/login"}>
+                          <span className="text-primary">Register?</span>
+                        </Link>
+                      </span>
+                    )}
+                    {/* <label>Phone number</label> */}
                     {error.status && (
                       <div className="text-danger fs-12 mt-1">{error.msg}</div>
                     )}
                   </div>
                 </div>
-                <button onClick={handleSubmit} className="btn1 w-100">
+                <button
+                  disabled={!isTeacherExist}
+                  onClick={handleSubmit}
+                  className="btn1 w-100"
+                >
                   Login
                 </button>
               </div>

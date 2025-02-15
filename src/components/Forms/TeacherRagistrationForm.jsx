@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import Swal from "sweetalert2";
 
@@ -7,7 +7,8 @@ import avatarImg from "./../../assets/images/profile/avatar.jpg";
 import { isValidMobile, isValidName } from "../../utils/Validations";
 import { toast } from "react-toastify";
 import { authService } from "../../services/AuthService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { teacherService } from "../../services/TeacherService";
 
 const TeacherRagistrationForm = ({
   language = [],
@@ -49,6 +50,9 @@ const TeacherRagistrationForm = ({
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState([]);
   const [selectedClass, setSelectedClass] = useState([]);
+
+  // Error Variables
+  const [isTeacherExist, setIsTeacherExist] = useState(false);
 
   const handleLanguageChange = (selectedOptions) => {
     const setOptions = selectedOptions.map((item) => ({
@@ -98,7 +102,7 @@ const TeacherRagistrationForm = ({
       toast.error("Profile picture is required!");
       return false;
     }
-    if (!name.trim() || (name.length > 2 && name.length <= 50)) {
+    if (!name.trim() && name.length > 2 && name.length <= 50) {
       toast.error("Name is required!");
       return false;
     }
@@ -194,6 +198,27 @@ const TeacherRagistrationForm = ({
     setSelectedSubjects([]);
   };
 
+  const checkIsTeacherExist = async () => {
+    try {
+      const data = await teacherService.isTeacherExist({ mobile: mobile });
+      console.log(data);
+      if (data) {
+        setIsTeacherExist(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (mobile.length === 10) {
+      checkIsTeacherExist();
+    } else {
+      console.log("No");
+      setIsTeacherExist(false);
+    }
+  }, [mobile]);
+
   return (
     <section className="student-register mb-3 mt-80 pb-100">
       <div className="container">
@@ -230,6 +255,39 @@ const TeacherRagistrationForm = ({
                   <div className="row g-3">
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
+                        Mobile Number<span className="red-color">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        className={`form-control shadow-none fs-14 fw-medium`}
+                        placeholder=""
+                        value={mobile}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          const numRegex = /^\d*$/;
+                          if (
+                            val.length <= 10 &&
+                            numRegex.test(val) &&
+                            (val.length === 0 || (val[0] >= 5 && val[0] <= 9))
+                          ) {
+                            setMobile(val);
+                          }
+                        }}
+                      />
+                      {isTeacherExist && (
+                        <span
+                          className="text-danger ps-2 pe-2 d-block mt-1 fs-14 fw-semibold"
+                          style={{ fontFamily: "'Poppins', sans-serif" }}
+                        >
+                          Teacher already exist! Go for{" "}
+                          <Link to={"/login"}>
+                            <span className="text-primary">Login?</span>
+                          </Link>
+                        </span>
+                      )}
+                    </div>
+                    <div className="col-12">
+                      <label htmlFor="" className="fs-13 mb-2 fw-medium">
                         Teacher Name
                       </label>
                       <input
@@ -245,29 +303,7 @@ const TeacherRagistrationForm = ({
                         }}
                       />
                     </div>
-                    <div className="col-12">
-                      <label htmlFor="" className="fs-13 mb-2 fw-medium">
-                        Contact Number<span className="red-color">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control shadow-none fs-14 fw-medium"
-                        placeholder=""
-                        value={mobile}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const numRegex = /^\d*$/;
-                          if (
-                            val.length <= 10 &&
-                            numRegex.test(val) &&
-                            (val.length===0 || val[0] >= 5 &&
-                            val[0] <= 9)
-                          ) {
-                            setMobile(val);
-                          }
-                        }}
-                      />
-                    </div>
+
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
                         Gender<span className="red-color">*</span>
@@ -327,7 +363,11 @@ const TeacherRagistrationForm = ({
                   </div>
                 </div>
                 <div className="mt-4 mb-2 text-center">
-                  <button disabled={loading} className="btn1" type="submit">
+                  <button
+                    disabled={loading || isTeacherExist}
+                    className="btn1"
+                    type="submit"
+                  >
                     {loading ? (
                       <div class="spinner-grow text-light" role="status">
                         <span class="visually-hidden">Loading...</span>
