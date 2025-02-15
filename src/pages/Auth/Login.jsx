@@ -132,7 +132,7 @@ const Login = () => {
                         style={{ fontFamily: "'Poppins', sans-serif" }}
                       >
                         Number not registered! Go for{" "}
-                        <Link to={"/login"}>
+                        <Link to={"/register"}>
                           <span className="text-primary">Register?</span>
                         </Link>
                       </span>

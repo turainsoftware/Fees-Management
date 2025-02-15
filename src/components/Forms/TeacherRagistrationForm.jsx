@@ -258,7 +258,7 @@ const TeacherRagistrationForm = ({
                         Mobile Number<span className="red-color">*</span>
                       </label>
                       <input
-                        type="text"
+                        type="tel"
                         className={`form-control shadow-none fs-14 fw-medium`}
                         placeholder=""
                         value={mobile}
