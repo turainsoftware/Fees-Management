@@ -42,11 +42,13 @@ const OverviewHeader = ({ isLoading = false }) => {
   const [feesData, setFeesData] = useState({});
   const [batchData, setBatchData] = useState({});
   const [studentsData, setStudentsData] = useState({});
+  const [subjectsData, setSubjectsData] = useState({});
 
   // Loading states
   const [isFeesLoading, setIsFeesLoading] = useState(true);
   const [isBatchLoading, setIsBatchLoging] = useState(true);
   const [isStudentLaoding, setIsStudentLoading] = useState(true);
+  const [isSubjectLoading, setIsSubjectLoading] = useState(true);
 
   const fetchFeesAnalysis = async () => {
     try {
@@ -87,11 +89,24 @@ const OverviewHeader = ({ isLoading = false }) => {
     }
   };
 
+  const subjectsAnalysis = async () => {
+    setIsSubjectLoading(true);
+    try {
+      const data = await analyseService.subjectsAnalysis({
+        authToken: authToken,
+      });
+      setSubjectsData(data);
+    } catch (error) {
+    } finally {
+      setIsSubjectLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchFeesAnalysis();
     studentAnalysis();
     batchAnalysis();
-
+    subjectsAnalysis();
   }, []);
 
   return (
@@ -129,7 +144,9 @@ const OverviewHeader = ({ isLoading = false }) => {
                     description={"Total Students"}
                     value={studentsData?.current}
                     changeClass={
-                      studentsData?.percentage >= 0 ? "green-color" : "red-color"
+                      studentsData?.percentage >= 0
+                        ? "green-color"
+                        : "red-color"
                     }
                     changeType={`${studentsData?.trend} by`}
                     changeValue={`${
@@ -139,7 +156,28 @@ const OverviewHeader = ({ isLoading = false }) => {
                 )}
                 {/* Student Analysis End*/}
 
-                {cardData.map((data, index) => (
+                {/* Subjects Analysis Start*/}
+                {isSubjectLoading ? (
+                  <DetailsCardShimmer />
+                ) : (
+                  <DetailsCard
+                    icon={subjectIcon}
+                    description={"Total Subjects"}
+                    value={subjectsData?.current}
+                    changeClass={
+                      subjectsData?.percentage >= 0
+                        ? "green-color"
+                        : "red-color"
+                    }
+                    changeType={`${subjectsData?.trend} by`}
+                    changeValue={`${
+                      subjectsData.percentage >= 0 ? "+" : "-"
+                    }${new Number(subjectsData.percentage).toFixed(1)}%`}
+                  />
+                )}
+                {/* Subjects Analysis End*/}
+
+                {/* {cardData.map((data, index) => (
                   <DetailsCard
                     changeClass={data.changeClass}
                     changeType={data.changeType}
@@ -150,7 +188,7 @@ const OverviewHeader = ({ isLoading = false }) => {
                     isLoading={isLoading}
                     key={index}
                   />
-                ))}
+                ))} */}
 
                 {/* Batch Analysis Start*/}
                 {isBatchLoading ? (
