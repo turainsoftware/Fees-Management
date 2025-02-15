@@ -41,7 +41,8 @@ const Login = () => {
   // Handle onchange
   const handleMobilenchange = (e) => {
     let value = e.target.value;
-    if (value.length <= 10) {
+    const numRegex = /^\d*$/;
+    if (value.length <= 10 && numRegex.test(value) && (value.length===0 || (value[0]>=6 && value[0]<=9))) {
       setMobile(value);
       mobileNumberValidator(value);
     }
