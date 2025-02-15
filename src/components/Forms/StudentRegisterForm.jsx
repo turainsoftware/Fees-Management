@@ -187,6 +187,7 @@ const StudentRegisterForm = () => {
               icon: "success",
             });
             resetForm();
+            setIsFieldsEnable(true);
           } else {
             Swal.fire({
               titleText: data?.message,
@@ -209,13 +210,13 @@ const StudentRegisterForm = () => {
           joiningMonth: joiningMonth,
           joiningYear: joiningYear,
         });
-        console.info(data);
         if (data.status) {
           Swal.fire({
             text: data?.message,
             icon: "success",
           });
           resetForm();
+          setIsFieldsEnable(true);
         } else {
           Swal.fire({
             text: data?.message,
@@ -357,7 +358,12 @@ const StudentRegisterForm = () => {
                 />
 
                 <div className="mt-4 mb-2 text-center">
-                  <button disabled={!isValidBatch} onClick={handleSubmit} className="btn1" type="submit">
+                  <button
+                    disabled={!isValidBatch}
+                    onClick={handleSubmit}
+                    className="btn1"
+                    type="submit"
+                  >
                     {isLoading
                       ? "Loading..."
                       : isFieldsEnable

@@ -43,7 +43,7 @@ const DetailsCardShimmer = () => {
         .skeleton-icon {
           width: 24px;
           height: 24px;
-          border-radius: 50%;
+          border-radius: 30%;
         }
 
         .skeleton-text {
