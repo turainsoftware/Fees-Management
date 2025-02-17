@@ -7,6 +7,7 @@ const BatchCard = ({ data }) => {
   const navigate = useNavigate();
 
   const {
+    id,
     name,
     // board,
     // classes,
@@ -89,11 +90,7 @@ const BatchCard = ({ data }) => {
   return (
     <StyledWrapper backgroundColor={backgroundColor}>
       <div className="card cursor-pointer" onClick={() => {
-        navigate(`batch-details`,{
-          state: {
-            data: data
-          }
-        });
+        navigate(`batch-details/${id}`);
       }}>
         <div className="card-header">
           <span>{name}</span>

@@ -93,6 +93,40 @@ class BatchService {
       return data;
     }
   }
+
+  async allSpecificBatchDetails({authToken}){
+    try{
+      const uri=`${this.baseUrl}/api/v1/batch/all-specific-details`
+      const response=await axios.get(uri,{
+        headers:{
+          Authorization:`Bearer ${authToken}`
+        }
+      })
+
+      const data=await response.data;
+      return data;
+    }catch(error){
+      const data=await error.response.data;
+      return data;
+    }
+  }
+
+  async byId({id,authToken}){
+    try{
+      const uri=`${this.baseUrl}/api/v1/batch/${id}`
+      const response=await axios.get(uri,{
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        }
+      })
+      const data=await response.data;
+      return data;
+    }catch(error){
+      const data=await error.response.data;
+      return data;
+    }
+  }
+
 }
 
 const batchService = new BatchService();

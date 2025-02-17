@@ -15,7 +15,7 @@ const BatchHome = () => {
   const fetchBatchData = async () => {
     setIsLoading(true);
     try {
-      const data = await batchService.getAllBatches({ authToken: authToken });
+      const data = await batchService.allSpecificBatchDetails({ authToken: authToken });
       const sortedData = data.sort((a, b) => {
         return a.startTime.localeCompare(b.startTime);
       });

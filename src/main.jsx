@@ -62,7 +62,7 @@ const router = createBrowserRouter(
         <Route path="/batch" element={<BatchList />} >
           <Route path="/batch" element={<BatchHome/>}/>
           <Route path="create-batch" element={<BatchCreate />} />
-          <Route path="batch-details" element={<BatchDetailsPage />} />
+          <Route path="batch-details/:id" element={<BatchDetailsPage />} />
         </Route>
 
 
