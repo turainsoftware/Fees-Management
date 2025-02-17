@@ -22,7 +22,7 @@ import StudentHome from "./Main/Students/StudentHome";
 
 // Batch Related
 import BatchHome from "./Main/Batch/BatchHome";
-
+import BatchDetailsPage from "./Main/Batch/BatchDetailsPage";
 // Common Pages
 import NotFound from "./Common/NotFound";
 
@@ -46,5 +46,5 @@ export {
   Register,
   NotFound,
   FeesListPage,
-  FeesHome
-};
+  FeesHome,
+  BatchDetailsPage};

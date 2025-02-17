@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { data } from "jquery";
 import { useAuth } from "../../../contexts/AuthContext";
-import { BatchCard, SecondaryNavbar } from "../../../components";
+import { BatchCard, BatchDetails, SecondaryNavbar } from "../../../components";
 import { BatchCardShimmer } from "../../../Shimmers";
 import { batchService } from "../../../services/BatchService";
 
@@ -40,6 +40,7 @@ const BatchHome = () => {
         createBtnPath={"create-batch"}
         crateBtnText={"Create Batch"}
       />
+      
       {/* {isLoading ? <ItemListShimmer /> : <ItemList data={batches} />} */}
 
       <div className="d-flex mt-3 flex-column align-items-center min-vh-100">
@@ -65,6 +66,7 @@ const BatchHome = () => {
           </div>
         </div>
       </div>
+
     </main>
   );
 };

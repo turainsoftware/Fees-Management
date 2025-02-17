@@ -36,6 +36,7 @@ import CommonLoader from "./Loaders/CommonLoader";
 import ProfileCard from "./Cards/ProfileCard";
 import DetailsCard from "./Cards/DetailsCard";
 import BatchCard from "./Cards/BatchCard";
+import BatchDetails from "./BatchDetails";
 
 // Modals
 import ModelProfile from "./Modals/ModelProfile";
@@ -72,5 +73,6 @@ export {
   ScrollToTop,
   ModelProfile,
   Logout,
-  BatchCard
+  BatchCard,
+  BatchDetails
 };

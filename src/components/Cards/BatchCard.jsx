@@ -1,20 +1,24 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const BatchCard = ({ data }) => {
+  // Hooks States
+  const navigate = useNavigate();
+
   const {
     name,
-    board,
-    classes,
+    // board,
+    // classes,
     days,
     startMonth,
     startYear,
     endMonth,
     endYear,
-    language,
+    // language,
     monthlyExamFees,
     monthlyFees,
-    subjects,
+    // subjects,
     startTime,
     endTime,
   } = data;
@@ -84,7 +88,13 @@ const BatchCard = ({ data }) => {
 
   return (
     <StyledWrapper backgroundColor={backgroundColor}>
-      <div className="card">
+      <div className="card cursor-pointer" onClick={() => {
+        navigate(`batch-details`,{
+          state: {
+            data: data
+          }
+        });
+      }}>
         <div className="card-header">
           <span>{name}</span>
         </div>
@@ -132,7 +142,7 @@ const StyledWrapper = styled.div`
     transition: all 0.8s cubic-bezier(0.15, 0.83, 0.66, 1);
     cursor: pointer;
     margin-bottom: 20px; // Add some margin below each card
-    overflow: hidden;  /* Hide content that overflows */
+    overflow: hidden; /* Hide content that overflows */
   }
 
   .card:hover {
