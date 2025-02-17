@@ -131,10 +131,11 @@ const Login = () => {
                         className="text-danger ps-2 pe-2 d-block mt-1 fs-14 fw-semibold"
                         style={{ fontFamily: "'Poppins', sans-serif" }}
                       >
-                        Number not registered! Go for{" "}
+                        Number not registered! Please{" "}
                         <Link to={"/register"}>
                           <span className="text-primary">Register?</span>
                         </Link>
+                        .
                       </span>
                     )}
                     {/* <label>Phone number</label> */}

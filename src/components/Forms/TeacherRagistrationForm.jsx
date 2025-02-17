@@ -279,9 +279,9 @@ const TeacherRagistrationForm = ({
                           className="text-danger ps-2 pe-2 d-block mt-1 fs-14 fw-semibold"
                           style={{ fontFamily: "'Poppins', sans-serif" }}
                         >
-                          Teacher already exist! Go for{" "}
+                          Teacher already exist! Please{" "}
                           <Link to={"/login"}>
-                            <span className="text-primary">Login?</span>
+                            <span className="text-primary">log in</span>
                           </Link>
                         </span>
                       )}
