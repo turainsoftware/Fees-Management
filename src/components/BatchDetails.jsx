@@ -25,7 +25,7 @@ const BatchDetails = ({ batchData }) => {
   };
 
   return (
-    <div className="container py-4">
+    <div className="container py-4 pb-100">
       <div className="row g-4">
         {/* Main Batch Info */}
         <div className="col-12">
