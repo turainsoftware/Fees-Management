@@ -135,9 +135,13 @@ const StudentRegisterForm = () => {
         "image/gif",
         "image/webp",
         "image/svg+xml",
+        "image/heic",
+        "image/heif",
       ].includes(profileImage.type)
     ) {
-      toast.error("Profile Image must be a JPEG, PNG, GIF, WEBP, or SVG file");
+      toast.error(
+        "Profile Image must be a JPEG, PNG, GIF, WEBP, SVG, HEIC, or HEIF file"
+      );
       setIsLoading(false);
       return false;
     }
