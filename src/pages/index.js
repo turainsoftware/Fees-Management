@@ -15,6 +15,7 @@ import Fees from "./Main/Fees";
 import FeesRevive from "./Main/FeesPages/FeesRevive";
 import FeesListPage from "./Main/FeesPages/FeesListPage";
 import FeesHome from "./Main/FeesPages/FeesHome";
+import Profile from "./Main/Profile";
 
 // Students Related
 import Students from "./Main/Students";
@@ -25,7 +26,6 @@ import BatchHome from "./Main/Batch/BatchHome";
 import BatchDetailsPage from "./Main/Batch/BatchDetailsPage";
 // Common Pages
 import NotFound from "./Common/NotFound";
-
 
 //Export
 export {
@@ -47,4 +47,6 @@ export {
   NotFound,
   FeesListPage,
   FeesHome,
-  BatchDetailsPage};
+  BatchDetailsPage,
+  Profile,
+};

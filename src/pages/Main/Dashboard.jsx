@@ -10,7 +10,6 @@ import {
 } from "./../../components/index";
 import { teacherService } from "../../services/TeacherService";
 import { useAuth } from "../../contexts/AuthContext";
-import { RiLogoutCircleRFill } from "@remixicon/react";
 
 const Dashboard = () => {
   const authToken = localStorage.getItem("authToken");
@@ -27,6 +26,7 @@ const Dashboard = () => {
         return;
       }
       setUserData(data);
+      console.log(data)
     } catch (error) {
       console.log(error);
     } finally {

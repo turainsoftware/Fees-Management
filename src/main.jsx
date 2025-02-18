@@ -33,7 +33,8 @@ import {
   StudentHome,
   StudentList,
   Students,
-  BatchDetailsPage
+  BatchDetailsPage,
+  Profile
 } from "./pages/index.js";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import ProtectedRoute from "./Auth/ProtectedRoute.jsx";
@@ -64,6 +65,9 @@ const router = createBrowserRouter(
           <Route path="create-batch" element={<BatchCreate />} />
           <Route path="batch-details/:id" element={<BatchDetailsPage />} />
         </Route>
+
+        {/* Profile Routes */}
+        <Route path="/profile" element={<Profile/>}/>
 
 
         <Route path="/class-list" element={<ClassList />} />

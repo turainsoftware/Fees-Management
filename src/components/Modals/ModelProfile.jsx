@@ -16,6 +16,7 @@ import {
 import avatar from "./../../assets/images/profile/avatar.jpg";
 import Logout from "../Buttons/Logout";
 import { ConfigProvider, Image } from "antd";
+import { Link } from "react-router-dom";
 
 const ModelProfile = ({ name, mobile, profilePic }) => {
   
@@ -76,29 +77,21 @@ const ModelProfile = ({ name, mobile, profilePic }) => {
 
         {/* Profile Actions */}
         <div className="py-3 px-3">
-          <a
-            href="#"
+          <Link
+            to={"/profile"}
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
           >
             <RiUserSettingsLine className="me-2 fs-18 text-primary" />{" "}
             {/* Edit Profile Icon */}
-            <span>Edit Profile</span>
-          </a>
-          <a
-            href="#"
-            className="d-flex align-items-center mb-3 text-decoration-none text-dark"
-          >
-            <RiLockLine className="me-2 fs-18 text-warning" />{" "}
-            {/* Change Password Icon */}
-            <span>Change Password</span>
-          </a>
-          <a
-            href="#"
+            <span>Profile</span>
+          </Link>
+          <Link 
+            to={"/batch"}
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
           >
             <RiBookLine className="me-2 fs-18 text-info" /> {/* Courses Icon */}
             <span>My Batches</span>
-          </a>
+          </Link>
           <a
             href="#"
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
