@@ -18,6 +18,7 @@ import StudentListData from "./StudentListData";
 //Student Fees Related
 import StudentPaymentSummary from "./StudentPaymentSummary";
 import FeesPayment from "./FeesPayment";
+import FeesStructure from "./Cards/FeesStructure";
 
 // Notifications
 import ModelNotification from "./Notifications/ModelNotification";
@@ -49,6 +50,7 @@ import ScrollToTop from "./ScrollToTop";
 import Logout from "./Buttons/Logout";
 
 export {
+  FeesStructure,
   DashboardHeader,
   OverviewHeader,
   ChartSection,

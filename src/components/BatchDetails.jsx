@@ -1,4 +1,5 @@
-import React from "react";
+import { Form, Input, Modal } from "antd";
+import React, { useState } from "react";
 import {
   FaGraduationCap,
   FaBook,
@@ -9,20 +10,14 @@ import {
   FaCalendarDay,
 } from "react-icons/fa";
 
-const BatchDetails = ({ batchData }) => {
-  const formatTime = (timeString) => {
-    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
+import { useAuth } from "./../contexts/AuthContext";
 
-  const formatMonth = (monthNum) => {
-    return new Date(2000, monthNum - 1, 1).toLocaleString("default", {
-      month: "long",
-    });
-  };
+import FeesStructure from "./Cards/FeesStructure";
+
+const BatchDetails = ({ batchData }) => {
+  const { authToken } = useAuth();
+
+  
 
   return (
     <div className="container py-4 pb-100">
@@ -117,7 +112,7 @@ const BatchDetails = ({ batchData }) => {
         </div>
 
         {/* Fees Structure */}
-        <div className="col-md-6">
+        {/* <div className="col-md-6">
           <div className="card shadow-sm h-100">
             <div className="card-body">
               <h5 className="card-title text-success d-flex align-items-center">
@@ -139,9 +134,49 @@ const BatchDetails = ({ batchData }) => {
                   </p>
                 </div>
               </div>
+              <button
+                className="btn btn-primary mt-3"
+                onClick={handleUpdateClick}
+              >
+                Update
+              </button>
             </div>
           </div>
-        </div>
+
+          <Modal
+            title="Update Fees"
+            visible={showModal}
+            onOk={handleSave}
+            onCancel={handleClose}
+            okText="Save"
+            cancelText="Cancel"
+            okButtonProps={{ className: "btn btn-primary" }}
+            cancelButtonProps={{ className: "btn btn-secondary" }}
+          >
+            <Form layout="vertical">
+              <Form.Item label="Monthly Fees">
+                <Input
+                  type="number"
+                  value={monthlyFees}
+                  onChange={(e) => setMonthlyFees(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="Exam Fees">
+                <Input
+                  type="number"
+                  value={monthlyExamFees}
+                  onChange={(e) => setMonthlyExamFees(e.target.value)}
+                />
+              </Form.Item>
+            </Form>
+          </Modal>
+        </div> */}
+        <FeesStructure
+          monthlyfees={batchData.monthlyFees}
+          monthlyexamfees={batchData.monthlyExamFees}
+          batchId={batchData.id}
+          authToken={authToken}
+        />
 
         {/* Subjects */}
         <div className="col-12">

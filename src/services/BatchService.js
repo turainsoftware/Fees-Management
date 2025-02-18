@@ -85,48 +85,69 @@ class BatchService {
           Authorization: `Bearer ${authToken}`,
         },
       });
-      const data=await response.data;
+      const data = await response.data;
       return data;
-      
     } catch (error) {
       const data = await error.response.error;
       return data;
     }
   }
 
-  async allSpecificBatchDetails({authToken}){
-    try{
-      const uri=`${this.baseUrl}/api/v1/batch/all-specific-details`
-      const response=await axios.get(uri,{
-        headers:{
-          Authorization:`Bearer ${authToken}`
-        }
-      })
-
-      const data=await response.data;
-      return data;
-    }catch(error){
-      const data=await error.response.data;
-      return data;
-    }
-  }
-
-  async byId({id,authToken}){
-    try{
-      const uri=`${this.baseUrl}/api/v1/batch/${id}`
-      const response=await axios.get(uri,{
+  async allSpecificBatchDetails({ authToken }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/batch/all-specific-details`;
+      const response = await axios.get(uri, {
         headers: {
           Authorization: `Bearer ${authToken}`,
-        }
-      })
-      const data=await response.data;
+        },
+      });
+
+      const data = await response.data;
       return data;
-    }catch(error){
-      const data=await error.response.data;
+    } catch (error) {
+      const data = await error.response.data;
       return data;
     }
   }
 
+  async byId({ id, authToken }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/batch/${id}`;
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async updateFees({ authToken, batchId, updatedFees, updatedExamFees }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/batch/update-fees?batchId=${batchId}&monthlyFees=${updatedFees}&monthlyExamFees=${updatedExamFees}`;
+
+      const response = await axios.patch(
+        uri,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+
+      const data=await response.data;
+      return data;
+      
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
 }
 
 const batchService = new BatchService();
