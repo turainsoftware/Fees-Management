@@ -1,7 +1,6 @@
 import { Form, Input, Modal } from "antd";
 import React, { useState } from "react";
 import { FaRupeeSign, FaEdit } from "react-icons/fa";
-import axios from "axios";
 import { batchService } from "../../services/BatchService";
 import { toast } from "react-toastify";
 
@@ -18,6 +17,7 @@ const FeesStructure = ({
     useState(monthlyexamfees);
 
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLaoding] = useState(false);
 
   const handleSave = async () => {
     if (tempMonthlyFees === "" || tempMonthlyExamFees === "") {
@@ -34,6 +34,7 @@ const FeesStructure = ({
     }
 
     try {
+      setIsLaoding(true);
       const data = await batchService.updateFees({
         authToken: authToken,
         batchId: batchId,
@@ -50,7 +51,7 @@ const FeesStructure = ({
     } catch (error) {
       console.error("Failed to update fees", error);
     } finally {
-      console.log(monthlyFees, monthlyExamFees);
+      setIsLaoding(false);
     }
   };
 
@@ -101,9 +102,13 @@ const FeesStructure = ({
         visible={showModal}
         onOk={handleSave}
         onCancel={handleClose}
-        okText="Save"
+        okText={isLoading ? " " : "Save"}
         cancelText="Cancel"
-        okButtonProps={{ className: "btn btn-primary" }}
+        okButtonProps={{
+          className: "btn btn-primary",
+          loading: isLoading,
+          disabled: isLoading,
+        }}
         cancelButtonProps={{ className: "btn btn-secondary" }}
       >
         <Form layout="vertical">
