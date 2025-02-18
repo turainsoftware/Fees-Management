@@ -45,9 +45,12 @@ import ModelProfile from "./Modals/ModelProfile";
 // Common
 import ScrollToTop from "./ScrollToTop";
 
-
 // Buttons
 import Logout from "./Buttons/Logout";
+
+// Profiles
+import InfoSection from "./Profile/InfoSection";
+import ProfilePageCard from "./Profile/ProfilePageCard";
 
 export {
   FeesStructure,
@@ -76,5 +79,7 @@ export {
   ModelProfile,
   Logout,
   BatchCard,
-  BatchDetails
+  BatchDetails,
+  ProfilePageCard,
+  InfoSection,
 };
