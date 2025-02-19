@@ -17,20 +17,46 @@ import {
   FaEdit,
 } from "react-icons/fa";
 import { useState } from "react";
+import {
+  isValidEmail,
+  isValidMobile,
+  isValidName,
+} from "../../utils/Validations";
 
 function ProfilePageCard({ teacher, onUpdate }) {
   const [form] = Form.useForm();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const defaultAvatar =
-    "https://images.unsplash.com/photo-1532630571098-79a3d222b00d";
 
-  const handleSubmit = (values) => {
-    onUpdate(values);
-    setIsModalOpen(false);
-    message.success("Profile updated successfully!");
+  const handleSubmit = async (values) => {
+    if (
+      values.name === teacher.name &&
+      values.email === teacher.email &&
+      values.gender === teacher.gender
+    ) {
+      message.warning("No changes made");
+      return;
+    }
+    if (values.phone !== teacher.phone) {
+      message.warning("Phone number cannot be changed");
+      return;
+    }
+    if (values.email && !isValidEmail(values.email)) {
+      message.warning("Enter a valid email");
+      return;
+    }
+    try {
+      const data = await onUpdate({ section: "profile", data: values });
+      if(data){
+        message.success("Updated successfully");
+        setIsModalOpen(false);
+      }else{
+        message.error("Failed to update");
+        setIsModalOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
-
-  console.log(import.meta.env.VITE_PROFILEURL + teacher.profilePic);
 
   return (
     <>
@@ -103,20 +129,47 @@ function ProfilePageCard({ teacher, onUpdate }) {
           initialValues={teacher}
           onFinish={handleSubmit}
         >
-          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+          <Form.Item
+            name="name"
+            label="Name"
+            rules={[
+              { required: true },
+              {
+                validator: (_, value) => {
+                  if (!isValidName(value)) {
+                    return Promise.reject("Invalid name");
+                  }
+                  return Promise.resolve();
+                },
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
           <Form.Item name="phone" label="Phone" rules={[{ required: true }]}>
-            <Input />
+            <Input maxLength={10} disabled />
           </Form.Item>
-          <Form.Item name="email" label="Email">
+          <Form.Item
+            name="email"
+            label="Email"
+            rules={[
+              {
+                validator: (_, value) => {
+                  if (!value || isValidEmail(value)) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject("Invalid email");
+                },
+              },
+            ]}
+          >
             <Input type="email" />
           </Form.Item>
           <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
             <Select>
               <Select.Option value="Male">Male</Select.Option>
               <Select.Option value="Female">Female</Select.Option>
-              <Select.Option value="Other">Other</Select.Option>
+              <Select.Option value="Others">Others</Select.Option>
             </Select>
           </Form.Item>
         </Form>

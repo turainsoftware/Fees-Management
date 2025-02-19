@@ -13,7 +13,6 @@ const InfoSection = ({ title, items, icon, options = [], onUpdate }) => {
       name: option.label,
     }));
     onUpdate(selectedItems);
-    console.log(selectedItems);
     setIsModalOpen(false);
   };
 

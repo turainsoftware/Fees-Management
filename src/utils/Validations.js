@@ -7,7 +7,15 @@ const isValidName = (name) => {
 
 const checkOnChangeMobile = (val) => {
   const numRegex = /^\d*$/;
-  return numRegex.test(val) && (val.length===0 || val[0] >= 6 && val[0] <= 9);
+  return (
+    numRegex.test(val) && (val.length === 0 || (val[0] >= 6 && val[0] <= 9))
+  );
 };
 
-export { isValidMobile, isValidName, checkOnChangeMobile };
+function isValidEmail(email) {
+  const pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+  return pattern.test(email);
+}
+
+export { isValidMobile, isValidName, checkOnChangeMobile, isValidEmail };

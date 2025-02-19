@@ -8,6 +8,17 @@ import { ScrollToTop } from "./components";
 const App = () => {
   const { isAuthenticated } = useAuth();
 
+  useEffect(()=>{
+    document.body.style.overflow = "auto";
+    document.body.style.paddingRight = "0";
+
+    // Cleanup function to reset styles if needed
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
+  },[])
+
   return (
     <>
       <Outlet />

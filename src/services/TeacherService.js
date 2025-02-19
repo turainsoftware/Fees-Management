@@ -67,6 +67,33 @@ class TeacherService {
       return data;
     }
   }
+
+  // Update Teacher Start
+  async updateProfile({ authToken, name, email, gender }) {
+    const uri = `${
+      this.baseUrl
+    }/api/v1/teacher/profile/update-profile?name=${name}&${
+      email !== null && `email=${email}`
+    }&gender=${gender}`;
+    try {
+      const response = await axios.put(
+        uri,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }
+      );
+      const data = await response.data;
+      console.log(data);
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+  // Update Teacher End
 }
 
 const teacherService = new TeacherService();
