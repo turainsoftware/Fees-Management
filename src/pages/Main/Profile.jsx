@@ -12,47 +12,21 @@ import { SiGoogleclassroom } from "react-icons/si";
 import { LiaChalkboardSolid } from "react-icons/lia";
 import { FaLanguage } from "react-icons/fa6";
 import { ProfilePageShimmer } from "../../Shimmers";
-
-// Mock data for options
-const allSubjects = [
-  { id: 19, name: "Computer Science" },
-  { id: 18, name: "Computer Applications" },
-  { id: 20, name: "Mathematics" },
-  { id: 21, name: "Physics" },
-];
-
-const allClasses = [
-  { id: 12, name: "Class 11" },
-  { id: 13, name: "Class 12" },
-  { id: 14, name: "Class 10" },
-  { id: 15, name: "Class 9" },
-];
-
-const allBoards = [
-  { id: 54, name: "West Bengal Board of Secondary Education (WBBSE)" },
-  {
-    id: 55,
-    name: "West Bengal Council of Higher Secondary Education (WBCHSE)",
-  },
-  { id: 10, name: "Central Board of Secondary Education (CBSE)" },
-  { id: 11, name: "Indian Certificate of Secondary Education (ICSE)" },
-];
-
-const allLanguages = [
-  { id: 4, name: "Bengali" },
-  { id: 18, name: "Hindi" },
-  { id: 12, name: "English" },
-  { id: 13, name: "Sanskrit" },
-];
+import { commonService } from "../../services/CommonService";
 
 export default function TeacherProfile() {
   // State Variables
   const { authToken } = useAuth();
   const [teacher, setTeacher] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [allSubjects, setAllSubjects] = useState([]);
+  const [allClasses, setAllClasses] = useState([]);
+  const [allBoards, setAllBoards] = useState([]);
+  const [allLanguages, setAllLanguages] = useState([]);
 
   const handleUpdate = async ({ section, data }) => {
     if (!teacher) return;
+    console.log(teacher);
     if (section === "profile") {
       try {
         console.log(data);
@@ -75,7 +49,83 @@ export default function TeacherProfile() {
         return false;
       }
     }
-    message.success("Updated successfully");
+
+    // Subjects
+    if (section === "subjects") {
+      try {
+        const responseData = await teacherService.updateSubjects({
+          authToken: authToken,
+          payload: data,
+        });
+        console.log(responseData);
+        if (responseData.status) {
+          const updatedTeachers = { ...teacher, subjects: data };
+          setTeacher(updatedTeachers);
+        }
+        return responseData.status;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    // Classes
+    if (section === "classes") {
+      try {
+        const responseData = await teacherService.updateClasses({
+          authToken: authToken,
+          payload: data,
+        });
+        console.log(responseData);
+        if (responseData.status) {
+          const updatedTeachers = { ...teacher, classes: data };
+          setTeacher(updatedTeachers);
+        }
+        return responseData.status;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
+    // Boards
+    if (section === "boards") {
+      try {
+        const responseData = await teacherService.updateBoards({
+          authToken: authToken,
+          payload: data,
+        });
+        console.log(responseData);
+        if (responseData.status) {
+          const updatedTeachers = { ...teacher, boards: data };
+          setTeacher(updatedTeachers);
+        }
+        return responseData.status;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+    
+    // Language
+    if (section === "languages") {
+      try {
+        const responseData = await teacherService.updateLanguages({
+          authToken: authToken,
+          payload: data,
+        });
+        console.log(responseData);
+        if (responseData.status) {
+          const updatedTeachers = { ...teacher, languages: data };
+          setTeacher(updatedTeachers);
+        }
+        return responseData.status;
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    }
+
     return true;
   };
 
@@ -92,8 +142,24 @@ export default function TeacherProfile() {
     }
   };
 
+  const fetchAllOtherDetails = async () => {
+    try {
+      const subjects = await commonService.allSubjects();
+      setAllSubjects(subjects);
+      const classes = await commonService.allClass();
+      setAllClasses(classes);
+      const boards = await commonService.allBoards();
+      setAllBoards(boards);
+      const languages = await commonService.allLanguage();
+      setAllLanguages(languages);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchTeacherProfile();
+    fetchAllOtherDetails();
   }, []);
 
   return (

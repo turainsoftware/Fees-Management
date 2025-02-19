@@ -1,30 +1,51 @@
 import { useState } from "react";
-import { Card, Tag, Button, Modal, Form } from "antd";
+import { Card, Tag, Button, Modal, Form, message } from "antd";
 import { FaEdit } from "react-icons/fa";
 import Select from "react-select";
 
 const InfoSection = ({ title, items, icon, options = [], onUpdate }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm();
+  const [selectedItems, setSelectedItems] = useState(
+    items.map((item) => ({ value: item.id, label: item.name }))
+  );
 
-  const handleSubmit = (values) => {
-    const selectedItems = values.items.map((option) => ({
+  const handleSubmit = () => {
+    const formattedItems = selectedItems.map((option) => ({
       id: option.value,
       name: option.label,
     }));
-    onUpdate(selectedItems);
+    const responseData = onUpdate(formattedItems);
+    if (responseData) {
+      message.success("Updated Successfully");
+    } else {
+      message.error("Something went wrong!");
+      return;
+    }
     setIsModalOpen(false);
   };
-
-  const defaultValue = items.map((item) => ({
-    value: item.id,
-    label: item.name,
-  }));
 
   const selectOptions = options.map((option) => ({
     value: option.id,
     label: option.name,
   }));
+
+  const handleChange = (selectedOptions, actionMeta) => {
+    if (
+      actionMeta.action === "remove-value" ||
+      actionMeta.action === "pop-value"
+    ) {
+      const removedId = actionMeta.removedValue?.value;
+      const isValid = items.some(
+        (item) => parseInt(item.id) === parseInt(removedId)
+      );
+      console.log(isValid);
+      if (isValid) {
+        message.info(`can't remove item`);
+        return;
+      }
+    }
+    setSelectedItems(selectedOptions);
+  };
 
   return (
     <>
@@ -74,20 +95,12 @@ const InfoSection = ({ title, items, icon, options = [], onUpdate }) => {
         title={`Edit ${title}`}
         open={isModalOpen}
         okText={"Save"}
-        onOk={() => form.submit()}
+        onOk={handleSubmit}
         onCancel={() => setIsModalOpen(false)}
         width={600}
       >
-        <Form
-          form={form}
-          layout="vertical"
-          initialValues={{
-            items: defaultValue,
-          }}
-          onFinish={handleSubmit}
-        >
+        <Form layout="vertical">
           <Form.Item
-            name="items"
             rules={[
               {
                 required: true,
@@ -98,7 +111,8 @@ const InfoSection = ({ title, items, icon, options = [], onUpdate }) => {
             <Select
               isMulti
               options={selectOptions}
-              defaultValue={defaultValue}
+              value={selectedItems}
+              onChange={handleChange}
               className="react-select-container"
               classNamePrefix="react-select"
               placeholder={`Select ${title.toLowerCase()}`}

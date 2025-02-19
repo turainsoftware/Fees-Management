@@ -69,6 +69,7 @@ class TeacherService {
   }
 
   // Update Teacher Start
+  // Update Teacer's {name,email,gender}
   async updateProfile({ authToken, name, email, gender }) {
     const uri = `${
       this.baseUrl
@@ -93,6 +94,72 @@ class TeacherService {
       return data;
     }
   }
+
+  // Update Teacher's {Subjects}
+  async updateSubjects({ authToken, payload }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/subject/update-subjects`;
+      const response = await axios.patch(uri, payload, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async updateClasses({ authToken, payload }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/class/update-classes`;
+      const response = await axios.patch(uri, payload, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async updateBoards({ authToken, payload }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/board/update-boards`;
+      const response = await axios.patch(uri, payload, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async updateLanguages({ authToken, payload }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/language/update-languages`;
+      const response = await axios.patch(uri, payload, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
   // Update Teacher End
 }
 
