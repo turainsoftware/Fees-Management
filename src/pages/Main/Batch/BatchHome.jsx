@@ -20,7 +20,6 @@ const BatchHome = () => {
         return a.startTime.localeCompare(b.startTime);
       });
       setBatches(sortedData);
-      console.log(data);
     } catch (error) {
       console.log(error);
     } finally {

@@ -28,7 +28,6 @@ const BatchDetailsPage = () => {
   const fetchBatchData = async () => {
     try {
       const data = await batchService.byId({ id: id, authToken: authToken });
-      console.log(data);
       setBatchData(data);
     } catch (error) {
       console.error("Error in fetching batch data:", error);
@@ -156,66 +155,6 @@ const BatchDetailsPage = () => {
               </div>
             </div>
 
-            {/* Fees Structure */}
-            {/* <div className="col-md-6">
-          <div className="card shadow-sm h-100">
-            <div className="card-body">
-              <h5 className="card-title text-success d-flex align-items-center">
-                <FaRupeeSign className="fs-4 me-2" />
-                Fees Structure
-              </h5>
-              <hr className="border-light opacity-75" />
-              <div className="d-flex justify-content-between align-items-center">
-                <div>
-                  <small className="text-body-secondary">Monthly Fees</small>
-                  <p className="mb-0 text-success fw-bold fs-4">
-                    ₹{batchData.monthlyFees}
-                  </p>
-                </div>
-                <div className="text-end">
-                  <small className="text-body-secondary">Exam Fees</small>
-                  <p className="mb-0 text-success fw-bold fs-4">
-                    ₹{batchData.monthlyExamFees}
-                  </p>
-                </div>
-              </div>
-              <button
-                className="btn btn-primary mt-3"
-                onClick={handleUpdateClick}
-              >
-                Update
-              </button>
-            </div>
-          </div>
-
-          <Modal
-            title="Update Fees"
-            visible={showModal}
-            onOk={handleSave}
-            onCancel={handleClose}
-            okText="Save"
-            cancelText="Cancel"
-            okButtonProps={{ className: "btn btn-primary" }}
-            cancelButtonProps={{ className: "btn btn-secondary" }}
-          >
-            <Form layout="vertical">
-              <Form.Item label="Monthly Fees">
-                <Input
-                  type="number"
-                  value={monthlyFees}
-                  onChange={(e) => setMonthlyFees(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item label="Exam Fees">
-                <Input
-                  type="number"
-                  value={monthlyExamFees}
-                  onChange={(e) => setMonthlyExamFees(e.target.value)}
-                />
-              </Form.Item>
-            </Form>
-          </Modal>
-        </div> */}
             <FeesStructure
               monthlyfees={batchData.monthlyFees}
               monthlyexamfees={batchData.monthlyExamFees}

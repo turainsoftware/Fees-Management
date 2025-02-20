@@ -41,7 +41,6 @@ const FeesStructure = ({
         updatedFees: tempMonthlyFees,
         updatedExamFees: tempMonthlyExamFees,
       });
-      console.log(data);
       if (data?.status) {
         toast.success(data.message);
         setMonthlyFees(tempMonthlyFees);

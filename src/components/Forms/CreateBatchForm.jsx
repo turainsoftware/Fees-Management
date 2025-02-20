@@ -48,7 +48,6 @@ const CreateBatchForm = () => {
   const fetchUserData = async ({ authToken }) => {
     try {
       const data = await teacherService.profile({ authToken: authToken });
-      console.log(data);
       setBoards((prev) => data.boards);
       setLanguage(data?.languages);
       setSubjects(data?.subjects);
@@ -99,7 +98,6 @@ const CreateBatchForm = () => {
       toast.info("Start date cannot be later than end date!");
       return;
     }
-    console.log(startYear, endYear, startMonth, endMonth);
 
     if (validateFields()) {
       const data = await batchService.createBatch({
@@ -119,7 +117,6 @@ const CreateBatchForm = () => {
         board: selectedBoard,
         language: selectedLanguage,
       });
-      console.log(data);
       if (data?.status) {
         Swal.fire({
           title: data?.message || "Success",
