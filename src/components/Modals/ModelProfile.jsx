@@ -116,14 +116,14 @@ const ModelProfile = ({ name, mobile, profilePic }) => {
             {/* Settings Icon */}
             <span>Settings</span>
           </a>
-          <a
-            href="#"
+          <Link
+            to={'/help-support'}
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
           >
             <RiQuestionLine className="me-2 fs-18 text-purple" />{" "}
             {/* Help Icon */}
             <span>Help & Support</span>
-          </a>
+          </Link>
         </div>
       </div>
 

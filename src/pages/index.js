@@ -24,11 +24,15 @@ import StudentHome from "./Main/Students/StudentHome";
 // Batch Related
 import BatchHome from "./Main/Batch/BatchHome";
 import BatchDetailsPage from "./Main/Batch/BatchDetailsPage";
+
+
 // Common Pages
+import HelpSupportPage from "./Common/HelpSupportPage";
 import NotFound from "./Common/NotFound";
 
 //Export
 export {
+  HelpSupportPage,
   BatchHome,
   StudentHome,
   AuthHome,

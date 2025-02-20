@@ -34,7 +34,8 @@ import {
   StudentList,
   Students,
   BatchDetailsPage,
-  Profile
+  Profile,
+  HelpSupportPage,
 } from "./pages/index.js";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 import ProtectedRoute from "./Auth/ProtectedRoute.jsx";
@@ -60,15 +61,14 @@ const router = createBrowserRouter(
         </Route>
         {/* Studennt Routes End*/}
 
-        <Route path="/batch" element={<BatchList />} >
-          <Route path="/batch" element={<BatchHome/>}/>
+        <Route path="/batch" element={<BatchList />}>
+          <Route path="/batch" element={<BatchHome />} />
           <Route path="create-batch" element={<BatchCreate />} />
           <Route path="batch-details/:id" element={<BatchDetailsPage />} />
         </Route>
 
         {/* Profile Routes */}
-        <Route path="/profile" element={<Profile/>}/>
-
+        <Route path="/profile" element={<Profile />} />
 
         <Route path="/class-list" element={<ClassList />} />
 
@@ -81,6 +81,10 @@ const router = createBrowserRouter(
         {/* Fees Routes End*/}
       </Route>
 
+      {/* CommonPages  Start*/}
+      <Route path="/help-support" element={<HelpSupportPage />} />
+      {/* CommonPages  End*/}
+
       {/* For Not Found Page */}
       <Route path="*" element={<NotFound />} />
     </Route>
@@ -90,7 +94,7 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")).render(
   <AuthProvider>
     <StrictMode>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </StrictMode>
   </AuthProvider>
 );
