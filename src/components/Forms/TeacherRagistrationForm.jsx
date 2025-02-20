@@ -92,7 +92,6 @@ const TeacherRagistrationForm = ({
       const previewImage = URL.createObjectURL(imagePath);
       setProgilePreviewImage(previewImage);
     }
-    console.log(imagePath);
     setProfileImage(imagePath);
   };
 
@@ -152,7 +151,6 @@ const TeacherRagistrationForm = ({
         classes: selectedClass,
         profileImg: profileImage,
       });
-      console.log(data);
 
       if (data?.status) {
         Swal.fire({
@@ -175,7 +173,6 @@ const TeacherRagistrationForm = ({
         });
       }
     } catch (error) {
-      console.error("An error occurred during signup:", error);
       Swal.fire({
         title: "Error",
         text: "An error occurred during signup. Please try again.",
@@ -201,7 +198,6 @@ const TeacherRagistrationForm = ({
   const checkIsTeacherExist = async () => {
     try {
       const data = await teacherService.isTeacherExist({ mobile: mobile });
-      console.log(data);
       if (data) {
         setIsTeacherExist(true);
       }
@@ -214,7 +210,6 @@ const TeacherRagistrationForm = ({
     if (mobile.length === 10) {
       checkIsTeacherExist();
     } else {
-      console.log("No");
       setIsTeacherExist(false);
     }
   }, [mobile]);

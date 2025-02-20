@@ -78,7 +78,6 @@ const Login = () => {
     try {
       const data = await teacherService.isTeacherExist({ mobile: mobile });
       if (!data) {
-        console.log("yes not registered");
         setIsTeacherExist(data);
       }
     } catch (error) {

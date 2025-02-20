@@ -87,7 +87,6 @@ class TeacherService {
         }
       );
       const data = await response.data;
-      console.log(data);
       return data;
     } catch (error) {
       const data = await error.response.data;
