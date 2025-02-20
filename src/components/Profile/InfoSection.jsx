@@ -38,7 +38,6 @@ const InfoSection = ({ title, items, icon, options = [], onUpdate }) => {
       const isValid = items.some(
         (item) => parseInt(item.id) === parseInt(removedId)
       );
-      console.log(isValid);
       if (isValid) {
         message.info(`can't remove item`);
         return;
