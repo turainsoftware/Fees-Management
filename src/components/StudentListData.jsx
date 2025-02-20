@@ -43,14 +43,12 @@ const StudentListData = ({
         return new Date(b.createdAt) - new Date(a.createdAt);
       });
       setFilteredData(sortedData);
-      console.log(sortedData);
       return;
     } else {
       const sortedData = [...data].sort((a, b) => {
         return new Date(a.createdAt) - new Date(b.createdAt);
       });
       setFilteredData(sortedData);
-      console.log(sortedData);
       return;
     }
   }, [isRecent]);

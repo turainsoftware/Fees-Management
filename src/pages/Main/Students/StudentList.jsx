@@ -23,7 +23,6 @@ const StudentList = () => {
     try {
       const data = await teacherService.batches({ authToken: authToken });
       setBatches(data);
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +39,6 @@ const StudentList = () => {
         authToken: authToken,
         batchId: selectedBatch.id,
       });
-      console.log(data);
       setStudentData(data);
     } catch (error) {
       console.error(error);
