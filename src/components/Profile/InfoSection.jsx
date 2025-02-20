@@ -110,6 +110,7 @@ const InfoSection = ({ title, items, icon, options = [], onUpdate }) => {
           >
             <Select
               isMulti
+              isClearable={false}
               options={selectOptions}
               value={selectedItems}
               onChange={handleChange}
