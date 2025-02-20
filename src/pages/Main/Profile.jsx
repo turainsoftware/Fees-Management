@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { message } from "antd";
 import {
   ProfilePageCard,
   InfoSection,
@@ -26,10 +25,8 @@ export default function TeacherProfile() {
 
   const handleUpdate = async ({ section, data }) => {
     if (!teacher) return;
-    console.log(teacher);
     if (section === "profile") {
       try {
-        console.log(data);
         const responseData = await teacherService.updateProfile({
           authToken: authToken,
           name: data.name,
@@ -45,7 +42,6 @@ export default function TeacherProfile() {
           return false;
         }
       } catch (error) {
-        console.log(error);
         return false;
       }
     }
@@ -57,14 +53,12 @@ export default function TeacherProfile() {
           authToken: authToken,
           payload: data,
         });
-        console.log(responseData);
         if (responseData.status) {
           const updatedTeachers = { ...teacher, subjects: data };
           setTeacher(updatedTeachers);
         }
         return responseData.status;
       } catch (error) {
-        console.error(error);
         return false;
       }
     }
@@ -76,14 +70,12 @@ export default function TeacherProfile() {
           authToken: authToken,
           payload: data,
         });
-        console.log(responseData);
         if (responseData.status) {
           const updatedTeachers = { ...teacher, classes: data };
           setTeacher(updatedTeachers);
         }
         return responseData.status;
       } catch (error) {
-        console.error(error);
         return false;
       }
     }
@@ -95,18 +87,16 @@ export default function TeacherProfile() {
           authToken: authToken,
           payload: data,
         });
-        console.log(responseData);
         if (responseData.status) {
           const updatedTeachers = { ...teacher, boards: data };
           setTeacher(updatedTeachers);
         }
         return responseData.status;
       } catch (error) {
-        console.error(error);
         return false;
       }
     }
-    
+
     // Language
     if (section === "languages") {
       try {
@@ -114,14 +104,12 @@ export default function TeacherProfile() {
           authToken: authToken,
           payload: data,
         });
-        console.log(responseData);
         if (responseData.status) {
           const updatedTeachers = { ...teacher, languages: data };
           setTeacher(updatedTeachers);
         }
         return responseData.status;
       } catch (error) {
-        console.error(error);
         return false;
       }
     }
@@ -133,7 +121,6 @@ export default function TeacherProfile() {
     setIsLoading(true);
     try {
       const data = await teacherService.profile({ authToken: authToken });
-      console.log(data);
       setTeacher(data);
     } catch (error) {
       console.error(error);

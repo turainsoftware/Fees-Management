@@ -26,7 +26,6 @@ const Dashboard = () => {
         return;
       }
       setUserData(data);
-      console.log(data)
     } catch (error) {
       console.log(error);
     } finally {

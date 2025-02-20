@@ -67,7 +67,6 @@ const OverviewHeader = ({ isLoading = false }) => {
       setIsBatchLoging(true);
       const data = await analyseService.batchAnalyse({ authToken: authToken });
 
-      console.log(data);
       setBatchData(data);
     } catch (error) {
       console.error(error);

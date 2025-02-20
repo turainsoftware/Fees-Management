@@ -128,7 +128,6 @@ const DashboardHeader = ({
   isLoading = false,
   userData = {},
 }) => {
-  console.log(userData);
   return isLoading ? (
     <section
       style={shimmerStyles.shimmerWrapper}
