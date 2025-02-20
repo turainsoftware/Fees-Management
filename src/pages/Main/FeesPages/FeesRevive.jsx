@@ -44,9 +44,6 @@ const FeesRevive = () => {
         batchId: selectedBatch.id,
         studentId: selectedStudent.id,
       });
-      console.info(data);
-      console.log("selectedBatch", selectedBatch);
-      console.log("selectedStudents", selectedStudent);
       setFeesDetails(data);
       setShowCard(true);
     } catch (error) {
@@ -65,9 +62,6 @@ const FeesRevive = () => {
         batchId: selectedBatch.id,
         studentId: selectedStudent.id,
       });
-      console.info(data);
-      console.log("selectedBatch", selectedBatch);
-      console.log("selectedStudents", selectedStudent);
       setFeesDetails(data);
     } catch (error) {
       setShowCard(false);

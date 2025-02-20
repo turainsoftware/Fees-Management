@@ -57,7 +57,6 @@ const FeesPayment = ({
         month: month,
         year: year,
       });
-      console.log("Payment successful:", data);
       setPayIndex((prev) => prev + 1);
       if (data.status) {
         toast.success(data.message);
@@ -115,8 +114,6 @@ const FeesPayment = ({
                     year: item.year,
                     paymentDate: paymentDate,
                   });
-                console.log(isAdv);
-                console.log(item);
 
                 return (
                   <li
