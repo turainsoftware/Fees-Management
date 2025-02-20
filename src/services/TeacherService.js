@@ -22,6 +22,22 @@ class TeacherService {
     }
   }
 
+  async profileLess({ authToken }) {
+    const uri = `${this.baseUrl}/api/v1/teacher/only-profile`;
+    try {
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
   // Batches of Teahcers
   async batches({ authToken }) {
     const uri = `${this.baseUrl}/api/v1/teacher/batches`;

@@ -20,7 +20,7 @@ const Dashboard = () => {
   const profile = async () => {
     setIsLoading(true);
     try {
-      const data = await teacherService.profile({ authToken: authToken });
+      const data = await teacherService.profileLess({ authToken: authToken });
       if (!data) {
         logout();
         return;
@@ -58,7 +58,7 @@ const Dashboard = () => {
 
       {/* FeesList */}
       <FeesList pageNo={0} size={10} />
-   </main>
+    </main>
   );
 };
 
