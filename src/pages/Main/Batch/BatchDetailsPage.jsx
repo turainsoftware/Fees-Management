@@ -3,6 +3,7 @@ import {
   BatchDetails,
   FeesStructure,
   SecondaryNavbar,
+  SubjectsCard,
 } from "../../../components";
 import { useLocation, useParams } from "react-router-dom";
 import { BatchDetailsShimmer } from "../../../Shimmers";
@@ -29,6 +30,7 @@ const BatchDetailsPage = () => {
     try {
       const data = await batchService.byId({ id: id, authToken: authToken });
       setBatchData(data);
+      console.log(data)
     } catch (error) {
       console.error("Error in fetching batch data:", error);
     } finally {
@@ -163,7 +165,7 @@ const BatchDetailsPage = () => {
             />
 
             {/* Subjects */}
-            <div className="col-12">
+            {/* <div className="col-12">
               <div className="card shadow-sm">
                 <div className="card-body">
                   <h5 className="card-title text-warning d-flex align-items-center">
@@ -183,7 +185,8 @@ const BatchDetailsPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <SubjectsCard authToken={authToken} batchId={id} defaultSubjects={batchData?.subjects}/>
           </div>
         </div>
       )}

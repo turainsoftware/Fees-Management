@@ -140,9 +140,25 @@ class BatchService {
         }
       );
 
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
+  async updateSubjects({ authToken, batchId, subjectsPayload }) {
+    const uri = `${this.baseUrl}/api/v1/batch/update-subjects?batchId=${batchId}`;
+    
+    try {
+      const response = await axios.patch(uri, subjectsPayload, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
       const data=await response.data;
       return data;
-      
     } catch (error) {
       const data = await error.response.data;
       return data;

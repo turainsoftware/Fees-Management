@@ -174,6 +174,24 @@ class TeacherService {
       return data;
     }
   }
+  
+  // All the subjects of teachers
+  async subjects({ authToken }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/subjects`;
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
 
   // Update Teacher End
 }
