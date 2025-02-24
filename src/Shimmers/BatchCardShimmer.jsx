@@ -31,17 +31,18 @@ const BatchCardShimmer = () => {
 };
 
 const ShimmerWrapper = styled.div`
+  width: 100%;
+
   .shimmer-card {
-    width: 320px;
-    height: 250px;
+    position: relative;
     padding: 20px;
     background: #fff;
-    border-radius: 23px;
+    border-radius: 10px;
     box-shadow: 0px 155px 62px rgba(0, 0, 0, 0.01),
       0px 87px 52px rgba(0, 0, 0, 0.05), 0px 39px 39px rgba(0, 0, 0, 0.09),
       0px 10px 21px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 23px;
     overflow: hidden;
+    margin-bottom: 20px; // Add some margin below each card
   }
 
   .shimmer-line {
@@ -83,12 +84,6 @@ const ShimmerWrapper = styled.div`
     flex-direction: column;
     gap: 8px;
     margin-bottom: 15px;
-  }
-
-  .shimmer-fees {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
   }
 `;
 
