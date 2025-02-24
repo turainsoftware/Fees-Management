@@ -88,10 +88,13 @@ const BatchCard = ({ data }) => {
   };
 
   return (
-    <StyledWrapper backgroundColor={backgroundColor}>
-      <div className="card cursor-pointer" onClick={() => {
-        navigate(`batch-details/${id}`);
-      }}>
+    <StyledWrapper style={{ width: "100%" }} backgroundColor={backgroundColor}>
+      <div
+        className="card cursor-pointer"
+        onClick={() => {
+          navigate(`batch-details/${id}`);
+        }}
+      >
         <div className="card-header">
           <span>{name}</span>
         </div>
@@ -121,8 +124,6 @@ const BatchCard = ({ data }) => {
 
 const StyledWrapper = styled.div`
   .card {
-    width: 320px;
-    height: 250px; /* set a fixed height */
     position: relative;
     padding: 20px;
     background: radial-gradient(
@@ -132,10 +133,7 @@ const StyledWrapper = styled.div`
         )
         /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */,
       #ffffff;
-    box-shadow: 0px 155px 62px rgba(0, 0, 0, 0.01),
-      0px 87px 52px rgba(0, 0, 0, 0.05), 0px 39px 39px rgba(0, 0, 0, 0.09),
-      0px 10px 21px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
-    border-radius: 23px;
+    border-radius: 10px;
     transition: all 0.8s cubic-bezier(0.15, 0.83, 0.66, 1);
     cursor: pointer;
     margin-bottom: 20px; // Add some margin below each card

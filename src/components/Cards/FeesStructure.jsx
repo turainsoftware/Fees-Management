@@ -74,10 +74,10 @@ const FeesStructure = ({
               Fees Structure
             </h5>
             <button
-              className="btn btn-info btn-sm d-flex justify-content-center align-items-center"
+              className="btn btn-sm d-flex justify-content-center align-items-center"
               onClick={handleUpdateClick}
             >
-              <FaEdit color={"#fff"} size={20} />
+              <FaEdit size={16} color="green"/>
             </button>
           </div>
           <hr className="border-light opacity-75" />
