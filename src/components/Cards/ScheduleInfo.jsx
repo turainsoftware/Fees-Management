@@ -81,30 +81,8 @@ const ScheduleInfo = ({
       setIsLoading(true);
       // Add your API call here
 
-      // Update all state variables on successful save
-      setSelectedDays(tempSelectedDays);
-      setBatchStartTime(tempBatchStartTime);
-      setBatchEndTime(tempBatchEndTime);
-      setStartYearState(tempStartYear);
-      setStartMonthState(tempStartMonth);
-      setEndYearState(tempEndYear);
-      setEndMonthState(tempEndMonth);
+      
 
-      console.log(
-        tempSelectedDays,
-        "end time",
-        tempBatchEndTime,
-        "start time",
-        tempBatchStartTime,
-        "Start Year",
-        tempStartYear,
-        "StartMonth",
-        tempStartMonth,
-        "endyear",
-        tempEndYear,
-        "end Month",
-        tempEndMonth
-      );
 
       const data = await batchService.updateSchedule({
         authToken: authToken,
@@ -120,6 +98,14 @@ const ScheduleInfo = ({
 
       console.log(data);
       if (data.status) {
+        // Update all state variables on successful save
+      setSelectedDays(tempSelectedDays);
+      setBatchStartTime(tempBatchStartTime);
+      setBatchEndTime(tempBatchEndTime);
+      setStartYearState(tempStartYear);
+      setStartMonthState(tempStartMonth);
+      setEndYearState(tempEndYear);
+      setEndMonthState(tempEndMonth);
         message.success("Schedule updated successfully");
         setShowModal(false);
       } else {

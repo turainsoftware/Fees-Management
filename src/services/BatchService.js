@@ -190,6 +190,30 @@ class BatchService {
       return data;
     }
   }
+
+  async updateBatchDetails({
+    authToken,
+    batchId,
+    batchName,
+    languageId,
+    boardId,
+    classPayload,
+  }) {
+    const uri = `${this.baseUrl}/api/v1/batch/update-details?batchId=${batchId}&batchName=${batchName}&languageId=${languageId}&boardId=${boardId}`;
+    console.log(uri);
+    try {
+      const response = await axios.patch(uri, classPayload, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (err) {
+      const data = await err.response.data;
+      return data;
+    }
+  }
 }
 
 const batchService = new BatchService();

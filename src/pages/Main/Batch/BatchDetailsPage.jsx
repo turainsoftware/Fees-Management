@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {
   BatchDetails,
+  BatchInfoCard,
   FeesStructure,
   ScheduleInfo,
   SecondaryNavbar,
@@ -43,8 +44,6 @@ const BatchDetailsPage = () => {
     fetchBatchData();
   }, []);
 
-  
-
   return (
     <main className="wrapper home-wrapper">
       <SecondaryNavbar title={"Batch Details"} />
@@ -54,7 +53,7 @@ const BatchDetailsPage = () => {
         <div className="container py-4 pb-100">
           <div className="row g-4">
             {/* Main Batch Info */}
-            <div className="col-12">
+            {/* <div className="col-12">
               <div className="card shadow-sm">
                 <div className="card-body">
                   <div className="d-flex justify-content-between align-items-center">
@@ -94,7 +93,15 @@ const BatchDetailsPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <BatchInfoCard
+            batchId={batchData?.id}
+              name={batchData?.name}
+              board={batchData?.board}
+              classes={batchData?.classes}
+              language={batchData?.language}
+              authToken={authToken}
+            />
 
             {/* Schedule Info */}
             {/* <div className="col-md-6">

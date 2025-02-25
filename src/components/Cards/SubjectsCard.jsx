@@ -94,7 +94,7 @@ const SubjectsCard = ({ batchId, defaultSubjects, authToken }) => {
   };
 
   return (
-    <div className="col-md-6">
+    <div className="col-md-12">
       <Card
         title={
           <div className="d-flex align-items-center justify-content-between">

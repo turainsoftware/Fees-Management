@@ -191,6 +191,56 @@ class TeacherService {
       return data;
     }
   }
+  
+  
+  async languages({ authToken }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/languages`;
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+  
+  async classes({ authToken }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/classes`;
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+  
+  
+  async boards({ authToken }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/boards`;
+      const response = await axios.get(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
 
 
   // Update Teacher End
