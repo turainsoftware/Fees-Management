@@ -8,16 +8,9 @@ import { toast } from "react-toastify";
 import { batchService } from "../../services/BatchService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { dayOptions } from "../../utils/Common";
 
-const dayOptions = [
-  { value: "Monday", label: "Monday" },
-  { value: "Tuesday", label: "Tuesday" },
-  { value: "Wednesday", label: "Wednesday" },
-  { value: "Thursday", label: "Thursday" },
-  { value: "Friday", label: "Friday" },
-  { value: "Saturday", label: "Saturday" },
-  { value: "Sunday", label: "Sunday" },
-];
+
 
 const CreateBatchForm = () => {
   const { authToken } = useAuth();

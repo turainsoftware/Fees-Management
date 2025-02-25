@@ -39,6 +39,7 @@ import DetailsCard from "./Cards/DetailsCard";
 import BatchCard from "./Cards/BatchCard";
 import BatchDetails from "./BatchDetails";
 import SubjectsCard from "./Cards/SubjectsCard";
+import ScheduleInfo from "./Cards/ScheduleInfo";
 
 // Modals
 import ModelProfile from "./Modals/ModelProfile";
@@ -54,6 +55,7 @@ import InfoSection from "./Profile/InfoSection";
 import ProfilePageCard from "./Profile/ProfilePageCard";
 
 export {
+  ScheduleInfo,
   SubjectsCard,
   FeesStructure,
   DashboardHeader,

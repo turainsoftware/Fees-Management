@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   BatchDetails,
   FeesStructure,
+  ScheduleInfo,
   SecondaryNavbar,
   SubjectsCard,
 } from "../../../components";
@@ -30,7 +31,7 @@ const BatchDetailsPage = () => {
     try {
       const data = await batchService.byId({ id: id, authToken: authToken });
       setBatchData(data);
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.error("Error in fetching batch data:", error);
     } finally {
@@ -42,19 +43,7 @@ const BatchDetailsPage = () => {
     fetchBatchData();
   }, []);
 
-  const formatTime = (timeString) => {
-    return new Date(`2000-01-01T${timeString}`).toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
-
-  const formatMonth = (monthNum) => {
-    return new Date(2000, monthNum - 1, 1).toLocaleString("default", {
-      month: "long",
-    });
-  };
+  
 
   return (
     <main className="wrapper home-wrapper">
@@ -108,7 +97,7 @@ const BatchDetailsPage = () => {
             </div>
 
             {/* Schedule Info */}
-            <div className="col-md-6">
+            {/* <div className="col-md-6">
               <div className="card shadow-sm h-100">
                 <div className="card-body">
                   <h5 className="card-title text-primary d-flex align-items-center">
@@ -155,7 +144,18 @@ const BatchDetailsPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
+            <ScheduleInfo
+              authToken={authToken}
+              batchId={id}
+              days={batchData?.days}
+              startTime={batchData?.startTime}
+              endTime={batchData?.endTime}
+              startYear={batchData?.startYear}
+              endYear={batchData?.endYear}
+              startMonth={batchData?.startMonth}
+              endMonth={batchData?.endMonth}
+            />
 
             <FeesStructure
               monthlyfees={batchData.monthlyFees}
@@ -186,7 +186,11 @@ const BatchDetailsPage = () => {
                 </div>
               </div>
             </div> */}
-            <SubjectsCard authToken={authToken} batchId={id} defaultSubjects={batchData?.subjects}/>
+            <SubjectsCard
+              authToken={authToken}
+              batchId={id}
+              defaultSubjects={batchData?.subjects}
+            />
           </div>
         </div>
       )}

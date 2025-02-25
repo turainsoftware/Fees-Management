@@ -59,10 +59,38 @@ function isAdvanceDate({ year, month, paymentDate }) {
   return checkDate > payment;
 }
 
+const formatTime = (timeString) => {
+  return new Date(`2000-01-01T${timeString}`).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
+const formatMonth = (monthNum) => {
+  return new Date(2000, monthNum - 1, 1).toLocaleString("default", {
+    month: "long",
+  });
+};
+
+// Datas
+const dayOptions = [
+  { value: "Monday", label: "Monday" },
+  { value: "Tuesday", label: "Tuesday" },
+  { value: "Wednesday", label: "Wednesday" },
+  { value: "Thursday", label: "Thursday" },
+  { value: "Friday", label: "Friday" },
+  { value: "Saturday", label: "Saturday" },
+  { value: "Sunday", label: "Sunday" },
+];
+
 export {
+  formatTime,
+  formatMonth,
   getGreetingBasedOnTime,
   formatYearMonth,
   formatDate,
   checkIfBefore,
   isAdvanceDate,
+  dayOptions,
 };
