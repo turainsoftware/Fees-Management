@@ -28,21 +28,23 @@ const Otp = () => {
   const handleInputChange = (e, index) => {
     const value = e.target.value;
 
-    // Allow only numbers
-    if (!/^\d*$/.test(value)) {
-      e.target.value = "";
+    // Allow only numbers 0-9 (empty string is allowed during typing)
+    if (!/^[0-9]*$/.test(value)) {
+      e.target.value = ""; // Clear input if non-numeric (e.g., -, +, e, etc.)
       return;
     }
 
     // Restrict to a single digit
     if (value.length > 1) {
-      e.target.value = value.charAt(0);
+      e.target.value = value.charAt(0); // Keep only the first digit
     }
 
+    // Move to next input if a digit is entered and not at the last field
     if (value.length === 1 && index < inputRefs.length - 1) {
       inputRefs[index + 1].current.focus();
     }
 
+    // Submit OTP when last field is filled
     if (index === inputRefs.length - 1 && value.length === 1) {
       const combinedOtp = combineOtp().trim();
       handleSubmit();
@@ -62,7 +64,7 @@ const Otp = () => {
     const data = await validateOtp({ mobile: mobile, otp: combinedOtp });
 
     if (data) {
-      navigate("/dashboard", {replace: true});
+      navigate("/dashboard", { replace: true });
     } else {
       Swal.fire({
         title: "Invalid otp",
@@ -133,6 +135,13 @@ const Otp = () => {
                         ref={inputRefs[0]}
                         onChange={(e) => handleInputChange(e, 0)}
                         onKeyDown={(e) => handleKeyDown(e, 0)}
+                        onInput={(e) => {
+                          // Instantly remove anything that’s not 0-9
+                          e.target.value = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                        }}
                       />
                       <input
                         type="number"
@@ -142,6 +151,13 @@ const Otp = () => {
                         ref={inputRefs[1]}
                         onChange={(e) => handleInputChange(e, 1)}
                         onKeyDown={(e) => handleKeyDown(e, 1)}
+                        onInput={(e) => {
+                          // Instantly remove anything that’s not 0-9
+                          e.target.value = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                        }}
                       />
                       <input
                         type="number"
@@ -151,6 +167,13 @@ const Otp = () => {
                         ref={inputRefs[2]}
                         onChange={(e) => handleInputChange(e, 2)}
                         onKeyDown={(e) => handleKeyDown(e, 2)}
+                        onInput={(e) => {
+                          // Instantly remove anything that’s not 0-9
+                          e.target.value = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                        }}
                       />
                       <input
                         type="number"
@@ -160,6 +183,13 @@ const Otp = () => {
                         ref={inputRefs[3]}
                         onChange={(e) => handleInputChange(e, 3)}
                         onKeyDown={(e) => handleKeyDown(e, 3)}
+                        onInput={(e) => {
+                          // Instantly remove anything that’s not 0-9
+                          e.target.value = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                        }}
                       />
                       <input
                         type="number"
@@ -169,6 +199,13 @@ const Otp = () => {
                         ref={inputRefs[4]}
                         onChange={(e) => handleInputChange(e, 4)}
                         onKeyDown={(e) => handleKeyDown(e, 4)}
+                        onInput={(e) => {
+                          // Instantly remove anything that’s not 0-9
+                          e.target.value = e.target.value.replace(
+                            /[^0-9]/g,
+                            ""
+                          );
+                        }}
                       />
                     </div>
                   </div>
