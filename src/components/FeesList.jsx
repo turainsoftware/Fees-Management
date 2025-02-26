@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react"; // Note: useEffect was missing
 import { feesData } from "../utils/dummy";
 import { feesService } from "../services/FeesService";
 import { useAuth } from "../contexts/AuthContext";
@@ -29,9 +28,10 @@ const FeesList = ({ isLatest = true, pageNo, size }) => {
     }
   };
 
-  useState(() => {
+  // Fixed: Use useEffect instead of useState for side effects
+  useEffect(() => {
     fetchFeesHistory();
-  }, []);
+  }, []); // Empty dependency array to run once on mount
 
   return isLoading ? (
     <FeesListShimmer />
@@ -47,15 +47,7 @@ const FeesList = ({ isLatest = true, pageNo, size }) => {
             </a> */}
           </div>
 
-          {feesDetails ? (
-            <div className="d-flex justify-content-center align-items-center py-5">
-              <img
-                src={NotFoundImage} // Replace with actual image path after downloading
-                alt="Not Found"
-                style={{ maxWidth: "300px", height: "auto" }} // Adjust size as needed
-              />
-            </div>
-          ) : (
+          {feesDetails.length > 0 ? ( // Check if feesDetails has items
             <>
               {feesDetails.map((fee, index) => (
                 <div
@@ -93,6 +85,14 @@ const FeesList = ({ isLatest = true, pageNo, size }) => {
                 </div>
               )}
             </>
+          ) : (
+            <div className="d-flex justify-content-center align-items-center py-5">
+              <img
+                src={NotFoundImage}
+                alt="Fees Not Found"
+                style={{ maxWidth: "300px", height: "auto" }}
+              />
+            </div>
           )}
         </div>
       </div>
