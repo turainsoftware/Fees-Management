@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { indianStatesAndDistricts } from "../../../utils/Common";
 
 const Address = ({
   address,
@@ -11,7 +12,20 @@ const Address = ({
   setPincode,
   isFieldsEnable = true,
 }) => {
-  // State variables for each form field
+  const states = Object.keys(indianStatesAndDistricts);
+  const [availableDistricts, setAvailableDistricts] = useState([]);
+
+  useEffect(() => {
+    if (state && indianStatesAndDistricts[state]) {
+      setAvailableDistricts(indianStatesAndDistricts[state]);
+      if (!indianStatesAndDistricts[state].includes(district)) {
+        setDistrict("");
+      }
+    } else {
+      setAvailableDistricts([]);
+      setDistrict("");
+    }
+  }, [state, setDistrict]);
 
   return (
     <>
@@ -46,9 +60,11 @@ const Address = ({
               disabled={!isFieldsEnable}
             >
               <option value="">Select State</option>
-              <option value="West Bengal">West Bengal</option>
-              <option value="Goa">Goa</option>
-              <option value="Delhi">Delhi</option>
+              {states.map((stateName) => (
+                <option key={stateName} value={stateName}>
+                  {stateName}
+                </option>
+              ))}
             </select>
           </div>
           <div className="col-12">
@@ -60,12 +76,14 @@ const Address = ({
               className="form-select shadow-none fs-14 fw-medium"
               value={district}
               onChange={(e) => setDistrict(e.target.value)}
-              disabled={!isFieldsEnable}
+              disabled={!isFieldsEnable || !state}
             >
               <option value="">Select District</option>
-              <option value="Kolkata">Kolkata</option>
-              <option value="South 24 Parganas">South 24 Parganas</option>
-              <option value="Bankura">Bankura</option>
+              {availableDistricts.map((districtName) => (
+                <option key={districtName} value={districtName}>
+                  {districtName}
+                </option>
+              ))}
             </select>
           </div>
           <div className="col-12">
@@ -77,9 +95,13 @@ const Address = ({
               id="pincode"
               className="form-control shadow-none fs-14 fw-medium"
               value={pincode}
-              onChange={(e) => setPincode(e.target.value)}
-              placeholder="Enter pincode"
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "");
+                if (value.length <= 6) setPincode(value);
+              }}
+              placeholder="Enter 6-digit pincode"
               disabled={!isFieldsEnable}
+              maxLength={6}
             />
           </div>
         </div>

@@ -8,9 +8,11 @@ import { toast } from "react-toastify";
 import { studentService } from "../../services/StudentService";
 import Swal from "sweetalert2";
 import { isValidMobile } from "../../utils/Validations";
+import { useNavigate } from "react-router-dom";
 
 const StudentRegisterForm = () => {
   const { authToken } = useAuth();
+  const navigate = useNavigate();
 
   //State Values
   const [isLoading, setIsLoading] = useState(false);
@@ -192,6 +194,7 @@ const StudentRegisterForm = () => {
             });
             resetForm();
             setIsFieldsEnable(true);
+            navigate("/students", { replace: true });
           } else {
             Swal.fire({
               titleText: data?.message,

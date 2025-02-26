@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import profileAvatar from "./../../../assets/images/profile/avatar.jpg";
-import cameraIcon from "./../../../assets/images/camera-line.svg"; // Uncommented
-import { isValidMobile, isValidName,checkOnChangeMobile } from "../../../utils/Validations"; // Import validation function
+import cameraIcon from "./../../../assets/images/camera-line.svg";
+import {
+  isValidMobile,
+  isValidName,
+  checkOnChangeMobile,
+} from "../../../utils/Validations";
+import { message } from "antd";
 
 const PersonalDetails = ({
   studentName,
@@ -22,13 +27,30 @@ const PersonalDetails = ({
   setProfileImage,
   isFieldEnable = true,
 }) => {
-  const [contactNumberError, setContactNumberError] = useState(""); // State for mobile validation error
-  const [guardianNumberError, setGuardianNumberError] = useState(""); // State for guardian mobile validation error
+  const [contactNumberError, setContactNumberError] = useState("");
+  const [guardianNumberError, setGuardianNumberError] = useState("");
+  const [profilePreviewImage, setProfilePreviewImage] = useState(profileAvatar); // Default preview
 
-  const handleFileUpload = (e) => {
+  const ALLOWED_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/heic",
+    "image/bmp",
+  ];
+  const MAX_FILE_SIZE = 200 * 1024; // 200KB in bytes
+
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setProfileImage(file);
+      if (!ALLOWED_TYPES.includes(file.type) || file.size > MAX_FILE_SIZE) {
+        setProfileImage(file); // Keep file for validation display
+        setProfilePreviewImage(profileAvatar); // Reset to default if invalid
+        message.info("Image Not Allowed")
+      } else {
+        setProfileImage(file);
+        setProfilePreviewImage(URL.createObjectURL(file)); // Update preview
+      }
     }
   };
 
@@ -50,22 +72,21 @@ const PersonalDetails = ({
 
   return (
     <>
-      <div className="profile-contain position-absolute top-0 start-50 translate-middle">
+      <div className="profile-contain position-absolute top-0 start-50 translate-middle d-flex flex-column align-items-center">
         <label htmlFor="fileToUpload">
           <div
             className="profile-pic"
             style={{
-              backgroundImage: `url(${profileImage || profileAvatar})`, // Use uploaded image or default avatar
+              backgroundImage: `url(${profilePreviewImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              width: "100px",
+              height: "100px",
+              borderRadius: "50%",
             }}
           >
             <span>
-              <i className="ri-camera-line fs-1 text-white">
-                <img
-                  src={cameraIcon}
-                  alt="camera icon"
-                  style={{ width: "1em", height: "1em" }}
-                />
-              </i>
+              <i className="ri-camera-line fs-1 text-white"></i>
             </span>
           </div>
         </label>
@@ -73,11 +94,32 @@ const PersonalDetails = ({
           type="file"
           name="fileToUpload"
           id="fileToUpload"
-          accept="image/*"
-          onChange={handleFileUpload} // Handle file upload
-          style={{ display: "none" }} // Hide the default file input
+          accept=".jpg,.jpeg,.png,.gif,.heic,.bmp"
+          onChange={handleImageChange}
+          style={{ display: "none" }}
           disabled={!isFieldEnable}
         />
+        {/* Error message for invalid image */}
+        {(profileImage === null ||
+          (profileImage &&
+            (!ALLOWED_TYPES.includes(profileImage.type) ||
+              profileImage.size > MAX_FILE_SIZE))) && (
+          <span
+            className="text-danger mt-2 fs-12 fw-medium text-center"
+            style={{ width: "280px" }}
+          >
+            Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max 200KB)
+          </span>
+        )}
+        {/* Info message when image selection is disabled */}
+        {!isFieldEnable && profileImage === null && (
+          <span
+            className="text-info mt-2 fs-12 fw-medium text-center"
+            style={{ width: "280px" }}
+          >
+            Image selection is currently disabled
+          </span>
+        )}
       </div>
       <div className="form-header-bg mt-5 px-14">
         <h5 className="mb-0 fs-6 text-white fw-semibold">Personal Details</h5>
@@ -97,12 +139,10 @@ const PersonalDetails = ({
               value={contactNumber}
               onChange={(e) => {
                 const value = e.target.value;
-                // Allow only digits and limit to 10 characters
                 if (checkOnChangeMobile(value) && value.length <= 10) {
                   setContactNumber(value);
                   validateContactNumber(value);
                 }
-                
               }}
               maxLength={10}
             />
@@ -125,6 +165,7 @@ const PersonalDetails = ({
                   setStudentName(val);
                 }
               }}
+              maxLength={60}
               disabled={!isFieldEnable}
             />
           </div>
@@ -157,7 +198,7 @@ const PersonalDetails = ({
               onChange={(e) => {
                 const val = e.target.value;
                 if (isValidName(val)) {
-                  setGuardianName(e.target.value);
+                  setGuardianName(val);
                 }
               }}
               disabled={!isFieldEnable}
@@ -181,6 +222,7 @@ const PersonalDetails = ({
                   validateGuardianNumber(value);
                 }
               }}
+              maxLength={10}
               disabled={!isFieldEnable}
             />
             {guardianNumberError && (

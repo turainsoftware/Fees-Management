@@ -20,8 +20,6 @@ const BatchAcademics = ({
 }) => {
   const [batchInfo, setBatchInfo] = useState([]);
 
-  // State Variables
-
   const fetchBatchData = async () => {
     try {
       const data = await batchService.getAllBatches({ authToken: authToken });
@@ -43,6 +41,7 @@ const BatchAcademics = ({
     setJoininYear((prev) => {
       return batchSelected?.startYear;
     });
+    setJoiningMonth(""); // Reset joining month when batch changes
     console.log(batchSelected);
     if (!isFieldsEnable) {
       const classes = batchSelected?.classes;
@@ -60,6 +59,9 @@ const BatchAcademics = ({
     );
     setSelectedClass(classSelected);
   };
+
+  // Check if batch is selected
+  const isBatchSelected = !!selectedBatch && Object.keys(selectedBatch).length > 0;
 
   return (
     <>
@@ -79,17 +81,16 @@ const BatchAcademics = ({
               name=""
               id=""
               className="form-select shadow-none fs-14 fw-medium"
+              value={selectedBatch?.id || ""}
             >
-              <option value={{}} defaultValue={true} disabled selected>
+              <option value="" disabled>
                 Select Batch
               </option>
-              {batchInfo.map((item, index) => {
-                return (
-                  <option key={index} value={item.id}>
-                    {item.name}
-                  </option>
-                );
-              })}
+              {batchInfo.map((item, index) => (
+                <option key={index} value={item.id}>
+                  {item.name}
+                </option>
+              ))}
             </select>
           </div>
           <div className="col-12">
@@ -102,25 +103,18 @@ const BatchAcademics = ({
               onChange={handleClassChange}
               disabled={!isFieldsEnable}
             >
-              {!isFieldsEnable && (
-                <option
-                  value={selectedClass.id}
-                  defaultValue={true}
-                  disabled
-                  selected
-                >
+              {!isFieldsEnable && selectedClass?.id ? (
+                <option value={selectedClass.id} disabled selected>
                   {selectedClass.name}
                 </option>
-              )}
-
-              {isFieldsEnable && (
-                <option value={{}} defaultValue={true} disabled selected>
+              ) : (
+                <option value="" disabled selected>
                   Select Class
                 </option>
               )}
 
               {isFieldsEnable && selectedBatch?.classes
-                ? selectedBatch?.classes.map((item, index) => (
+                ? selectedBatch.classes.map((item, index) => (
                     <option key={index} value={item.id}>
                       {item.name}
                     </option>
@@ -128,9 +122,12 @@ const BatchAcademics = ({
                 : null}
             </select>
             {!isValidBatch && (
-              <span className="text-danger ps-2 pe-2 py-1 d-block mt-1 fs-14 fw-semibold" style={{ fontFamily: "'Poppins', sans-serif" }}>
-              The selected batch is not valid for the student.
-            </span>
+              <span 
+                className="text-danger ps-2 pe-2 py-1 d-block mt-1 fs-14 fw-semibold" 
+                style={{ fontFamily: "'Poppins', sans-serif" }}
+              >
+                The selected batch is not valid for the student.
+              </span>
             )}
           </div>
           <div className="col-12">
@@ -143,28 +140,30 @@ const BatchAcademics = ({
                 <select
                   id="startYear"
                   className="form-select shadow-none fs-14 fw-medium"
-                  value={joiningYear}
+                  value={joiningYear || ""}
                   onChange={(e) => {
                     const year = parseInt(e.target.value, 10);
                     setJoininYear(year);
-                    setJoiningMonth("");
+                    setJoiningMonth(""); // Reset month when year changes
                     console.log(joiningYear);
                   }}
+                  disabled={!isBatchSelected} // Disabled when no batch selected
                 >
                   <option value="" disabled>
                     Select start year
                   </option>
-                  {Array.from(
-                    {
-                      length:
-                        selectedBatch.endYear - selectedBatch.startYear + 1,
-                    },
-                    (_, i) => selectedBatch.startYear + i
-                  ).map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
+                  {isBatchSelected && 
+                    Array.from(
+                      {
+                        length:
+                          selectedBatch.endYear - selectedBatch.startYear + 1,
+                      },
+                      (_, i) => selectedBatch.startYear + i
+                    ).map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
                 </select>
               </div>
 
@@ -176,37 +175,39 @@ const BatchAcademics = ({
                 <select
                   id="startMonth"
                   className="form-select shadow-none fs-14 fw-medium"
-                  value={joiningMonth}
+                  value={joiningMonth || ""}
                   onChange={(e) =>
                     setJoiningMonth(parseInt(e.target.value, 10))
                   }
+                  disabled={!isBatchSelected} // Disabled when no batch selected
                 >
                   <option value="" disabled>
                     Select start month
                   </option>
-                  {Array.from({ length: 12 }, (_, i) => i + 1)
-                    .filter((month) => {
-                      if (
-                        joiningYear === selectedBatch.startYear &&
-                        month < selectedBatch.startMonth
-                      ) {
-                        return false;
-                      }
-                      if (
-                        joiningYear === selectedBatch.endYear &&
-                        month > selectedBatch.endMonth
-                      ) {
-                        return false;
-                      }
-                      return true;
-                    })
-                    .map((month) => (
-                      <option key={month} value={month}>
-                        {new Date(0, month - 1).toLocaleString("default", {
-                          month: "long",
-                        })}
-                      </option>
-                    ))}
+                  {isBatchSelected &&
+                    Array.from({ length: 12 }, (_, i) => i + 1)
+                      .filter((month) => {
+                        if (
+                          joiningYear === selectedBatch.startYear &&
+                          month < selectedBatch.startMonth
+                        ) {
+                          return false;
+                        }
+                        if (
+                          joiningYear === selectedBatch.endYear &&
+                          month > selectedBatch.endMonth
+                        ) {
+                          return false;
+                        }
+                        return true;
+                      })
+                      .map((month) => (
+                        <option key={month} value={month}>
+                          {new Date(0, month - 1).toLocaleString("default", {
+                            month: "long",
+                          })}
+                        </option>
+                      ))}
                 </select>
               </div>
             </div>
@@ -217,7 +218,7 @@ const BatchAcademics = ({
               Batch Fees
             </label>
             <input
-              value={selectedBatch?.monthlyFees}
+              value={selectedBatch?.monthlyFees || ""}
               disabled
               type="text"
               className="form-control shadow-none fs-14 fw-medium"
@@ -231,7 +232,7 @@ const BatchAcademics = ({
             <Select
               isMulti
               value={
-                selectedBatch.subjects
+                selectedBatch?.subjects
                   ? selectedBatch.subjects.map((item) => ({
                       label: item.name,
                       value: item.id,
@@ -249,7 +250,7 @@ const BatchAcademics = ({
             <Select
               isMulti
               value={
-                selectedBatch.classes
+                selectedBatch?.classes
                   ? selectedBatch.classes.map((item) => ({
                       label: item.name,
                       value: item.id,
@@ -266,11 +267,11 @@ const BatchAcademics = ({
             </label>
             <input
               type="text"
-              value={selectedBatch?.board?.name}
+              value={selectedBatch?.board?.name || ""}
               disabled
               className="form-control shadow-none fs-14 fw-medium"
               placeholder=""
-            ></input>
+            />
           </div>
         </div>
       </div>
