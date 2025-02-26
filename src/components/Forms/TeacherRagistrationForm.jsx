@@ -11,6 +11,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { teacherService } from "../../services/TeacherService";
 
 const MAX_FILE_SIZE = 200 * 1024; // 200KB in bytes
+const ALLOWED_TYPES = [
+  'image/jpeg',    // .jpg, .jpeg
+  'image/png',     // .png
+  'image/gif',     // .gif
+  'image/heic',    // .heic
+  'image/bmp',     // .bmp
+];
 
 const TeacherRagistrationForm = ({
   language = [],
@@ -91,9 +98,9 @@ const TeacherRagistrationForm = ({
   const handleImageChange = (e) => {
     const imagePath = e.target.files[0];
     if (imagePath) {
-      // Check if it's an image file
-      if (!imagePath.type.startsWith('image/')) {
-        toast.error("Please upload only image files (jpg, png, etc.)");
+      // Check if it's an allowed image format
+      if (!ALLOWED_TYPES.includes(imagePath.type)) {
+        toast.error("Only JPEG, PNG, GIF, HEIC, or BMP files are allowed");
         setProfileImage(null);
         setProfilePreviewImage(avatarImg);
         return;
@@ -121,8 +128,8 @@ const TeacherRagistrationForm = ({
       return false;
     }
 
-    if (!profileImage.type.startsWith('image/')) {
-      toast.error("Please upload only image files (jpg, png, etc.)");
+    if (!ALLOWED_TYPES.includes(profileImage.type)) {
+      toast.error("Only JPEG, PNG, GIF, HEIC, or BMP files are allowed");
       return false;
     }
     
@@ -251,7 +258,7 @@ const TeacherRagistrationForm = ({
           <div className="col-12">
             <div className="inner-contain py-14 bg-white light-blue-border radius-8 position-relative">
               <form onSubmit={handleSubmit} className="pt-4">
-                <div className="profile-contain position-absolute top-0 start-50 translate-middle">
+                <div className="profile-contain position-absolute top-0 start-50 translate-middle d-flex flex-column align-items-center">
                   <label htmlFor="fileToUpload">
                     <div
                       className="profile-pic"
@@ -268,12 +275,14 @@ const TeacherRagistrationForm = ({
                     type="file"
                     name="fileToUpload"
                     id="fileToUpload"
-                    accept="image/*"
+                    accept=".jpg,.jpeg,.png,.gif,.heic,.bmp"
                     onChange={handleImageChange}
+                    style={{ display: 'none' }} // Hide the default input
                   />
-                  {(profileImage === null || (profileImage && profileImage.size > MAX_FILE_SIZE)) && (
-                    <span className="text-danger d-block text-center mt-1 fs-12 fw-medium">
-                      Please upload an image (max 200KB)
+                  {(profileImage === null || 
+                    (profileImage && (!ALLOWED_TYPES.includes(profileImage.type) || profileImage.size > MAX_FILE_SIZE))) && (
+                    <span className="text-danger mt-2 fs-12 fw-medium text-center" style={{ width: '280px' }}>
+                      Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max 200KB)
                     </span>
                   )}
                 </div>
