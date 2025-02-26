@@ -6,8 +6,9 @@ import { useAuth } from "../contexts/AuthContext";
 import { FeesListShimmer } from "../Shimmers";
 import { formatDate } from "../utils/Common";
 import { Link } from "react-router-dom";
+import NotFoundImage from "./../assets/images/fees-not-found.svg";
 
-const FeesList = ({ isLatest = true,pageNo,size }) => {
+const FeesList = ({ isLatest = true, pageNo, size }) => {
   const { authToken } = useAuth();
 
   // State Variables
@@ -40,43 +41,58 @@ const FeesList = ({ isLatest = true,pageNo,size }) => {
         <div className="inner-contain light-blue-border bg-white radius-8">
           <div className="border-bottom d-flex align-items-center justify-content-between px-14 py-14">
             <h6 className="mb-0 fw-semibold">Fees List</h6>
-            <a href="#" className="d-flex align-items-center fs-6">
+            {/* <a href="#" className="d-flex align-items-center fs-6">
               <i className="ri-equalizer-2-line fs-20 primary-color me-1"></i>
               <span className="fw-semibold primary-color">Filter</span>
-            </a>
+            </a> */}
           </div>
-          {feesDetails.map((fee, index) => (
-            <div
-              key={index}
-              className="px-14 d-flex align-items-center justify-content-between py-14 border-bottom"
-            >
-              <div>
-                <h6 className="mb-1 fs-15 fw-semibold">{fee.studentName}</h6>
-                <p className="mb-0 text-muted">Batch - {fee.batchName}</p>
-                <span className="text-muted fs-13 fw-medium">
-                  {fee.description}
-                </span>
-              </div>
-              <div>
-                <h6
-                  className={`mb-1 fs-18 fw-bold text-end ${
-                    fee.status === "green" ? "green-color" : "red-color"
-                  }`}
+
+          {feesDetails ? (
+            <div className="d-flex justify-content-center align-items-center py-5">
+              <img
+                src={NotFoundImage} // Replace with actual image path after downloading
+                alt="Not Found"
+                style={{ maxWidth: "300px", height: "auto" }} // Adjust size as needed
+              />
+            </div>
+          ) : (
+            <>
+              {feesDetails.map((fee, index) => (
+                <div
+                  key={index}
+                  className="px-14 d-flex align-items-center justify-content-between py-14 border-bottom"
                 >
-                  ₹ {fee.amountPaid}
-                </h6>
-                <span className="text-muted fs-13 fw-medium text-end">
-                  Received in {formatDate({ isoString: fee.paymentDate })}
-                </span>
-              </div>
-            </div>
-          ))}
-          {isLatest && (
-            <div className="my-4 text-center">
-              <Link to={"/fees/fees-list"} className="btn2">
-                View more
-              </Link>
-            </div>
+                  <div>
+                    <h6 className="mb-1 fs-15 fw-semibold">
+                      {fee.studentName}
+                    </h6>
+                    <p className="mb-0 text-muted">Batch - {fee.batchName}</p>
+                    <span className="text-muted fs-13 fw-medium">
+                      {fee.description}
+                    </span>
+                  </div>
+                  <div>
+                    <h6
+                      className={`mb-1 fs-18 fw-bold text-end ${
+                        fee.status === "green" ? "green-color" : "red-color"
+                      }`}
+                    >
+                      ₹ {fee.amountPaid}
+                    </h6>
+                    <span className="text-muted fs-13 fw-medium text-end">
+                      Received in {formatDate({ isoString: fee.paymentDate })}
+                    </span>
+                  </div>
+                </div>
+              ))}
+              {isLatest && (
+                <div className="my-4 text-center">
+                  <Link to={"/fees/fees-list"} className="btn2">
+                    View more
+                  </Link>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
