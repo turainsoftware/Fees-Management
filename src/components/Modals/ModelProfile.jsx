@@ -92,30 +92,27 @@ const ModelProfile = ({ name, mobile, profilePic }) => {
             <RiBookLine className="me-2 fs-18 text-info" /> {/* Courses Icon */}
             <span>My Batches</span>
           </Link>
-          <a
+          {/* <a
             href="#"
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
           >
             <RiCalendarLine className="me-2 fs-18 text-success" />{" "}
-            {/* Schedule Icon */}
             <span>Class Schedule</span>
-          </a>
-          <a
+          </a> */}
+          {/* <a
             href="#"
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
           >
             <RiFileListLine className="me-2 fs-18 text-secondary" />{" "}
-            {/* Reports Icon */}
             <span>Student Reports</span>
-          </a>
-          <a
+          </a> */}
+          {/* <a
             href="#"
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
           >
             <RiSettingsLine className="me-2 fs-18 text-danger" />{" "}
-            {/* Settings Icon */}
             <span>Settings</span>
-          </a>
+          </a> */}
           <Link
             to={'/help-support'}
             className="d-flex align-items-center mb-3 text-decoration-none text-dark"
@@ -137,13 +134,13 @@ const ModelProfile = ({ name, mobile, profilePic }) => {
           Logout
         </a> */}
         <Logout />
-        <a
-          href="#"
+        <Link
+          to={"/profile"}
           className="btn btn-primary btn-sm d-flex align-items-center"
         >
           <RiEditLine className="fs-16 me-2" /> {/* Edit Icon */}
-          Edit Profile
-        </a>
+          Profile
+        </Link>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import callIcon from "./../assets/images/dashboard/call-icon.svg";
 import { teacherService } from "../services/TeacherService";
 import { useAuth } from "../contexts/AuthContext";
 import { ItemListShimmer } from "../Shimmers";
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import Empty from "./../assets/images/empty.svg";
 
 const StudentList = ({ headerText, isRecent = true }) => {
@@ -69,17 +69,16 @@ const StudentList = ({ headerText, isRecent = true }) => {
           {students.length === 0 ? (
             <div className="container mt-5">
               <div className="text-center">
-              <img
-                src={Empty} // Replace with actual image path after downloading
-                alt="Not Found"
-                style={{ maxWidth: "250px", height: "auto",padding: 20 }} // Adjust size as needed
-              />
+                <img
+                  src={Empty} // Replace with actual image path after downloading
+                  alt="Not Found"
+                  style={{ maxWidth: "250px", height: "auto", padding: 20 }} // Adjust size as needed
+                />
               </div>
             </div>
           ) : (
             Array.isArray(students) &&
             students.map((student, index) => (
-
               //Updated
               <div
                 key={index}
@@ -90,7 +89,9 @@ const StudentList = ({ headerText, isRecent = true }) => {
                   <div className="me-3">
                     {student.profilePic ? (
                       <img
-                        src={import.meta.env.VITE_PROFILEURL+student.profilePic}
+                        src={
+                          import.meta.env.VITE_PROFILEURL + student.profilePic
+                        }
                         alt={student.name}
                         className="rounded-circle"
                         style={{
@@ -143,16 +144,15 @@ const StudentList = ({ headerText, isRecent = true }) => {
                     />
                   </div> */}
                 </div>
-                
               </div>
             ))
           )}
 
           {students.length === 0 ? null : (
             <div className="my-4 text-center">
-              <a href="#" className="btn2">
+              <Link to={"/students/student-list"} className="btn2">
                 View more
-              </a>
+              </Link>
             </div>
           )}
         </div>

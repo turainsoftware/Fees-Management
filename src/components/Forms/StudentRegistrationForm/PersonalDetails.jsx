@@ -108,16 +108,8 @@ const PersonalDetails = ({
             className="text-danger mt-2 fs-12 fw-medium text-center"
             style={{ width: "280px" }}
           >
-            Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max 200KB)
-          </span>
-        )}
-        {/* Info message when image selection is disabled */}
-        {!isFieldEnable && profileImage === null && (
-          <span
-            className="text-info mt-2 fs-12 fw-medium text-center"
-            style={{ width: "280px" }}
-          >
-            Image selection is currently disabled
+            Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max
+            200KB)
           </span>
         )}
       </div>

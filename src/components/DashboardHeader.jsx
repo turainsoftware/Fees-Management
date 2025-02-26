@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Images
 import Avatar from "./../assets/images/profile/avatar.jpg";
@@ -128,11 +128,33 @@ const DashboardHeader = ({
   isLoading = false,
   userData = {},
 }) => {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if the user has scrolled even a tiny bit
+      if (window.scrollY > 0) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return isLoading ? (
     <section
       style={shimmerStyles.shimmerWrapper}
       className="dashboard-header w-100 d-flex align-items-center light-border-bottom bg-white"
       id="dash-header"
+      
     >
       <div style={shimmerStyles.shimmerContainer} className="container px-3 ">
         <div
@@ -167,8 +189,11 @@ const DashboardHeader = ({
     </section>
   ) : (
     <section
-      className="dashboard-header w-100 d-flex align-items-center light-border-bottom bg-white"
+      className={`dashboard-header w-100 d-flex align-items-center light-border-bottom bg-white ${
+        isSticky ? "position-fixed top-0 start-0" : ""
+      }`}
       id="dash-header"
+      style={{ zIndex: 1000, transition: "all 1s ease-in-out" }}
     >
       <div className="container px-3 ">
         <div className="row align-items-center justify-content-between gx-0">
@@ -208,7 +233,7 @@ const DashboardHeader = ({
         </div>
       </div>
       {/* Model Notification */}
-      <ModelNotification />
+      {/* <ModelNotification /> */}
       <ModelProfile
         mobile={userData?.phone}
         profilePic={userData?.profilePic}

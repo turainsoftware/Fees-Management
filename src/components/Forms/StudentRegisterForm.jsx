@@ -298,8 +298,27 @@ const StudentRegisterForm = () => {
 
   //Checking validation on when mobile will gonna be 10 digit
   useEffect(() => {
-    if (contactNumber.length == 10 && isValidMobile(contactNumber)) {
+    // Function to clear form data
+    const clearFormData = () => {
+      setStudentId(null);
+      setStudentName("");
+      setGender("Male");
+      setGuardianName("");
+      setGuardianNumber("");
+      setEmailAddress("");
+      setAddress("");
+      setState("");
+      setDistrict("");
+      setPincode("");
+      setSelectedClass({});
+      setIsFieldsEnable(true);
+    };
+
+    // Check when contact number changes
+    if (contactNumber.length === 10 && isValidMobile(contactNumber)) {
       studentDetails();
+    } else if (contactNumber.length < 10) {
+      clearFormData();
     }
   }, [contactNumber]);
 
