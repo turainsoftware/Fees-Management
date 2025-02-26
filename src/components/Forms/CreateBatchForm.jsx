@@ -246,6 +246,7 @@ const CreateBatchForm = () => {
                           batchNameError ? "is-invalid" : ""
                         }`}
                         placeholder=""
+                        maxLength={150}
                       />
                       {batchNameError && (
                         <div className="invalid-feedback d-block mt-1">
