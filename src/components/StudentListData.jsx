@@ -97,33 +97,6 @@ const StudentListData = ({
           ) : (
             Array.isArray(filteredData) &&
             filteredData.map((student, index) => (
-              //Depricated
-              // <div
-              //   key={index}
-              //   className="px-14 d-flex align-items-center justify-content-between py-14 border-bottom"
-              // >
-              //   <div>
-              //     <h6 className="mb-1 fs-15 fw-semibold">{student.name}</h6>
-              //     <span className="text-muted fs-13 fw-medium">
-              //       {student.email}
-              //     </span>
-              //   </div>
-              //   <div className="d-flex align-items-center">
-              //     <a href={`tel:${student.phone}`} className="me-2">
-              //       <img src={callIcon} height="32" alt="call-icon" />
-              //     </a>
-              //     <div className="form-check form-switch mb-0 ms-1 ps-0">
-              //       <input
-              //         className="form-check-input shadow-none ms-0 mt-0"
-              //         type="checkbox"
-              //         role="switch"
-              //         id={`flexSwitchCheckChecked-${index}`}
-              //         checked={true}
-              //         readOnly
-              //       />
-              //     </div>
-              //   </div>
-              // </div>
               <div
                 key={index}
                 className="px-14 d-flex align-items-center justify-content-between py-14 border-bottom"
@@ -175,7 +148,7 @@ const StudentListData = ({
                   <a href={`tel:${student.phone}`} className="me-2">
                     <img src={callIcon} height="32" alt="call-icon" />
                   </a>
-                  <div className="form-check form-switch mb-0 ms-1 ps-0">
+                  {/* <div className="form-check form-switch mb-0 ms-1 ps-0">
                     <input
                       className="form-check-input shadow-none ms-0 mt-0"
                       type="checkbox"
@@ -184,7 +157,7 @@ const StudentListData = ({
                       checked={true}
                       readOnly
                     />
-                  </div>
+                  </div> */}
                 </div>
                 
               </div>

@@ -69,7 +69,7 @@ const StudentList = () => {
       <StudentListData
         headerText={"Recent Students List"}
         isRecent={true}
-        data={studentData}
+        data={studentData?studentData:[]}
         isLoading={isLoading}
         studentName={searchName}
       />
