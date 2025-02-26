@@ -56,19 +56,30 @@ const Otp = () => {
     if (combinedOtp.length !== 5) {
       Swal.fire({
         title: "Not Valid",
-        text: "Enter a valid otp to proced",
+        text: "Enter a valid OTP to proceed",
         icon: "warning",
       });
       return;
     }
+  
     const data = await validateOtp({ mobile: mobile, otp: combinedOtp });
-
+  
     if (data) {
+      // Navigate to dashboard with replace
       navigate("/dashboard", { replace: true });
+  
+      // Replace the entire history stack with the dashboard
+      window.history.replaceState(null, '', '/dashboard');
+  
+      // Prevent back navigation by adding a listener
+      window.history.pushState(null, '', '/dashboard');
+      window.addEventListener('popstate', (event) => {
+        window.history.pushState(null, '', '/dashboard');
+      });
     } else {
       Swal.fire({
-        title: "Invalid otp",
-        text: "Enter a valid otp",
+        title: "Invalid OTP",
+        text: "Please enter a valid OTP",
         icon: "warning",
       });
     }
