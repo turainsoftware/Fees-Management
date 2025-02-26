@@ -11,7 +11,7 @@ import Empty from "./../assets/images/empty.svg";
 
 const StudentList = ({ headerText, isRecent = true }) => {
   const screenWidth = window.innerWidth;
-  const imageWidth = screenWidth >= 768 ? "25%" : "50%";
+  // const imageWidth = screenWidth >= 768 ? "25%" : "50%";
   //Contexts Values
   const { authToken } = useAuth();
   const [isRecentState, setIsRecentState] = useState(isRecent);
@@ -69,16 +69,11 @@ const StudentList = ({ headerText, isRecent = true }) => {
           {students.length === 0 ? (
             <div className="container mt-5">
               <div className="text-center">
-                <img
-                  src={Empty}
-                  style={{
-                    width: imageWidth,
-                    height: "auto",
-                    marginBottom: "20px",
-                    maxWidth: "100%",
-                  }}
-                  alt="Empty"
-                />
+              <img
+                src={Empty} // Replace with actual image path after downloading
+                alt="Not Found"
+                style={{ maxWidth: "250px", height: "auto",padding: 20 }} // Adjust size as needed
+              />
               </div>
             </div>
           ) : (
