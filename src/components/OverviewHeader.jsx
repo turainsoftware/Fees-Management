@@ -127,9 +127,9 @@ const OverviewHeader = ({ isLoading = false }) => {
                       feesData?.percentage >= 0 ? "green-color" : "red-color"
                     }
                     changeType={`${feesData?.trend} by`}
-                    changeValue={`${
-                      feesData.percentage >= 0 ? "+" : "-"
-                    }${new Number(feesData.percentage).toFixed(1)}%`}
+                    changeValue={`${new Number(feesData.percentage).toFixed(
+                      1
+                    )}%`}
                   />
                 )}
                 {/* For Month Analysis End*/}
@@ -148,9 +148,9 @@ const OverviewHeader = ({ isLoading = false }) => {
                         : "red-color"
                     }
                     changeType={`${studentsData?.trend} by`}
-                    changeValue={`${
-                      studentsData.percentage >= 0 ? "+" : "-"
-                    }${new Number(studentsData.percentage).toFixed(1)}%`}
+                    changeValue={`${new Number(studentsData.percentage).toFixed(
+                      1
+                    )}%`}
                   />
                 )}
                 {/* Student Analysis End*/}
@@ -169,9 +169,9 @@ const OverviewHeader = ({ isLoading = false }) => {
                         : "red-color"
                     }
                     changeType={`${subjectsData?.trend} by`}
-                    changeValue={`${
-                      subjectsData.percentage >= 0 ? "+" : "-"
-                    }${new Number(subjectsData.percentage).toFixed(1)}%`}
+                    changeValue={`${new Number(subjectsData.percentage).toFixed(
+                      1
+                    )}%`}
                   />
                 )}
                 {/* Subjects Analysis End*/}
@@ -201,11 +201,7 @@ const OverviewHeader = ({ isLoading = false }) => {
                       batchData?.percentage >= 0 ? "green-color" : "red-color"
                     }
                     changeType={`${batchData?.trend} by`}
-                    changeValue={
-                      batchData.percentage >= 0
-                        ? `+${batchData.percentage}%`
-                        : `-${batchData.percentage}%`
-                    }
+                    changeValue={batchData.percentage}
                   />
                 )}
                 {/* Batch Analysis End */}

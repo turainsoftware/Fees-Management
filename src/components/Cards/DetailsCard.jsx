@@ -1,5 +1,6 @@
 import React from "react";
 import { DetailsCardShimmer } from "../../Shimmers";
+import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 
 const DetailsCard = ({
   value,
@@ -10,6 +11,17 @@ const DetailsCard = ({
   changeValue,
   isLoading = false,
 }) => {
+  // Extract percentage value and ensure proper formatting
+  const formatPercentage = (val) => {
+    // If changeValue already includes %, strip any + or - and use the number
+    const cleanedValue =
+      typeof val === "string" ? val.replace(/[+-]/g, "") : val;
+    const num = parseFloat(cleanedValue);
+    return isNaN(num) ? "0.0%" : `${Math.abs(num).toFixed(1)}%`;
+  };
+
+  const percentageValue = formatPercentage(changeValue);
+
   return isLoading ? (
     <DetailsCardShimmer />
   ) : (
@@ -28,8 +40,20 @@ const DetailsCard = ({
             className={`my-badge ${
               changeClass === "green-color" ? changeClass : "my-badge-red"
             } fw-semibold fs-10 radius-5`}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: "auto",
+              height: "auto",
+              padding: 3,
+            }}
           >
-            {changeValue}
+            {changeClass === "green-color" ? (
+              <FaCaretUp size={15} style={{ marginRight: 4 }} />
+            ) : (
+              <FaCaretDown size={15} style={{ marginRight: 4 }} />
+            )}
+            <span>{percentageValue}</span>
           </span>
         </div>
       </div>
