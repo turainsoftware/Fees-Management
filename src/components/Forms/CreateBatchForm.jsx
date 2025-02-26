@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-
-//Custom Hooks
 import { useAuth } from "./../../contexts/AuthContext";
 import { teacherService } from "./../../services/TeacherService";
 import { toast } from "react-toastify";
@@ -10,20 +8,20 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { dayOptions } from "../../utils/Common";
 
-
-
 const CreateBatchForm = () => {
   const { authToken } = useAuth();
   const navigate = useNavigate();
 
-  //State variables
+  // State variables
   const [boards, setBoards] = useState([]);
   const [language, setLanguage] = useState([]);
   const [classes, setClasses] = useState([]);
   const [subjects, setSubjects] = useState([]);
 
   // Form Variables
+  const batchNamePattern = /^[a-zA-Z0-9 ()_-]*$/;
   const [name, setName] = useState("");
+  const [batchNameError, setBatchNameError] = useState("");
   const [selectedClassName, setSelectedClassName] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState("");
@@ -31,12 +29,18 @@ const CreateBatchForm = () => {
   const [selectedDays, setSelectedDays] = useState([]);
   const [batchStartTime, setBatchStartTime] = useState("");
   const [batchEndTime, setBatchEndTime] = useState("");
+  const [timeError, setTimeError] = useState("");
   const [monthlyFees, setMonthlyFees] = useState("");
   const [monthlyExamFees, setMonthlyExamFees] = useState("");
   const [startYear, setStartYear] = useState(new Date().getFullYear());
   const [startMonth, setStartMonth] = useState(new Date().getMonth() + 1);
   const [endYear, setEndYear] = useState(null);
   const [endMonth, setEndMonth] = useState(null);
+  const [dateError, setDateError] = useState("");
+  const [feesError, setFeesError] = useState({
+    monthlyFees: "",
+    monthlyExamFees: "",
+  });
 
   const fetchUserData = async ({ authToken }) => {
     try {
@@ -56,11 +60,56 @@ const CreateBatchForm = () => {
     const endDate = new Date(currentDate.setMonth(currentDate.getMonth() + 18));
     setEndYear(endDate.getFullYear());
     setEndMonth(endDate.getMonth() + 1);
-  }, []);
+  }, [authToken]);
+
+  // Single useEffect for date validation
+  useEffect(() => {
+    validateDates();
+  }, [startYear, startMonth, endYear, endMonth]);
+
+  // Time validation useEffect
+  useEffect(() => {
+    if (batchStartTime && batchEndTime) {
+      const selectedStartTime = new Date(`1970-01-01T${batchStartTime}`);
+      const selectedEndTime = new Date(`1970-01-01T${batchEndTime}`);
+
+      if (selectedStartTime >= selectedEndTime) {
+        setTimeError("End time must be after start time");
+      } else {
+        setTimeError("");
+      }
+    }
+  }, [batchStartTime, batchEndTime]);
+
+  const handleBatchNameChange = (e) => {
+    const value = e.target.value;
+    if (batchNamePattern.test(value)) {
+      setName(value);
+      setBatchNameError("");
+    } else {
+      setBatchNameError(
+        "Only letters, numbers, underscore (_) and hyphen (-) are allowed"
+      );
+    }
+  };
+
+  const validateDates = () => {
+    if (startYear && startMonth && endYear && endMonth) {
+      const startDate = new Date(startYear, startMonth - 1);
+      const endDate = new Date(endYear, endMonth - 1);
+      if (startDate > endDate) {
+        setDateError("Start date cannot be later than end date");
+        return false;
+      }
+    }
+    setDateError("");
+    return true;
+  };
 
   const validateFields = () => {
     if (
       !name ||
+      !batchNamePattern.test(name) ||
       selectedClassName.length === 0 ||
       selectedSubjects.length === 0 ||
       !selectedBoard ||
@@ -69,17 +118,11 @@ const CreateBatchForm = () => {
       !batchStartTime ||
       !batchEndTime ||
       !monthlyFees ||
-      !monthlyExamFees
+      !monthlyExamFees ||
+      timeError ||
+      feesError.monthlyFees ||
+      feesError.monthlyExamFees
     ) {
-      return false;
-    }
-    return true;
-  };
-
-  const validateDates = () => {
-    const startDate = new Date(startYear, startMonth - 1);
-    const endDate = new Date(endYear, endMonth - 1);
-    if (startDate > endDate) {
       return false;
     }
     return true;
@@ -87,8 +130,8 @@ const CreateBatchForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateDates()) {
-      toast.info("Start date cannot be later than end date!");
+    if (!validateDates() || timeError) {
+      toast.info("Please fix the errors before submitting!");
       return;
     }
 
@@ -131,6 +174,52 @@ const CreateBatchForm = () => {
     }
   };
 
+  const validateFees = (value, fieldName) => {
+    if (value === "") {
+      return `${fieldName} is required`;
+    }
+    if (isNaN(value) || value < 0) {
+      return `${fieldName} cannot be negative`;
+    }
+    if (value > 200000) {
+      return `${fieldName} cannot exceed 200000`;
+    }
+    if (
+      value.toString().includes(".") &&
+      value.toString().split(".")[1].length > 2
+    ) {
+      return `${fieldName} can have at most 2 decimal places`;
+    }
+    if (value === "0" && value.length > 1) {
+      return `${fieldName} cannot have more than one 0`;
+    }
+    return "";
+  };
+
+  const handleMonthlyFeesChange = (e) => {
+    const value = e.target.value;
+    // Allow only numbers and a single decimal point
+    const sanitizedValue = value
+      .replace(/[^0-9.]/g, "")
+      .replace(/(\..*)\./g, "$1");
+    setMonthlyFees(sanitizedValue);
+
+    const error = validateFees(sanitizedValue, "Monthly Fees");
+    setFeesError((prev) => ({ ...prev, monthlyFees: error }));
+  };
+
+  const handleMonthlyExamFeesChange = (e) => {
+    const value = e.target.value;
+    // Allow only numbers and a single decimal point
+    const sanitizedValue = value
+      .replace(/[^0-9.]/g, "")
+      .replace(/(\..*)\./g, "$1");
+    setMonthlyExamFees(sanitizedValue);
+
+    const error = validateFees(sanitizedValue, "Monthly Exam Fees");
+    setFeesError((prev) => ({ ...prev, monthlyExamFees: error }));
+  };
+
   return (
     <section className="student-register my-3 pb-100">
       <div className="container">
@@ -150,15 +239,21 @@ const CreateBatchForm = () => {
                         Batch Name
                       </label>
                       <input
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={handleBatchNameChange}
                         value={name}
                         type="text"
-                        className="form-control shadow-none fs-14 fw-medium"
+                        className={`form-control shadow-none fs-14 fw-medium ${
+                          batchNameError ? "is-invalid" : ""
+                        }`}
                         placeholder=""
                       />
+                      {batchNameError && (
+                        <div className="invalid-feedback d-block mt-1">
+                          {batchNameError}
+                        </div>
+                      )}
                     </div>
                     <div className="col-12">
-                      {/* Start Year and Start Month in one line */}
                       <div className="row">
                         <div className="col-md-6">
                           <label
@@ -209,7 +304,7 @@ const CreateBatchForm = () => {
                             {Array.from({ length: 12 }, (_, i) => i + 1).map(
                               (month) => {
                                 const currentYear = new Date().getFullYear();
-                                const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed in JavaScript
+                                const currentMonth = new Date().getMonth() + 1;
                                 const isDisabled =
                                   startYear === currentYear &&
                                   month < currentMonth;
@@ -221,9 +316,7 @@ const CreateBatchForm = () => {
                                   >
                                     {new Date(0, month - 1).toLocaleString(
                                       "default",
-                                      {
-                                        month: "long",
-                                      }
+                                      { month: "long" }
                                     )}
                                   </option>
                                 );
@@ -233,7 +326,6 @@ const CreateBatchForm = () => {
                         </div>
                       </div>
 
-                      {/* End Year and End Month in one line */}
                       <div className="row mt-3">
                         <div className="col-md-6">
                           <label
@@ -284,7 +376,7 @@ const CreateBatchForm = () => {
                             {Array.from({ length: 12 }, (_, i) => i + 1).map(
                               (month) => {
                                 const currentYear = new Date().getFullYear();
-                                const currentMonth = new Date().getMonth() + 1; // Months are 0-indexed in JavaScript
+                                const currentMonth = new Date().getMonth() + 1;
                                 const isDisabled =
                                   endYear === currentYear &&
                                   month < currentMonth;
@@ -296,9 +388,7 @@ const CreateBatchForm = () => {
                                   >
                                     {new Date(0, month - 1).toLocaleString(
                                       "default",
-                                      {
-                                        month: "long",
-                                      }
+                                      { month: "long" }
                                     )}
                                   </option>
                                 );
@@ -307,10 +397,15 @@ const CreateBatchForm = () => {
                           </select>
                         </div>
                       </div>
+                      {dateError && (
+                        <div className="invalid-feedback d-block mt-1">
+                          {dateError}
+                        </div>
+                      )}
                     </div>
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
-                        className
+                        Class
                       </label>
                       <Select
                         onChange={(items) => {
@@ -326,7 +421,7 @@ const CreateBatchForm = () => {
                           value: item.id,
                           label: item.name,
                         }))}
-                      />{" "}
+                      />
                     </div>
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
@@ -411,18 +506,27 @@ const CreateBatchForm = () => {
                         type="time"
                         className="form-control shadow-none fs-14 fw-medium"
                         placeholder=""
+                        value={batchStartTime}
                       />
                     </div>
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
-                        Batch End Time
+                        Batch End Time<span className="red-color">*</span>
                       </label>
                       <input
                         onChange={(e) => setBatchEndTime(e.target.value)}
                         type="time"
-                        className="form-control shadow-none fs-14 fw-medium"
+                        className={`form-control shadow-none fs-14 fw-medium ${
+                          timeError ? "is-invalid" : ""
+                        }`}
                         placeholder=""
+                        value={batchEndTime}
                       />
+                      {timeError && (
+                        <div className="invalid-feedback d-block mt-1">
+                          {timeError}
+                        </div>
+                      )}
                     </div>
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
@@ -430,11 +534,16 @@ const CreateBatchForm = () => {
                       </label>
                       <input
                         value={monthlyFees}
-                        onChange={(e) => setMonthlyFees(e.target.value)}
+                        onChange={handleMonthlyFeesChange}
                         type="text"
                         className="form-control shadow-none fs-14 fw-medium"
                         placeholder=""
                       />
+                      {feesError.monthlyFees && (
+                        <div className="invalid-feedback d-block mt-1">
+                          {feesError.monthlyFees}
+                        </div>
+                      )}
                     </div>
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
@@ -442,11 +551,16 @@ const CreateBatchForm = () => {
                       </label>
                       <input
                         value={monthlyExamFees}
-                        onChange={(e) => setMonthlyExamFees(e.target.value)}
+                        onChange={handleMonthlyExamFeesChange}
                         type="text"
                         className="form-control shadow-none fs-14 fw-medium"
                         placeholder=""
                       />
+                      {feesError.monthlyExamFees && (
+                        <div className="invalid-feedback d-block mt-1">
+                          {feesError.monthlyExamFees}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
