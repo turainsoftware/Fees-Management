@@ -10,6 +10,8 @@ import { authService } from "../../services/AuthService";
 import { Link, useNavigate } from "react-router-dom";
 import { teacherService } from "../../services/TeacherService";
 
+const MAX_FILE_SIZE = 200 * 1024; // 200KB in bytes
+
 const TeacherRagistrationForm = ({
   language = [],
   board = [],
@@ -45,7 +47,7 @@ const TeacherRagistrationForm = ({
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("Male");
   const [profileImage, setProfileImage] = useState(null);
-  const [profilePreviewImage, setProgilePreviewImage] = useState(avatarImg);
+  const [profilePreviewImage, setProfilePreviewImage] = useState(avatarImg);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState([]);
@@ -89,10 +91,27 @@ const TeacherRagistrationForm = ({
   const handleImageChange = (e) => {
     const imagePath = e.target.files[0];
     if (imagePath) {
+      // Check if it's an image file
+      if (!imagePath.type.startsWith('image/')) {
+        toast.error("Please upload only image files (jpg, png, etc.)");
+        setProfileImage(null);
+        setProfilePreviewImage(avatarImg);
+        return;
+      }
+
+      // Check file size
+      if (imagePath.size > MAX_FILE_SIZE) {
+        toast.error("Image size should not exceed 200KB");
+        setProfileImage(null);
+        setProfilePreviewImage(avatarImg);
+        return;
+      }
+
+      // If validation passes
       const previewImage = URL.createObjectURL(imagePath);
-      setProgilePreviewImage(previewImage);
+      setProfilePreviewImage(previewImage);
+      setProfileImage(imagePath);
     }
-    setProfileImage(imagePath);
   };
 
   //Validation for before submit
@@ -101,8 +120,19 @@ const TeacherRagistrationForm = ({
       toast.error("Profile picture is required!");
       return false;
     }
-    if (!name.trim() && name.length > 2 && name.length <= 50) {
-      toast.error("Name is required!");
+
+    if (!profileImage.type.startsWith('image/')) {
+      toast.error("Please upload only image files (jpg, png, etc.)");
+      return false;
+    }
+    
+    if (profileImage.size > MAX_FILE_SIZE) {
+      toast.error("Image size should not exceed 200KB");
+      return false;
+    }
+
+    if (!name.trim() || name.length <= 2 || name.length > 50) {
+      toast.error("Name must be between 3 and 50 characters!");
       return false;
     }
     if (!mobile.trim() || !isValidMobile(mobile)) {
@@ -188,7 +218,7 @@ const TeacherRagistrationForm = ({
     setMobile("");
     setName("");
     setProfileImage(null);
-    setProgilePreviewImage(avatarImg);
+    setProfilePreviewImage(avatarImg);
     setSelectedBoard([]);
     setSelectedClass([]);
     setSelectedLanguage([]);
@@ -235,11 +265,17 @@ const TeacherRagistrationForm = ({
                     </div>
                   </label>
                   <input
-                    type="File"
+                    type="file"
                     name="fileToUpload"
                     id="fileToUpload"
+                    accept="image/*"
                     onChange={handleImageChange}
                   />
+                  {(profileImage === null || (profileImage && profileImage.size > MAX_FILE_SIZE)) && (
+                    <span className="text-danger d-block text-center mt-1 fs-12 fw-medium">
+                      Please upload an image (max 200KB)
+                    </span>
+                  )}
                 </div>
                 <div className="form-header-bg mt-5 px-14">
                   <h5 className="mb-0 fs-6 text-white fw-semibold">
@@ -364,8 +400,8 @@ const TeacherRagistrationForm = ({
                     type="submit"
                   >
                     {loading ? (
-                      <div class="spinner-grow text-light" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                      <div className="spinner-grow text-light" role="status">
+                        <span className="visually-hidden">Loading...</span>
                       </div>
                     ) : (
                       "Register"
