@@ -59,6 +59,8 @@ const TeacherRagistrationForm = ({
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState([]);
   const [selectedClass, setSelectedClass] = useState([]);
+// Added state for mobile validation message
+  const [mobileError, setMobileError] = useState("");
 
   // Error Variables
   const [isTeacherExist, setIsTeacherExist] = useState(false);
@@ -230,6 +232,7 @@ const TeacherRagistrationForm = ({
     setSelectedClass([]);
     setSelectedLanguage([]);
     setSelectedSubjects([]);
+    setMobileError(""); // Reset mobile error on form reset
   };
 
   const checkIsTeacherExist = async () => {
@@ -240,6 +243,27 @@ const TeacherRagistrationForm = ({
       }
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  // Updated mobile number handling with validation message
+  const handleMobileChange = (e) => {
+    const val = e.target.value;
+    const numRegex = /^\d*$/;
+    
+    if (
+      val.length <= 10 &&
+      numRegex.test(val) &&
+      (val.length === 0 || (val[0] >= 5 && val[0] <= 9))
+    ) {
+      setMobile(val);
+      
+      // Check if number is longer than 2 digits and invalid
+      if (val.length > 2 && !isValidMobile(val)) {
+        setMobileError("Please enter a valid mobile number");
+      } else {
+        setMobileError("");
+      }
     }
   };
 
@@ -277,7 +301,7 @@ const TeacherRagistrationForm = ({
                     id="fileToUpload"
                     accept=".jpg,.jpeg,.png,.gif,.heic,.bmp"
                     onChange={handleImageChange}
-                    style={{ display: 'none' }} // Hide the default input
+                    style={{ display: 'none' }}
                   />
                   {(profileImage === null || 
                     (profileImage && (!ALLOWED_TYPES.includes(profileImage.type) || profileImage.size > MAX_FILE_SIZE))) && (
@@ -302,18 +326,16 @@ const TeacherRagistrationForm = ({
                         className={`form-control shadow-none fs-14 fw-medium`}
                         placeholder=""
                         value={mobile}
-                        onChange={(e) => {
-                          const val = e.target.value;
-                          const numRegex = /^\d*$/;
-                          if (
-                            val.length <= 10 &&
-                            numRegex.test(val) &&
-                            (val.length === 0 || (val[0] >= 5 && val[0] <= 9))
-                          ) {
-                            setMobile(val);
-                          }
-                        }}
+                        onChange={handleMobileChange} // Updated to use new handler
                       />
+                      {mobileError && (
+                        <span
+                          className="text-danger ps-2 pe-2 d-block mt-1 fs-14 fw-semibold"
+                          style={{ fontFamily: "'Poppins', sans-serif" }}
+                        >
+                          {mobileError}
+                        </span>
+                      )}
                       {isTeacherExist && (
                         <span
                           className="text-danger ps-2 pe-2 d-block mt-1 fs-14 fw-semibold"

@@ -35,7 +35,7 @@ const StudentRegisterForm = () => {
   const [isValidBatch, setIsValidBatch] = useState(true);
 
   const validateForm = () => {
-    if(isFieldsEnable && !profileImage){
+    if (isFieldsEnable && !profileImage) {
       toast.error("Student Image is required");
       setIsLoading(false);
       return false;
@@ -106,26 +106,33 @@ const StudentRegisterForm = () => {
       return false;
     }
     const isClassValid = selectedBatch.classes.some(
-      cls => cls.id === selectedClass.id
+      (cls) => cls.id === selectedClass.id
     );
     if (!isClassValid) {
       toast.error("Selected class doesn't belong to the chosen batch");
       setIsLoading(false);
       return false;
     }
-    if (joiningYear < selectedBatch.startYear || joiningYear > selectedBatch.endYear) {
+    if (
+      joiningYear < selectedBatch.startYear ||
+      joiningYear > selectedBatch.endYear
+    ) {
       toast.error("Joining Year must be within batch duration");
       setIsLoading(false);
       return false;
     }
-    if (joiningYear === selectedBatch.startYear && 
-        joiningMonth < selectedBatch.startMonth) {
+    if (
+      joiningYear === selectedBatch.startYear &&
+      joiningMonth < selectedBatch.startMonth
+    ) {
       toast.error("Joining Month cannot be before batch start month");
       setIsLoading(false);
       return false;
     }
-    if (joiningYear === selectedBatch.endYear && 
-        joiningMonth > selectedBatch.endMonth) {
+    if (
+      joiningYear === selectedBatch.endYear &&
+      joiningMonth > selectedBatch.endMonth
+    ) {
       toast.error("Joining Month cannot be after batch end month");
       setIsLoading(false);
       return false;
@@ -194,7 +201,7 @@ const StudentRegisterForm = () => {
   const handleSubmit = async () => {
     if (isLoading) return;
     setIsLoading(true);
-    
+
     if (isFieldsEnable) {
       if (validateForm()) {
         const studentPayload = {
