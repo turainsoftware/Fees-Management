@@ -1,5 +1,5 @@
+// StudentRegisterForm.jsx
 import React, { useEffect, useState } from "react";
-
 import Address from "./StudentRegistrationForm/Address";
 import BatchAcademics from "./StudentRegistrationForm/BatchAcademics";
 import PersonalDetails from "./StudentRegistrationForm/PersonalDetails";
@@ -14,10 +14,7 @@ const StudentRegisterForm = () => {
   const { authToken } = useAuth();
   const navigate = useNavigate();
 
-  //State Values
   const [isLoading, setIsLoading] = useState(false);
-
-  // State variables for each form field
   const [studentId, setStudentId] = useState(null);
   const [studentName, setStudentName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -34,12 +31,8 @@ const StudentRegisterForm = () => {
   const [pincode, setPincode] = useState("");
   const [joiningYear, setJoininYear] = useState(null);
   const [joiningMonth, setJoiningMonth] = useState("");
-
-  // Database Validations
   const [isFieldsEnable, setIsFieldsEnable] = useState(true);
   const [isValidBatch, setIsValidBatch] = useState(true);
-
-  // Form Validations
 
   const validateForm = () => {
     if (!studentName.trim()) {
@@ -72,23 +65,63 @@ const StudentRegisterForm = () => {
       setIsLoading(false);
       return false;
     }
+    if (!selectedBatch || Object.keys(selectedBatch).length === 0) {
+      toast.error("Please select a batch");
+      setIsLoading(false);
+      return false;
+    }
+    if (!selectedBatch.id) {
+      toast.error("Selected batch is invalid");
+      setIsLoading(false);
+      return false;
+    }
+    if (!selectedBatch.classes || selectedBatch.classes.length === 0) {
+      toast.error("Selected batch must have associated classes");
+      setIsLoading(false);
+      return false;
+    }
+    if (!selectedClass || Object.keys(selectedClass).length === 0) {
+      toast.error("Please select a class");
+      setIsLoading(false);
+      return false;
+    }
+    if (!selectedClass.id) {
+      toast.error("Selected class is invalid");
+      setIsLoading(false);
+      return false;
+    }
+    if (!joiningYear) {
+      toast.error("Joining Year is required");
+      setIsLoading(false);
+      return false;
+    }
     if (!joiningMonth) {
       toast.error("Joining Month is required");
       setIsLoading(false);
       return false;
     }
-    if (!profileImage) {
-      toast.error("Profile Image is required");
+    const isClassValid = selectedBatch.classes.some(
+      cls => cls.id === selectedClass.id
+    );
+    if (!isClassValid) {
+      toast.error("Selected class doesn't belong to the chosen batch");
       setIsLoading(false);
       return false;
     }
-    if (Object.keys(selectedBatch).length === 0) {
-      toast.error("Please select a batch");
+    if (joiningYear < selectedBatch.startYear || joiningYear > selectedBatch.endYear) {
+      toast.error("Joining Year must be within batch duration");
       setIsLoading(false);
       return false;
     }
-    if (Object.keys(selectedClass).length === 0) {
-      toast.error("Please select a class");
+    if (joiningYear === selectedBatch.startYear && 
+        joiningMonth < selectedBatch.startMonth) {
+      toast.error("Joining Month cannot be before batch start month");
+      setIsLoading(false);
+      return false;
+    }
+    if (joiningYear === selectedBatch.endYear && 
+        joiningMonth > selectedBatch.endMonth) {
+      toast.error("Joining Month cannot be after batch end month");
       setIsLoading(false);
       return false;
     }
@@ -112,10 +145,13 @@ const StudentRegisterForm = () => {
       setIsLoading(false);
       return false;
     }
-
-    // Additional validations
     if (!/^\d{10}$/.test(contactNumber)) {
       toast.error("Contact Number must be 10 digits");
+      setIsLoading(false);
+      return false;
+    }
+    if (!/^\d{10}$/.test(guardianNumber)) {
+      toast.error("Guardian Number must be 10 digits");
       setIsLoading(false);
       return false;
     }
@@ -132,7 +168,7 @@ const StudentRegisterForm = () => {
     if (
       profileImage &&
       ![
-        "image/jpeg", // Valid for JPEG and JPG images
+        "image/jpeg",
         "image/png",
         "image/gif",
         "image/webp",
@@ -147,16 +183,13 @@ const StudentRegisterForm = () => {
       setIsLoading(false);
       return false;
     }
-
-    // If all validations pass
     return true;
   };
 
   const handleSubmit = async () => {
-    if (isLoading) {
-      return;
-    }
+    if (isLoading) return;
     setIsLoading(true);
+    
     if (isFieldsEnable) {
       if (validateForm()) {
         const studentPayload = {
@@ -166,26 +199,21 @@ const StudentRegisterForm = () => {
           guardianPhone: guardianNumber,
           email: emailAddress,
           gender: gender,
-          joiningClass: {
-            id: selectedClass.id,
-          },
+          joiningClass: { id: selectedClass.id },
           address: address,
           state: state,
           district: district,
           pinCode: pincode,
         };
         try {
-          console.info("hitting before the regiter student api call");
           const data = await studentService.registerStudent({
-            authToken: authToken,
+            authToken,
             studentData: studentPayload,
             batchId: selectedBatch.id,
-            profileImage: profileImage,
-            joiningMonth: joiningMonth,
-            joiningYear: joiningYear,
+            profileImage,
+            joiningMonth,
+            joiningYear,
           });
-          console.info("hitting after the regiter student api call");
-          console.log(data);
           if (data.status) {
             Swal.fire({
               titleText: data.message,
@@ -207,47 +235,53 @@ const StudentRegisterForm = () => {
         } finally {
           setIsLoading(false);
         }
+      } else {
+        setIsLoading(false);
       }
     } else {
-      try {
-        const data = await studentService.assignStudent({
-          authToken: authToken,
-          batchId: selectedBatch.id,
-          studentId: studentId,
-          joiningMonth: joiningMonth,
-          joiningYear: joiningYear,
-        });
-        if (data.status) {
-          Swal.fire({
-            text: data?.message,
-            icon: "success",
+      if (validateForm()) {
+        try {
+          const data = await studentService.assignStudent({
+            authToken,
+            batchId: selectedBatch.id,
+            studentId,
+            joiningMonth,
+            joiningYear,
           });
-          resetForm();
-          setIsFieldsEnable(true);
-        } else {
-          Swal.fire({
-            text: data?.message,
-            icon: "error",
-          });
+          if (data.status) {
+            Swal.fire({
+              text: data?.message,
+              icon: "success",
+            });
+            resetForm();
+            setIsFieldsEnable(true);
+            navigate("/students", { replace: true });
+          } else {
+            Swal.fire({
+              text: data?.message,
+              icon: "error",
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setIsLoading(false);
         }
-      } catch (error) {
-        console.error(error);
-      } finally {
+      } else {
         setIsLoading(false);
       }
     }
   };
 
-  //Fetching the studentdetails
   const studentDetails = async () => {
     try {
       const data = await studentService.isStudentExistByMobileNumber({
         mobile: contactNumber,
-        authToken: authToken,
+        authToken,
       });
       if (data?.status) {
         const userData = await studentService.studentByMobile({
-          authToken: authToken,
+          authToken,
           mobile: contactNumber,
         });
         setStudentId(userData?.id);
@@ -278,6 +312,7 @@ const StudentRegisterForm = () => {
       setIsFieldsEnable(true);
     }
   };
+
   const resetForm = () => {
     setStudentName("");
     setContactNumber("");
@@ -296,9 +331,7 @@ const StudentRegisterForm = () => {
     setJoiningMonth("");
   };
 
-  //Checking validation on when mobile will gonna be 10 digit
   useEffect(() => {
-    // Function to clear form data
     const clearFormData = () => {
       setStudentId(null);
       setStudentName("");
@@ -314,7 +347,6 @@ const StudentRegisterForm = () => {
       setIsFieldsEnable(true);
     };
 
-    // Check when contact number changes
     if (contactNumber.length === 10 && isValidMobile(contactNumber)) {
       studentDetails();
     } else if (contactNumber.length < 10) {
@@ -333,7 +365,6 @@ const StudentRegisterForm = () => {
                 className="pt-4"
                 onSubmit={(e) => e.preventDefault()}
               >
-                {/* Personal Details */}
                 <PersonalDetails
                   contactNumber={contactNumber}
                   setContactNumber={setContactNumber}
@@ -353,8 +384,6 @@ const StudentRegisterForm = () => {
                   studentName={studentName}
                   isFieldEnable={isFieldsEnable}
                 />
-
-                {/* Batch & Academics Details  */}
                 <BatchAcademics
                   authToken={authToken}
                   selectedBatch={selectedBatch}
@@ -369,8 +398,6 @@ const StudentRegisterForm = () => {
                   isValidBatch={isValidBatch}
                   setIsValidBatch={setIsValidBatch}
                 />
-
-                {/* Address Fields */}
                 <Address
                   address={address}
                   setAddress={setAddress}
@@ -382,10 +409,9 @@ const StudentRegisterForm = () => {
                   setState={setState}
                   isFieldsEnable={isFieldsEnable}
                 />
-
                 <div className="mt-4 mb-2 text-center">
                   <button
-                    disabled={!isValidBatch}
+                    disabled={isLoading}
                     onClick={handleSubmit}
                     className="btn1"
                     type="submit"

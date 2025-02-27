@@ -28,12 +28,12 @@ const StudentsNav = () => {
               <img src={newRegisterIcon} alt="Student List" />
             </div>
           </Link>
-          <Link to={"/class-list"} className="col-6">
+          {/* <Link to={"/class-list"} className="col-6">
             <div className="inner-contain px-14 light-blue-border bg-white radius-8 d-flex align-items-center justify-content-between">
               <h6 className="mb-0 fs-14">Class List</h6>
               <img src={classListIcon} alt="Student List" />
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </section>
