@@ -35,6 +35,11 @@ const StudentRegisterForm = () => {
   const [isValidBatch, setIsValidBatch] = useState(true);
 
   const validateForm = () => {
+    if(isFieldsEnable && !profileImage){
+      toast.error("Student Image is required");
+      setIsLoading(false);
+      return false;
+    }
     if (!studentName.trim()) {
       toast.error("Student Name is required");
       setIsLoading(false);
