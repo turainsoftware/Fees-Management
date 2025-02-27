@@ -1,4 +1,3 @@
-// BatchAcademics.jsx
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { batchService } from "./../../../services/BatchService";
@@ -53,16 +52,17 @@ const BatchAcademics = ({
     setSelectedClass(classSelected || {});
   };
 
-  const isBatchSelected = !!selectedBatch && Object.keys(selectedBatch).length > 0;
+  const isBatchSelected =
+    !!selectedBatch && Object.keys(selectedBatch).length > 0;
 
   return (
     <>
-      <div className="form-header-bg mt-4 px-14">
+      <div className="form-header-bg mt-4 px-3 px-md-4">
         <h5 className="mb-0 fs-6 text-white fw-semibold">
           Batch & Academic Details
         </h5>
       </div>
-      <div className="px-14 mt-2 pt-2">
+      <div className="px-3 px-md-4 mt-2 pt-2">
         <div className="row g-3">
           <div className="col-12">
             <label htmlFor="" className="fs-13 mb-2 fw-medium">
@@ -89,7 +89,7 @@ const BatchAcademics = ({
             </label>
             <select
               id="joiningMonth"
-              className="form-select shadow-none fs-14 fw-medium"
+              className="form-select shadow-none fs-14 fw-medium mb-2 mb-md-0"
               onChange={handleClassChange}
               disabled={!isFieldsEnable}
               value={selectedClass?.id || ""}
@@ -103,15 +103,16 @@ const BatchAcademics = ({
                   Select Class
                 </option>
               )}
-              {isFieldsEnable && selectedBatch?.classes?.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
+              {isFieldsEnable &&
+                selectedBatch?.classes?.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
             </select>
             {!isValidBatch && (
               <span
-                className="text-danger ps-2 pe-2 py-1 d-block mt-1 fs-14 fw-semibold"
+                className="text-danger px-2 py-1 d-block mt-1 fs-14 fw-semibold"
                 style={{ fontFamily: "'Poppins', sans-serif" }}
               >
                 The selected batch is not valid for the student.
@@ -119,7 +120,7 @@ const BatchAcademics = ({
             )}
           </div>
           <div className="col-12">
-            <div className="row">
+            <div className="row g-3">
               <div className="col-md-6">
                 <label htmlFor="startYear" className="fs-13 mb-2 fw-medium">
                   Joining Year<span className="red-color">*</span>
@@ -140,7 +141,10 @@ const BatchAcademics = ({
                   </option>
                   {isBatchSelected &&
                     Array.from(
-                      { length: selectedBatch.endYear - selectedBatch.startYear + 1 },
+                      {
+                        length:
+                          selectedBatch.endYear - selectedBatch.startYear + 1,
+                      },
                       (_, i) => selectedBatch.startYear + i
                     ).map((year) => (
                       <option key={year} value={year}>
@@ -157,7 +161,9 @@ const BatchAcademics = ({
                   id="startMonth"
                   className="form-select shadow-none fs-14 fw-medium"
                   value={joiningMonth || ""}
-                  onChange={(e) => setJoiningMonth(parseInt(e.target.value, 10))}
+                  onChange={(e) =>
+                    setJoiningMonth(parseInt(e.target.value, 10))
+                  }
                   disabled={!isBatchSelected}
                 >
                   <option value="" disabled>
@@ -166,10 +172,16 @@ const BatchAcademics = ({
                   {isBatchSelected &&
                     Array.from({ length: 12 }, (_, i) => i + 1)
                       .filter((month) => {
-                        if (joiningYear === selectedBatch.startYear && month < selectedBatch.startMonth) {
+                        if (
+                          joiningYear === selectedBatch.startYear &&
+                          month < selectedBatch.startMonth
+                        ) {
                           return false;
                         }
-                        if (joiningYear === selectedBatch.endYear && month > selectedBatch.endMonth) {
+                        if (
+                          joiningYear === selectedBatch.endYear &&
+                          month > selectedBatch.endMonth
+                        ) {
                           return false;
                         }
                         return true;

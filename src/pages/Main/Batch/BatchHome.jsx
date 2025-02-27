@@ -5,6 +5,9 @@ import { BatchCard, BatchDetails, SecondaryNavbar } from "../../../components";
 import { BatchCardShimmer } from "../../../Shimmers";
 import { batchService } from "../../../services/BatchService";
 
+// Images
+import NotFoundImage from "./../../../assets/images/fees-not-found.svg";
+
 const BatchHome = () => {
   const { authToken } = useAuth();
 
@@ -15,11 +18,13 @@ const BatchHome = () => {
   const fetchBatchData = async () => {
     setIsLoading(true);
     try {
-      const data = await batchService.allSpecificBatchDetails({ authToken: authToken });
+      const data = await batchService.allSpecificBatchDetails({
+        authToken: authToken,
+      });
       const sortedData = data.sort((a, b) => {
         return a.startTime.localeCompare(b.startTime);
       });
-      console.log(data)
+      console.log(data);
       setBatches(sortedData);
     } catch (error) {
       console.log(error);
@@ -40,33 +45,42 @@ const BatchHome = () => {
         createBtnPath={"create-batch"}
         crateBtnText={"Create Batch"}
       />
-      
+
       {/* {isLoading ? <ItemListShimmer /> : <ItemList data={batches} />} */}
 
-      <div className="d-flex mt-3 flex-column align-items-center min-vh-100">
-        <div className="container pb-100">
-          <div className="row">
-            {isLoading
-              ? [1, 2, 3, 4, 5, 6].map((item, index) => (
-                  <div
-                    key={index}
-                    className="col-12 col-md-6 col-lg-4 d-flex justify-content-center g-4"
-                  >
-                    <BatchCardShimmer />
-                  </div>
-                ))
-              : batches.map((data, index) => (
-                  <div
-                    key={index}
-                    className="col-12 col-md-6 col-lg-4 d-flex justify-content-center"
-                  >
-                    <BatchCard data={data} />
-                  </div>
-                ))}
+      {batches.length > 0 ? (
+        <div className="d-flex mt-3 flex-column align-items-center min-vh-100">
+          <div className="container pb-100">
+            <div className="row">
+              {isLoading
+                ? [1, 2, 3, 4, 5, 6].map((item, index) => (
+                    <div
+                      key={index}
+                      className="col-12 col-md-6 col-lg-4 d-flex justify-content-center g-4"
+                    >
+                      <BatchCardShimmer />
+                    </div>
+                  ))
+                : batches.map((data, index) => (
+                    <div
+                      key={index}
+                      className="col-12 col-md-6 col-lg-4 d-flex justify-content-center"
+                    >
+                      <BatchCard data={data} />
+                    </div>
+                  ))}
+            </div>
           </div>
         </div>
-      </div>
-
+      ) : (
+        <div className="d-flex justify-content-center align-items-center py-5 my-100">
+          <img
+            src={NotFoundImage}
+            alt="Fees Not Found"
+            style={{ maxWidth: "300px", height: "auto" }}
+          />
+        </div>
+      )}
     </main>
   );
 };
