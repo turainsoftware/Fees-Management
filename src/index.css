@@ -1,4 +1,6 @@
-
+.offcanvas-backdrop {
+  display: block !important; /* This would prevent it from hiding */
+}
 .custom-rounded-image .ant-image-mask {
   border-radius: 50% !important;
 }
