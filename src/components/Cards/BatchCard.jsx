@@ -3,28 +3,22 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const BatchCard = ({ data }) => {
-  // Hooks States
   const navigate = useNavigate();
 
   const {
     id,
     name,
-    // board,
-    // classes,
     days,
     startMonth,
     startYear,
     endMonth,
     endYear,
-    // language,
     monthlyExamFees,
     monthlyFees,
-    // subjects,
     startTime,
     endTime,
   } = data;
 
-  // Array of background colors
   const backgroundColors = [
     "#FFF7B1", // Light Yellow
     "#F0FFF0", // Honeydew
@@ -47,21 +41,17 @@ const BatchCard = ({ data }) => {
     "#FFEFD5", // PapayaWhip
   ];
 
-  // Function to get a random background color
   const getRandomBackgroundColor = () => {
-    return backgroundColors[
-      Math.floor(Math.random() * backgroundColors.length)
-    ];
+    return backgroundColors[Math.floor(Math.random() * backgroundColors.length)];
   };
 
   const backgroundColor = getRandomBackgroundColor();
 
   const formatDateRange = () => {
-    const startMonthName = new Date(
-      startYear,
-      startMonth - 1,
-      1
-    ).toLocaleString("default", { month: "short" });
+    const startMonthName = new Date(startYear, startMonth - 1, 1).toLocaleString(
+      "default",
+      { month: "short" }
+    );
     const endMonthName = new Date(endYear, endMonth - 1, 1).toLocaleString(
       "default",
       { month: "short" }
@@ -75,11 +65,11 @@ const BatchCard = ({ data }) => {
   };
 
   const formatTime = (timeString) => {
-    const [hours, minutes] = timeString.slice(0, 5).split(":"); // Extract HH:MM
+    const [hours, minutes] = timeString.slice(0, 5).split(":");
     let hoursInt = parseInt(hours, 10);
     const ampm = hoursInt >= 12 ? "PM" : "AM";
     hoursInt = hoursInt % 12;
-    hoursInt = hoursInt ? hoursInt : 12; // the hour '0' should be '12'
+    hoursInt = hoursInt ? hoursInt : 12;
     return `${hoursInt}:${minutes} ${ampm}`;
   };
 
@@ -136,8 +126,9 @@ const StyledWrapper = styled.div`
     border-radius: 10px;
     transition: all 0.8s cubic-bezier(0.15, 0.83, 0.66, 1);
     cursor: pointer;
-    margin-bottom: 20px; // Add some margin below each card
-    overflow: hidden; /* Hide content that overflows */
+    margin-bottom: 20px;
+    overflow: hidden;
+    height: 250px; /* Static height added here */
   }
 
   .card:hover {
