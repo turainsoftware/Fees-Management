@@ -1,4 +1,3 @@
-// StudentRegisterForm.jsx
 import React, { useEffect, useState } from "react";
 import Address from "./StudentRegistrationForm/Address";
 import BatchAcademics from "./StudentRegistrationForm/BatchAcademics";
@@ -45,6 +44,11 @@ const StudentRegisterForm = () => {
       setIsLoading(false);
       return false;
     }
+    if (studentName.trim().length > 30) {
+      toast.error("Student Name must not exceed 30 characters");
+      setIsLoading(false);
+      return false;
+    }
     if (!contactNumber.trim()) {
       toast.error("Contact Number is required");
       setIsLoading(false);
@@ -57,6 +61,11 @@ const StudentRegisterForm = () => {
     }
     if (!guardianName.trim()) {
       toast.error("Guardian Name is required");
+      setIsLoading(false);
+      return false;
+    }
+    if (guardianName.trim().length > 30) {
+      toast.error("Guardian Name must not exceed 30 characters");
       setIsLoading(false);
       return false;
     }
@@ -194,6 +203,17 @@ const StudentRegisterForm = () => {
       );
       setIsLoading(false);
       return false;
+    }
+    // Check first and last name lengths
+    const studentNameParts = studentName.trim().split(/\s+/);
+    if (studentNameParts.length > 1) {
+      const firstName = studentNameParts[0];
+      const lastName = studentNameParts[studentNameParts.length - 1];
+      if (firstName.length > 30 || lastName.length > 30) {
+        toast.error("Student's first name and last name must not exceed 30 characters each");
+        setIsLoading(false);
+        return false;
+      }
     }
     return true;
   };

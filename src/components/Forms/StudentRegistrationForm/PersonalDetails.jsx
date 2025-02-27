@@ -29,7 +29,9 @@ const PersonalDetails = ({
 }) => {
   const [contactNumberError, setContactNumberError] = useState("");
   const [guardianNumberError, setGuardianNumberError] = useState("");
-  const [profilePreviewImage, setProfilePreviewImage] = useState(profileAvatar); // Default preview
+  const [studentNameError, setStudentNameError] = useState("");
+  const [guardianNameError, setGuardianNameError] = useState("");
+  const [profilePreviewImage, setProfilePreviewImage] = useState(profileAvatar);
 
   const ALLOWED_TYPES = [
     "image/jpeg",
@@ -39,17 +41,18 @@ const PersonalDetails = ({
     "image/bmp",
   ];
   const MAX_FILE_SIZE = 200 * 1024; // 200KB in bytes
+  const MAX_NAME_LENGTH = 30;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       if (!ALLOWED_TYPES.includes(file.type) || file.size > MAX_FILE_SIZE) {
-        setProfileImage(file); // Keep file for validation display
-        setProfilePreviewImage(profileAvatar); // Reset to default if invalid
-        message.info("Image Not Allowed")
+        setProfileImage(file);
+        setProfilePreviewImage(profileAvatar);
+        message.info("Image Not Allowed");
       } else {
         setProfileImage(file);
-        setProfilePreviewImage(URL.createObjectURL(file)); // Update preview
+        setProfilePreviewImage(URL.createObjectURL(file));
       }
     }
   };
@@ -67,6 +70,44 @@ const PersonalDetails = ({
       setGuardianNumberError("Enter a valid mobile number");
     } else {
       setGuardianNumberError("");
+    }
+  };
+
+  const validateStudentName = (name) => {
+    if (name.length > MAX_NAME_LENGTH) {
+      const parts = name.trim().split(/\s+/);
+      if (parts.length > 1) {
+        const firstName = parts[0];
+        const lastName = parts[parts.length - 1];
+        setStudentNameError(
+          `Name exceeds 30 characters. Use initials like "${firstName[0]}. ${lastName}"`
+        );
+      } else {
+        setStudentNameError(
+          `Name exceeds 30 characters. Use initial like "${name[0]}."`
+        );
+      }
+    } else {
+      setStudentNameError("");
+    }
+  };
+
+  const validateGuardianName = (name) => {
+    if (name.length > MAX_NAME_LENGTH) {
+      const parts = name.trim().split(/\s+/);
+      if (parts.length > 1) {
+        const firstName = parts[0];
+        const lastName = parts[parts.length - 1];
+        setGuardianNameError(
+          `Name exceeds 30 characters. Use initials like "${firstName[0]}. ${lastName}"`
+        );
+      } else {
+        setGuardianNameError(
+          `Name exceeds 30 characters. Use initial like "${name[0]}."`
+        );
+      }
+    } else {
+      setGuardianNameError("");
     }
   };
 
@@ -99,7 +140,6 @@ const PersonalDetails = ({
           style={{ display: "none" }}
           disabled={!isFieldEnable}
         />
-        {/* Error message for invalid image */}
         {(profileImage === null ||
           (profileImage &&
             (!ALLOWED_TYPES.includes(profileImage.type) ||
@@ -108,8 +148,7 @@ const PersonalDetails = ({
             className="text-danger mt-2 fs-12 fw-medium text-center"
             style={{ width: "280px" }}
           >
-            Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max
-            200KB)
+            Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max 200KB)
           </span>
         )}
       </div>
@@ -149,17 +188,23 @@ const PersonalDetails = ({
             <input
               type="text"
               id="studentName"
-              className="form-control shadow-none fs-14 fw-medium"
+              className={`form-control shadow-none fs-14 fw-medium ${
+                studentNameError ? "is-invalid" : ""
+              }`}
               value={studentName}
               onChange={(e) => {
                 const val = e.target.value;
                 if (isValidName(val)) {
                   setStudentName(val);
+                  validateStudentName(val);
                 }
               }}
               maxLength={60}
               disabled={!isFieldEnable}
             />
+            {studentNameError && (
+              <div className="invalid-feedback">{studentNameError}</div>
+            )}
           </div>
           <div className="col-12">
             <label htmlFor="gender" className="fs-13 mb-2 fw-medium">
@@ -185,16 +230,23 @@ const PersonalDetails = ({
             <input
               type="text"
               id="guardianName"
-              className="form-control shadow-none fs-14 fw-medium"
+              className={`form-control shadow-none fs-14 fw-medium ${
+                guardianNameError ? "is-invalid" : ""
+              }`}
               value={guardianName}
               onChange={(e) => {
                 const val = e.target.value;
                 if (isValidName(val)) {
                   setGuardianName(val);
+                  validateGuardianName(val);
                 }
               }}
+              maxLength={60}
               disabled={!isFieldEnable}
             />
+            {guardianNameError && (
+              <div className="invalid-feedback">{guardianNameError}</div>
+            )}
           </div>
           <div className="col-12">
             <label htmlFor="guardianNumber" className="fs-13 mb-2 fw-medium">

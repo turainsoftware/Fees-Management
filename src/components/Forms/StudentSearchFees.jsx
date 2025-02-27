@@ -11,10 +11,9 @@ const StudentSearchFees = ({
   searchTerm,
   setSearchTerm,
   handleBatchSearch,
-  handleSuggestionClick
+  handleSuggestionClick,
 }) => {
-
-  console.log(suggestions)
+  console.log(suggestions);
 
   return (
     <section className="student-register my-3">
@@ -57,20 +56,25 @@ const StudentSearchFees = ({
                         disabled={selectedBatch === null}
                       />
                       {suggestions.length > 0 && (
-  <ul className="list-group position-absolute w-100 mt-1 shadow-sm" style={{ zIndex: 1000 }}>
-    {suggestions.map((student) => (
-      <li
-        key={student.id}
-        className="list-group-item list-group-item-action d-flex flex-column px-3 py-2"
-        onClick={() => handleSuggestionClick(student)}
-        role="button"
-      >
-        <span className="fw-medium">{student.name}</span>
-        <small className="text-muted">{student.phone}</small>
-      </li>
-    ))}
-  </ul>
-)}
+                        <ul
+                          className="list-group position-absolute w-100 mt-1 shadow-sm"
+                          style={{ zIndex: 1000 }}
+                        >
+                          {suggestions.map((student) => (
+                            <li
+                              key={student.id}
+                              className="list-group-item list-group-item-action d-flex flex-column px-3 py-2"
+                              onClick={() => handleSuggestionClick(student)}
+                              role="button"
+                            >
+                              <span className="fw-medium">{student.name}</span>
+                              <small className="text-muted">
+                                {student.phone}
+                              </small>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                 </div>

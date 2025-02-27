@@ -121,7 +121,23 @@ const StudentList = ({ headerText, isRecent = true }) => {
 
                   {/* Student Info */}
                   <div>
-                    <h6 className="mb-1 fs-15 fw-semibold">{student.name}</h6>
+                    <h6 className="mb-1 fs-15 fw-semibold text-break custom-text">
+                      {student.name}
+                    </h6>
+
+                    <style jsx>{`
+                      .custom-text {
+                        max-width: 100%; /* Default: No forced word break */
+                      }
+
+                      @media (max-width: 576px) {
+                        .custom-text {
+                          max-width: 18ch; /* Limits width to 18 characters */
+                          overflow-wrap: break-word;
+                          word-break: break-word;
+                        }
+                      }
+                    `}</style>
                     <span className="text-muted fs-13 fw-medium">
                       +91 {student.phone}
                     </span>
