@@ -1,3 +1,4 @@
+// StudentList.js
 import React, { useEffect, useState } from "react";
 import {
   SecondaryNavbar,
@@ -10,9 +11,7 @@ import { ItemListShimmer } from "../../../Shimmers/index";
 import { studentService } from "../../../services/StudentService";
 
 const StudentList = () => {
-  // Auth Token
   const { authToken } = useAuth();
-
   const [searchName, setSearchName] = useState("");
   const [batches, setBatches] = useState([]);
   const [selectedBatch, setSelectedBatch] = useState({});
@@ -32,6 +31,10 @@ const StudentList = () => {
     fetchBatches();
   }, []);
 
+  useEffect(()=>{
+    setSearchName("")
+  },[selectedBatch])
+
   const studentsByBatch = async () => {
     setIsLoading(true);
     try {
@@ -48,28 +51,29 @@ const StudentList = () => {
   };
 
   useEffect(() => {
-    studentsByBatch();
+    if (selectedBatch.id) {  // Only fetch if a batch is selected
+      studentsByBatch();
+    } else {
+      setStudentData([]);  // Reset student data when no batch is selected
+    }
   }, [selectedBatch]);
 
   return (
     <main className="wrapper home-wrapper">
-      {/* Common Header */}
       <SecondaryNavbar title={"Student List"} />
-
-      {/* Student Navbar */}
       <StudentsListNav
         searchName={searchName}
         setSearchName={setSearchName}
         batches={batches}
         selectedBatch={selectedBatch}
         setSelectedBatch={setSelectedBatch}
+        isLoading={isLoading}  // Pass loading state
+        hasStudents={studentData.length > 0}  // Pass whether students exist
       />
-
-      {/* Student Lists */}
       <StudentListData
         headerText={"Recent Students List"}
         isRecent={true}
-        data={studentData?studentData:[]}
+        data={studentData || []}
         isLoading={isLoading}
         studentName={searchName}
       />

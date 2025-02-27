@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// StudentsListNav.js
+import React from "react";
 
 const StudentsListNav = ({
   searchName,
@@ -6,7 +7,12 @@ const StudentsListNav = ({
   selectedBatch,
   setSelectedBatch,
   batches = [],
+  isLoading,
+  hasStudents,
 }) => {
+  // Disable input if no batch is selected or if there are no students (and not loading)
+  const isSearchDisabled = !selectedBatch.id || (!isLoading && !hasStudents);
+
   return (
     <section className="student-nav my-3">
       <div className="container">
@@ -25,19 +31,16 @@ const StudentsListNav = ({
                     const data = batches.find(
                       (item) => item.id === parseInt(id)
                     );
-                    setSelectedBatch(data);
+                    setSelectedBatch(data || {});
                   }}
+                  value={selectedBatch.id || ""}
                 >
-                  <option value="" defaultValue={true}>
-                    Select a batch
-                  </option>
-                  {batches.map((item, index) => {
-                    return (
-                      <option key={index} value={item.id}>
-                        {item.name}
-                      </option>
-                    );
-                  })}
+                  <option value="">Select a batch</option>
+                  {batches.map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="mt-3">
@@ -52,6 +55,7 @@ const StudentsListNav = ({
                   }}
                   className="form-control shadow-none fs-14 fw-medium"
                   placeholder="Eg : Rahul Kumar"
+                  disabled={isSearchDisabled}
                 />
               </div>
             </div>
