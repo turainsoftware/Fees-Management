@@ -75,6 +75,11 @@ const FeesRevive = () => {
     handleSubmitPrototype();
   }, [searchIndex]);
 
+  useEffect(()=>{
+    setSelectedStudent(null)
+    setSearchTerm("")
+  },[selectedBatch])
+
   const fetchBatchDetails = async () => {
     try {
       const data = await teacherService.batches({ authToken });

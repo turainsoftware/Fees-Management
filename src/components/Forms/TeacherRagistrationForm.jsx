@@ -404,7 +404,7 @@ const TeacherRagistrationForm = ({
                     </div>
                     <div className="col-12">
                       <label htmlFor="" className="fs-13 mb-2 fw-medium">
-                        className<span className="red-color">*</span>
+                        Class Name<span className="red-color">*</span>
                       </label>
                       <Select
                         isMulti

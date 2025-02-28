@@ -192,6 +192,7 @@ Custom Css section
     background-size: cover;
     width: 100%;
     height: 100vh;
+    padding-bottom: 1000px;
 }
 
 .home-wrapper .logo {

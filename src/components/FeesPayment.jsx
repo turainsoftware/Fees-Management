@@ -28,6 +28,7 @@ const FeesPayment = ({
   const [isLoading, setIsLoading] = useState(false);
   const { authToken } = useAuth();
   const [paymentStatuses, setPaymentStatuses] = useState({});
+  const [loadingIndex, setLoadingIndex] = useState(null);
 
   useEffect(() => {
     const generatePayments = () => {
@@ -46,8 +47,10 @@ const FeesPayment = ({
     setPayments(generatePayments());
   }, [startMonth, startYear, endMonth, endYear]);
 
-  const handlePay = async ({ year, month }) => {
+  const handlePay = async ({ year, month, index}) => {
     setIsLoading(true);
+    console.log(index)
+    setLoadingIndex(index)
     try {
       const data = await feesService.payFees({
         authToken: authToken,
@@ -136,14 +139,16 @@ const FeesPayment = ({
                       {isAdv ? (
                         <span class="badge bg-info">Prepaid</span>
                       ) : (
-                        isPaid && <span class="badge bg-warning">BelatedPayment</span>
+                        isPaid && (
+                          <span class="badge bg-warning">BelatedPayment</span>
+                        )
                       )}
                     </div>
                     <div className="d-flex align-items-center">
                       <span className="me-3 fw-bold">₹ {monthlyFees}</span>
                       <button
                         onClick={() =>
-                          handlePay({ year: item.year, month: item.month })
+                          handlePay({ year: item.year, month: item.month, index: index })
                         }
                         className={`btn btn-sm ${
                           isDue
@@ -154,7 +159,7 @@ const FeesPayment = ({
                         }`}
                         disabled={isPaid}
                       >
-                        {isLoading ? (
+                        {isLoading && loadingIndex===index ? (
                           <span
                             class="spinner-border spinner-border-sm"
                             aria-hidden="true"
