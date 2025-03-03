@@ -55,7 +55,6 @@ const OverviewHeader = ({ isLoading = false }) => {
       setIsFeesLoading(true);
       const data = await analyseService.feesAnalysis({ authToken: authToken });
       setFeesData(data);
-      console.log(data)
     } catch (error) {
       console.error(error);
     } finally {

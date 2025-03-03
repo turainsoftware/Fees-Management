@@ -63,14 +63,27 @@ const StudentSearchFees = ({
                           {suggestions.map((student) => (
                             <li
                               key={student.id}
-                              className="list-group-item list-group-item-action d-flex flex-column px-3 py-2"
+                              className="list-group-item list-group-item-action d-flex flex-row gap-3 px-3 py-2"
                               onClick={() => handleSuggestionClick(student)}
                               role="button"
                             >
-                              <span className="fw-medium">{student.name}</span>
-                              <small className="text-muted">
-                                {student.phone}
-                              </small>
+                              <img
+                                src={
+                                  import.meta.env.VITE_PROFILEURL +
+                                  student.profilePic
+                                }
+                                width={40}
+                                height={40}
+                                className="rounded-circle"
+                              />
+                              <div className="d-flex flex-column">
+                                <span className="fw-medium">
+                                  {student.name}
+                                </span>
+                                <small className="text-muted">
+                                  +91 {student.phone}
+                                </small>
+                              </div>
                             </li>
                           ))}
                         </ul>
