@@ -29,8 +29,17 @@ const StudentList = ({ headerText, isRecent = true }) => {
 
   //Profiles State
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [studentData, setStudentData] = useState(null);
+
   useEffect(() => {
     console.log(isProfileOpen);
+    if (isProfileOpen) {
+      console.log(selectedStudentContext);
+      const openableStudent = students.find(
+        (item) => Number(item.id) === Number(selectedStudentContext)
+      );
+      setStudentData((prev) => openableStudent);
+    }
   }, [isProfileOpen]);
 
   const fetchStudentsList = async () => {
@@ -228,7 +237,13 @@ const StudentList = ({ headerText, isRecent = true }) => {
           </div>
         </div>
       </section>
-      {isProfileOpen && <StudentProfileModal isProfileOpen={isProfileOpen} setIsProfileOpen={setIsProfileOpen}/>}
+      {isProfileOpen && studentData !== null && (
+        <StudentProfileModal
+          isProfileOpen={isProfileOpen}
+          setIsProfileOpen={setIsProfileOpen}
+          studentData={studentData}
+        />
+      )}
     </>
   );
 };

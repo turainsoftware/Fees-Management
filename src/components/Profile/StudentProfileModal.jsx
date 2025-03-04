@@ -2,22 +2,27 @@ import React from "react";
 import { Modal } from "antd";
 import { FaPhone, FaUserCircle } from "react-icons/fa";
 
-const StudentProfileModal = ({ isProfileOpen, setIsProfileOpen }) => {
-  const studentData = {
-    address: "8/1/c Gurudas Dutta Garden Lane",
-    district: "Paschim Bardhaman",
-    email: "jhantubala626@gmail.com",
-    gender: "Female",
-    guardianName: "Jhantu Bala",
-    guardianPhone: "9775746484",
-    id: 22,
-    joiningClass: { id: 4, name: "Class 11" },
-    name: "Ishita Giri",
-    phone: "9888888365",
-    pinCode: "700067",
-    profilePic: "5f70c4c7-a5cb-40bd-aed3-5d9938e29c36.jpg",
-    state: "West Bengal",
-  };
+const StudentProfileModal = ({
+  isProfileOpen,
+  setIsProfileOpen,
+  studentData,
+}) => {
+  //   const studentData = {
+  //     address: "8/1/c Gurudas Dutta Garden Lane",
+  //     district: "Paschim Bardhaman",
+  //     email: "jhantubala626@gmail.com",
+  //     gender: "Female",
+  //     guardianName: "Jhantu Bala",
+  //     guardianPhone: "9775746484",
+  //     id: 22,
+  //     joiningClass: { id: 4, name: "Class 11" },
+  //     name: "Ishita Giri",
+  //     phone: "9888888365",
+  //     pinCode: "700067",
+  //     profilePic: "5f70c4c7-a5cb-40bd-aed3-5d9938e29c36.jpg",
+  //     state: "West Bengal",
+  //   };
+  console.log("Profile of student", studentData);
 
   return (
     <Modal
@@ -27,6 +32,7 @@ const StudentProfileModal = ({ isProfileOpen, setIsProfileOpen }) => {
       centered
       className="custom-modal"
       footer={null}
+      maskClosable={false}
     >
       <div className="modal-container">
         {/* Profile Picture */}
