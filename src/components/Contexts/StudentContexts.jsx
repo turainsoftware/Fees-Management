@@ -2,7 +2,7 @@ import { Modal } from "antd";
 import React, { useState } from "react";
 import { FaUser, FaTrash } from "react-icons/fa"; // Importing icons for Profile and Delete
 
-const StudentContexts = ({ xPosition, yPosition, isDelete = false ,isProfileOpen, setIsProfileOpen}) => {
+const StudentContexts = ({ xPosition, yPosition, isDelete = false , setIsProfileOpen}) => {
   // Define styles as JavaScript objects
   const menuStyle = {
     position: "fixed",

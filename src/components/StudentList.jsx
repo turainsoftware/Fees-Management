@@ -32,9 +32,7 @@ const StudentList = ({ headerText, isRecent = true }) => {
   const [studentData, setStudentData] = useState(null);
 
   useEffect(() => {
-    console.log(isProfileOpen);
     if (isProfileOpen) {
-      console.log(selectedStudentContext);
       const openableStudent = students.find(
         (item) => Number(item.id) === Number(selectedStudentContext)
       );
@@ -66,7 +64,6 @@ const StudentList = ({ headerText, isRecent = true }) => {
     if (visible) {
       setVisible((prev) => !prev);
     } else {
-      console.log(x, y);
       setSelectedXPosition(x);
       setSelectedYPosition(y);
       setVisible((prev) => !prev);
@@ -134,7 +131,6 @@ const StudentList = ({ headerText, isRecent = true }) => {
                     });
                   }}
                 >
-                  {console.log(student)}
                   <div className="d-flex align-items-center">
                     {/* Profile Picture */}
                     <div className="me-3">

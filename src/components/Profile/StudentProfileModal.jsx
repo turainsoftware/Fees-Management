@@ -7,22 +7,6 @@ const StudentProfileModal = ({
   setIsProfileOpen,
   studentData,
 }) => {
-  //   const studentData = {
-  //     address: "8/1/c Gurudas Dutta Garden Lane",
-  //     district: "Paschim Bardhaman",
-  //     email: "jhantubala626@gmail.com",
-  //     gender: "Female",
-  //     guardianName: "Jhantu Bala",
-  //     guardianPhone: "9775746484",
-  //     id: 22,
-  //     joiningClass: { id: 4, name: "Class 11" },
-  //     name: "Ishita Giri",
-  //     phone: "9888888365",
-  //     pinCode: "700067",
-  //     profilePic: "5f70c4c7-a5cb-40bd-aed3-5d9938e29c36.jpg",
-  //     state: "West Bengal",
-  //   };
-  console.log("Profile of student", studentData);
 
   return (
     <Modal
