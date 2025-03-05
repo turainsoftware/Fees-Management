@@ -10,7 +10,7 @@ import { authService } from "../../services/AuthService";
 import { Link, useNavigate } from "react-router-dom";
 import { teacherService } from "../../services/TeacherService";
 
-const MAX_FILE_SIZE = 200 * 1024; // 200KB in bytes
+const MAX_FILE_SIZE = 3072 * 1024; // 200KB in bytes
 const ALLOWED_TYPES = [
   'image/jpeg',    // .jpg, .jpeg
   'image/png',     // .png
@@ -110,7 +110,7 @@ const TeacherRagistrationForm = ({
 
       // Check file size
       if (imagePath.size > MAX_FILE_SIZE) {
-        toast.error("Image size should not exceed 200KB");
+        toast.error("Image size should not exceed 3MB");
         setProfileImage(null);
         setProfilePreviewImage(avatarImg);
         return;
@@ -134,9 +134,9 @@ const TeacherRagistrationForm = ({
       toast.error("Only JPEG, PNG, GIF, HEIC, or BMP files are allowed");
       return false;
     }
-    
+  
     if (profileImage.size > MAX_FILE_SIZE) {
-      toast.error("Image size should not exceed 200KB");
+      toast.error("Image size should not exceed 3MB");
       return false;
     }
 
@@ -306,7 +306,7 @@ const TeacherRagistrationForm = ({
                   {(profileImage === null || 
                     (profileImage && (!ALLOWED_TYPES.includes(profileImage.type) || profileImage.size > MAX_FILE_SIZE))) && (
                     <span className="text-danger mt-2 fs-12 fw-medium text-center" style={{ width: '280px' }}>
-                      Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max 200KB)
+                      Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, Max Size 3MB)
                     </span>
                   )}
                 </div>
