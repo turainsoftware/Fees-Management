@@ -38,7 +38,12 @@ const Register = () => {
   return (
     <main className="wrapper home-wrapper">
       <SecondaryNavbar title={"Register as a Teacher"} />
-      <TeacherRagistrationForm language={languages} board={boards} classes={classes} subject={subjects}/>
+      <TeacherRagistrationForm
+        language={languages}
+        board={boards}
+        classes={classes}
+        subject={subjects}
+      />
     </main>
   );
 };

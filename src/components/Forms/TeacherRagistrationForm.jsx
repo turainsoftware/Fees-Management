@@ -3,7 +3,12 @@ import Select from "react-select";
 import Swal from "sweetalert2";
 
 // Images
-import avatarImg from "./../../assets/images/profile/avatar.jpg";
+import {
+  FemaleStudents,
+  MaleTeachers,
+  FemaleTeachers,
+} from "./../../utils/images";
+
 import { isValidMobile, isValidName } from "../../utils/Validations";
 import { toast } from "react-toastify";
 import { authService } from "../../services/AuthService";
@@ -12,11 +17,11 @@ import { teacherService } from "../../services/TeacherService";
 
 const MAX_FILE_SIZE = 3072 * 1024; // 200KB in bytes
 const ALLOWED_TYPES = [
-  'image/jpeg',    // .jpg, .jpeg
-  'image/png',     // .png
-  'image/gif',     // .gif
-  'image/heic',    // .heic
-  'image/bmp',     // .bmp
+  "image/jpeg", // .jpg, .jpeg
+  "image/png", // .png
+  "image/gif", // .gif
+  "image/heic", // .heic
+  "image/bmp", // .bmp
 ];
 
 const TeacherRagistrationForm = ({
@@ -54,12 +59,13 @@ const TeacherRagistrationForm = ({
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("Male");
   const [profileImage, setProfileImage] = useState(null);
-  const [profilePreviewImage, setProfilePreviewImage] = useState(avatarImg);
+  const [profilePreviewImage, setProfilePreviewImage] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState([]);
   const [selectedSubjects, setSelectedSubjects] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState([]);
   const [selectedClass, setSelectedClass] = useState([]);
-// Added state for mobile validation message
+  const [defaultProfilePicNumber, setDefaultProfilePicNumber] = useState(0);
+  // Added state for mobile validation message
   const [mobileError, setMobileError] = useState("");
 
   // Error Variables
@@ -104,7 +110,6 @@ const TeacherRagistrationForm = ({
       if (!ALLOWED_TYPES.includes(imagePath.type)) {
         toast.error("Only JPEG, PNG, GIF, HEIC, or BMP files are allowed");
         setProfileImage(null);
-        setProfilePreviewImage(avatarImg);
         return;
       }
 
@@ -112,7 +117,6 @@ const TeacherRagistrationForm = ({
       if (imagePath.size > MAX_FILE_SIZE) {
         toast.error("Image size should not exceed 3MB");
         setProfileImage(null);
-        setProfilePreviewImage(avatarImg);
         return;
       }
 
@@ -134,7 +138,7 @@ const TeacherRagistrationForm = ({
       toast.error("Only JPEG, PNG, GIF, HEIC, or BMP files are allowed");
       return false;
     }
-  
+
     if (profileImage.size > MAX_FILE_SIZE) {
       toast.error("Image size should not exceed 3MB");
       return false;
@@ -227,7 +231,6 @@ const TeacherRagistrationForm = ({
     setMobile("");
     setName("");
     setProfileImage(null);
-    setProfilePreviewImage(avatarImg);
     setSelectedBoard([]);
     setSelectedClass([]);
     setSelectedLanguage([]);
@@ -250,14 +253,14 @@ const TeacherRagistrationForm = ({
   const handleMobileChange = (e) => {
     const val = e.target.value;
     const numRegex = /^\d*$/;
-    
+
     if (
       val.length <= 10 &&
       numRegex.test(val) &&
       (val.length === 0 || (val[0] >= 5 && val[0] <= 9))
     ) {
       setMobile(val);
-      
+
       // Check if number is longer than 2 digits and invalid
       if (val.length > 2 && !isValidMobile(val)) {
         setMobileError("Please enter a valid mobile number");
@@ -275,6 +278,10 @@ const TeacherRagistrationForm = ({
     }
   }, [mobile]);
 
+  useEffect(() => {
+    setDefaultProfilePicNumber((prev) => Math.floor(Math.random() * 4));
+  }, [gender]);
+
   return (
     <section className="student-register mb-3 mt-80 pb-100">
       <div className="container">
@@ -287,7 +294,14 @@ const TeacherRagistrationForm = ({
                     <div
                       className="profile-pic"
                       style={{
-                        backgroundImage: `url(${profilePreviewImage})`,
+                        backgroundImage: `url(${
+                          profilePreviewImage
+                            ? profilePreviewImage
+                            : import.meta.env.VITE_PROFILEURL +
+                              (gender === "Male"
+                                ? MaleTeachers[defaultProfilePicNumber]
+                                : FemaleTeachers[defaultProfilePicNumber])
+                        })`,
                       }}
                     >
                       <span>
@@ -301,12 +315,18 @@ const TeacherRagistrationForm = ({
                     id="fileToUpload"
                     accept=".jpg,.jpeg,.png,.gif,.heic,.bmp"
                     onChange={handleImageChange}
-                    style={{ display: 'none' }}
+                    style={{ display: "none" }}
                   />
-                  {(profileImage === null || 
-                    (profileImage && (!ALLOWED_TYPES.includes(profileImage.type) || profileImage.size > MAX_FILE_SIZE))) && (
-                    <span className="text-danger mt-2 fs-12 fw-medium text-center" style={{ width: '280px' }}>
-                      Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, Max Size 3MB)
+                  {(profileImage === null ||
+                    (profileImage &&
+                      (!ALLOWED_TYPES.includes(profileImage.type) ||
+                        profileImage.size > MAX_FILE_SIZE))) && (
+                    <span
+                      className="text-danger mt-2 fs-12 fw-medium text-center"
+                      style={{ width: "280px" }}
+                    >
+                      Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP,
+                      Max Size 3MB)
                     </span>
                   )}
                 </div>
