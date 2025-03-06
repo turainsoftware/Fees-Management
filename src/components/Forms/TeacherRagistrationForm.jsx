@@ -129,19 +129,21 @@ const TeacherRagistrationForm = ({
 
   //Validation for before submit
   const validateForm = () => {
-    if (profileImage === null) {
-      toast.error("Profile picture is required!");
-      return false;
-    }
+    // if (profileImage === null) {
+    //   toast.error("Profile picture is required!");
+    //   return false;
+    // }
 
-    if (!ALLOWED_TYPES.includes(profileImage.type)) {
-      toast.error("Only JPEG, PNG, GIF, HEIC, or BMP files are allowed");
-      return false;
-    }
+    if (profileImage) {
+      if (!ALLOWED_TYPES.includes(profileImage.type)) {
+        toast.error("Only JPEG, PNG, GIF, HEIC, or BMP files are allowed");
+        return false;
+      }
 
-    if (profileImage.size > MAX_FILE_SIZE) {
-      toast.error("Image size should not exceed 3MB");
-      return false;
+      if (profileImage.size > MAX_FILE_SIZE) {
+        toast.error("Image size should not exceed 3MB");
+        return false;
+      }
     }
 
     if (!name.trim() || name.length <= 2 || name.length > 50) {
@@ -184,16 +186,35 @@ const TeacherRagistrationForm = ({
     }
 
     try {
-      const data = await authService.signup({
-        name: name,
-        phoneNumber: mobile,
-        gender: gender,
-        subjects: selectedSubjects,
-        languages: selectedLanguage,
-        boards: selectedBoard,
-        classes: selectedClass,
-        profileImg: profileImage,
-      });
+      let data = null;
+      if (!profileImage) {
+        const profilePic =
+          gender === "Male"
+            ? MaleTeachers[defaultProfilePicNumber]
+            : FemaleTeachers[defaultProfilePicNumber];
+
+        data = await authService.signupDefaultProfilePic({
+          name: name,
+          phoneNumber: mobile,
+          gender: gender,
+          subjects: selectedSubjects,
+          languages: selectedLanguage,
+          boards: selectedBoard,
+          classes: selectedClass,
+          profileImage: profilePic,
+        });
+      } else {
+        data = await authService.signup({
+          name: name,
+          phoneNumber: mobile,
+          gender: gender,
+          subjects: selectedSubjects,
+          languages: selectedLanguage,
+          boards: selectedBoard,
+          classes: selectedClass,
+          profileImg: profileImage,
+        });
+      }
 
       if (data?.status) {
         Swal.fire({

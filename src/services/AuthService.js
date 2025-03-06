@@ -44,6 +44,38 @@ class AuthService {
     }
   }
 
+  async signupDefaultProfilePic({
+    name,
+    phoneNumber,
+    gender,
+    subjects,
+    languages,
+    classes,
+    boards,
+    profileImage,
+  }) {
+    const uri = `${this.baseUrl}/api/v1/auth/signup/default-profile`;
+    const payload = {
+      name: name,
+      phone: phoneNumber,
+      gender: gender,
+      subjects: subjects,
+      classes: classes,
+      boards: boards,
+      languages: languages,
+      profilePic: profileImage,
+    };
+    console.log(payload);
+    try {
+      const response = await axios.post(uri, payload);
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
   async login({ mobile }) {
     try {
       const uri = `${this.baseUrl}/api/v1/auth/login?mobile=${mobile}`;
