@@ -76,6 +76,7 @@ const StudentList = () => {
         data={studentData || []}
         isLoading={isLoading}
         studentName={searchName}
+        batchId={selectedBatch.id}
       />
     </main>
   );

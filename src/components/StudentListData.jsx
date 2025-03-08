@@ -12,18 +12,22 @@ import { data } from "jquery";
 import { BsFillNutFill } from "react-icons/bs";
 import StudentContexts from "./Contexts/StudentContexts";
 import StudentProfileModal from "./Profile/StudentProfileModal";
+import DeleteStudent from "./Modals/DeleteStudent";
 
 const StudentListData = ({
   headerText,
   data = [],
   isLoading = false,
   studentName,
+  batchId,
 }) => {
   // State Values
   const screenWidth = window.innerWidth;
   const imageWidth = screenWidth >= 768 ? "25%" : "50%";
 
   const [isRecent, setIsRecent] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   // Profile
 
@@ -81,7 +85,13 @@ const StudentListData = ({
     }
   };
 
-  useEffect(() => {}, [selectedStudentContext]);
+  const handleRemoveStudent = () => {
+    setIsDeleteLoading(true);
+    setTimeout(() => {
+      setIsDeleteLoading(false);
+      setIsDelete(false);
+    }, 2000);
+  };
 
   return isLoading ? (
     <ItemListShimmer />
@@ -197,6 +207,8 @@ const StudentListData = ({
                         xPosition={contextXPositon}
                         yPosition={contextYPositon}
                         setIsProfileOpen={setIsProfileOpen}
+                        isDelete={true}
+                        setIsDelete={setIsDelete}
                       />
                     )}
 
@@ -235,6 +247,12 @@ const StudentListData = ({
           isProfileOpen={isProfileOpen}
         />
       )}
+      <DeleteStudent
+        setIsDelete={setIsDelete}
+        isDelete={isDelete}
+        handleRemove={handleRemoveStudent}
+        isLoading={isDeleteLoading}
+      />
     </>
   );
 };

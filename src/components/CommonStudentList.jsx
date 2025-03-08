@@ -1,19 +1,21 @@
 import React, { useEffect, useMemo, useState } from "react";
 import callIcon from "./../assets/images/dashboard/call-icon.svg";
 
-import { teacherService } from "../services/TeacherService";
 import { useAuth } from "../contexts/AuthContext";
 import { ItemListShimmer } from "../Shimmers";
-import { Link } from "react-router-dom";
 
 // Images/Logos
 import Empty from "./../assets/images/empty.svg";
-import { data } from "jquery";
-import { BsFillNutFill } from "react-icons/bs";
 import StudentContexts from "./Contexts/StudentContexts";
 import StudentProfileModal from "./Profile/StudentProfileModal";
+import DeleteStudent from "./Modals/DeleteStudent";
 
-const CommonStudentList = ({ headerText, data = [], isLoading = false }) => {
+const CommonStudentList = ({
+  headerText,
+  data = [],
+  isLoading = false,
+  batchId,
+}) => {
   // State Values
   const screenWidth = window.innerWidth;
   const imageWidth = screenWidth >= 768 ? "25%" : "50%";
@@ -28,6 +30,9 @@ const CommonStudentList = ({ headerText, data = [], isLoading = false }) => {
   const [selectedStudentContext, setSelectedStudentContext] = useState(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState(null);
+
+  const [isDelete, setIsDelete] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
   const handleContext = ({ xPosition, yPosition, studentId }) => {
     if (contextVisible) {
@@ -44,14 +49,20 @@ const CommonStudentList = ({ headerText, data = [], isLoading = false }) => {
     }
   };
 
-  useEffect(() => {}, [selectedStudentContext]);
+  const handleRemoveStudent = () => {
+    setIsDeleteLoading(true);
+    setTimeout(() => {
+      setIsDeleteLoading(false);
+      setIsDelete(false);
+    }, 2000);
+  };
 
   return isLoading ? (
     <ItemListShimmer />
   ) : (
     <>
       <section
-        className="pb-80 mt-5 mb-3 student-list"
+        className="pb-80 mt-4 mb-3 student-list"
         style={{ marginBottom: "50px" }}
       >
         <div className="container">
@@ -146,6 +157,8 @@ const CommonStudentList = ({ headerText, data = [], isLoading = false }) => {
                         xPosition={contextXPositon}
                         yPosition={contextYPositon}
                         setIsProfileOpen={setIsProfileOpen}
+                        isDelete={true}
+                        setIsDelete={setIsDelete}
                       />
                     )}
 
@@ -184,6 +197,12 @@ const CommonStudentList = ({ headerText, data = [], isLoading = false }) => {
           isProfileOpen={isProfileOpen}
         />
       )}
+      <DeleteStudent
+        setIsDelete={setIsDelete}
+        isDelete={isDelete}
+        handleRemove={handleRemoveStudent}
+        isLoading={isDeleteLoading}
+      />
     </>
   );
 };

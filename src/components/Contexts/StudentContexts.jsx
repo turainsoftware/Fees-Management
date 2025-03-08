@@ -2,7 +2,13 @@ import { Modal } from "antd";
 import React, { useState } from "react";
 import { FaUser, FaTrash } from "react-icons/fa"; // Importing icons for Profile and Delete
 
-const StudentContexts = ({ xPosition, yPosition, isDelete = false , setIsProfileOpen}) => {
+const StudentContexts = ({
+  xPosition,
+  yPosition,
+  isDelete = false,
+  setIsProfileOpen,
+  setIsDelete,
+}) => {
   // Define styles as JavaScript objects
   const menuStyle = {
     position: "fixed",
@@ -30,7 +36,6 @@ const StudentContexts = ({ xPosition, yPosition, isDelete = false , setIsProfile
     }
   `;
 
-
   return (
     <>
       <div style={menuStyle}>
@@ -43,7 +48,7 @@ const StudentContexts = ({ xPosition, yPosition, isDelete = false , setIsProfile
           style={{
             ...itemStyle,
           }}
-          onClick={()=>setIsProfileOpen(true)}
+          onClick={() => setIsProfileOpen(true)}
         >
           <FaUser style={{ marginRight: "10px", color: "#555" }} />
           <span style={{ fontSize: "14px", color: "#333" }}>Profile</span>
@@ -52,14 +57,17 @@ const StudentContexts = ({ xPosition, yPosition, isDelete = false , setIsProfile
         {/* Delete Option */}
         <div
           className="context-item"
-          onClick={() => onDeleteClick(student)}
+          onClick={() => setIsDelete(true)}
           style={{
             ...itemStyle,
             borderTop: "1px solid #eee", // Separator between items
+            opacity: isDelete ? 1 : 0.5,
+            pointerEvents: isDelete ? "auto" : "none",
+            cursor: isDelete ? "pointer" : "not-allowed",
           }}
         >
           <FaTrash style={{ marginRight: "10px", color: "#e74c3c" }} />
-          <span style={{ fontSize: "14px", color: "#e74c3c" }}>Delete</span>
+          <span style={{ fontSize: "14px", color: "#e74c3c" }}>Remove</span>
         </div>
       </div>
     </>
