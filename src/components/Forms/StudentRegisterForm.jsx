@@ -8,6 +8,7 @@ import { studentService } from "../../services/StudentService";
 import Swal from "sweetalert2";
 import { isValidMobile } from "../../utils/Validations";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 const StudentRegisterForm = () => {
   const { authToken } = useAuth();
@@ -32,13 +33,14 @@ const StudentRegisterForm = () => {
   const [joiningMonth, setJoiningMonth] = useState("");
   const [isFieldsEnable, setIsFieldsEnable] = useState(true);
   const [isValidBatch, setIsValidBatch] = useState(true);
+  const [defaultProfilePic, setDefaultProfilePic] = useState(null);
 
   const validateForm = () => {
-    if (isFieldsEnable && !profileImage) {
-      toast.error("Student Image is required");
-      setIsLoading(false);
-      return false;
-    }
+    // if (isFieldsEnable && !profileImage) {
+    //   toast.error("Student Image is required");
+    //   setIsLoading(false);
+    //   return false;
+    // }
     if (!studentName.trim()) {
       toast.error("Student Name is required");
       setIsLoading(false);
@@ -210,7 +212,9 @@ const StudentRegisterForm = () => {
       const firstName = studentNameParts[0];
       const lastName = studentNameParts[studentNameParts.length - 1];
       if (firstName.length > 30 || lastName.length > 30) {
-        toast.error("Student's first name and last name must not exceed 30 characters each");
+        toast.error(
+          "Student's first name and last name must not exceed 30 characters each"
+        );
         setIsLoading(false);
         return false;
       }
@@ -224,48 +228,97 @@ const StudentRegisterForm = () => {
 
     if (isFieldsEnable) {
       if (validateForm()) {
-        const studentPayload = {
-          name: studentName,
-          phone: contactNumber,
-          guardianName: guardianName,
-          guardianPhone: guardianNumber,
-          email: emailAddress,
-          gender: gender,
-          joiningClass: { id: selectedClass.id },
-          address: address,
-          state: state,
-          district: district,
-          pinCode: pincode,
-        };
-        try {
-          const data = await studentService.registerStudent({
-            authToken,
-            studentData: studentPayload,
-            batchId: selectedBatch.id,
-            profileImage,
-            joiningMonth,
-            joiningYear,
-          });
-          if (data.status) {
-            Swal.fire({
-              titleText: data.message,
-              text: "Registration successful! Welcome aboard—get ready to start your journey!",
-              icon: "success",
+        if (profileImage) {
+          const studentPayload = {
+            name: studentName,
+            phone: contactNumber,
+            guardianName: guardianName,
+            guardianPhone: guardianNumber,
+            email: emailAddress,
+            gender: gender,
+            joiningClass: { id: selectedClass.id },
+            address: address,
+            state: state,
+            district: district,
+            pinCode: pincode,
+          };
+          try {
+            const data = await studentService.registerStudent({
+              authToken,
+              studentData: studentPayload,
+              batchId: selectedBatch.id,
+              profileImage,
+              joiningMonth,
+              joiningYear,
             });
-            resetForm();
-            setIsFieldsEnable(true);
-            navigate("/students", { replace: true });
-          } else {
-            Swal.fire({
-              titleText: data?.message,
-              text: "Registration failed! Please check your details and try again.",
-              icon: "error",
-            });
+            if (data.status) {
+              Swal.fire({
+                titleText: data.message,
+                text: "Registration successful! Welcome aboard—get ready to start your journey!",
+                icon: "success",
+              });
+              resetForm();
+              setIsFieldsEnable(true);
+              navigate("/students", { replace: true });
+            } else {
+              Swal.fire({
+                titleText: data?.message,
+                text: "Registration failed! Please check your details and try again.",
+                icon: "error",
+              });
+            }
+          } catch (error) {
+            console.log(error);
+          } finally {
+            setIsLoading(false);
           }
-        } catch (error) {
-          console.log(error);
-        } finally {
-          setIsLoading(false);
+        } else {
+          const studentPayload = {
+            name: studentName,
+            phone: contactNumber,
+            guardianName: guardianName,
+            guardianPhone: guardianNumber,
+            email: emailAddress,
+            gender: gender,
+            joiningClass: { id: selectedClass.id },
+            address: address,
+            state: state,
+            district: district,
+            pinCode: pincode,
+            profilePic: defaultProfilePic,
+          };
+          console.log(studentPayload);
+          try {
+            const data =
+              await studentService.registerStudentWithoutProfilePicture({
+                authToken: authToken,
+                batchId: selectedBatch.id,
+                joiningMonth,
+                joiningYear,
+                studentData: studentPayload,
+              });
+
+            if (data.status) {
+              Swal.fire({
+                titleText: data.message,
+                text: "Registration successful! Welcome aboard—get ready to start your journey!",
+                icon: "success",
+              });
+              resetForm();
+              setIsFieldsEnable(true);
+              navigate("/students", { replace: true });
+            } else {
+              Swal.fire({
+                titleText: data?.message,
+                text: "Registration failed! Please check your details and try again.",
+                icon: "error",
+              });
+            }
+          } catch (error) {
+            message.error("Something went wrong!");
+          } finally {
+            setIsLoading(false);
+          }
         }
       } else {
         setIsLoading(false);
@@ -415,6 +468,7 @@ const StudentRegisterForm = () => {
                   setStudentName={setStudentName}
                   studentName={studentName}
                   isFieldEnable={isFieldsEnable}
+                  setDefaultProfilePic={setDefaultProfilePic}
                 />
                 <BatchAcademics
                   authToken={authToken}

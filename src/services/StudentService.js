@@ -40,6 +40,33 @@ class StudentService {
     }
   }
 
+  async registerStudentWithoutProfilePicture({
+    authToken,
+    studentData,
+    batchId,
+    joiningYear,
+    joiningMonth,
+  }) {
+    // console.log(JSON.stringify(studentData));
+    console.log(joiningYear, joiningMonth);
+    console.log(studentData);
+    const uri = `${this.baseUrl}/api/v1/student/registration-no-profile-pic?batchId=${batchId}&joiningYear=${joiningYear}&joiningMonth=${joiningMonth} `;
+    try {
+      const response = await axios.post(uri, studentData, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
+
   async studentByMobile({ authToken, mobile }) {
     const uri = `${this.baseUrl}/api/v1/student/mobile/${mobile}`;
     try {

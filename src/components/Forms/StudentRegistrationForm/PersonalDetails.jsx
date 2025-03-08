@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import profileAvatar from "./../../../assets/images/profile/avatar.jpg";
+import React, { useEffect, useState } from "react";
 import cameraIcon from "./../../../assets/images/camera-line.svg";
 import {
   isValidMobile,
@@ -7,6 +6,7 @@ import {
   checkOnChangeMobile,
 } from "../../../utils/Validations";
 import { message } from "antd";
+import { MaleStudents, FemaleStudents } from "./../../../utils/images";
 
 const PersonalDetails = ({
   studentName,
@@ -26,12 +26,27 @@ const PersonalDetails = ({
   profileImage,
   setProfileImage,
   isFieldEnable = true,
+  setDefaultProfilePic,
 }) => {
   const [contactNumberError, setContactNumberError] = useState("");
   const [guardianNumberError, setGuardianNumberError] = useState("");
   const [studentNameError, setStudentNameError] = useState("");
   const [guardianNameError, setGuardianNameError] = useState("");
-  const [profilePreviewImage, setProfilePreviewImage] = useState(profileAvatar);
+  const [profilePreviewImage, setProfilePreviewImage] = useState(null);
+
+  // For Random Profile Images
+  const [randomProfileImage, setRandomProfileImage] = useState(0);
+
+  useEffect(() => {
+    const randomNumber = Math.floor(Math.random() * 4);
+    console.log(randomNumber);
+    if (gender === "Male") {
+      setDefaultProfilePic(MaleStudents[randomNumber]);
+    } else {
+      setDefaultProfilePic(FemaleStudents[randomNumber]);
+    }
+    setRandomProfileImage(randomNumber);
+  }, [gender]);
 
   const ALLOWED_TYPES = [
     "image/jpeg",
@@ -40,15 +55,15 @@ const PersonalDetails = ({
     "image/heic",
     "image/bmp",
   ];
-  const MAX_FILE_SIZE = 200 * 1024; // 200KB in bytes
+  const MAX_FILE_SIZE = 3000 * 1024; // 3MB in bytes
   const MAX_NAME_LENGTH = 30;
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       if (!ALLOWED_TYPES.includes(file.type) || file.size > MAX_FILE_SIZE) {
-        setProfileImage(file);
-        setProfilePreviewImage(profileAvatar);
+        // setProfileImage(file);
+        setProfilePreviewImage(null);
         message.info("Image Not Allowed");
       } else {
         setProfileImage(file);
@@ -118,7 +133,16 @@ const PersonalDetails = ({
           <div
             className="profile-pic"
             style={{
-              backgroundImage: `url(${profilePreviewImage})`,
+              backgroundImage: `url(${
+                profilePreviewImage !== null
+                  ? profilePreviewImage
+                  : `${
+                      import.meta.env.VITE_PROFILEURL +
+                      (gender === "Male"
+                        ? MaleStudents[randomProfileImage]
+                        : FemaleStudents[randomProfileImage])
+                    }`
+              })`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               width: "100px",
@@ -148,7 +172,7 @@ const PersonalDetails = ({
             className="text-danger mt-2 fs-12 fw-medium text-center"
             style={{ width: "280px" }}
           >
-            Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max 200KB)
+            Please upload a valid image (JPEG, PNG, GIF, HEIC, or BMP, max 3MB)
           </span>
         )}
       </div>
