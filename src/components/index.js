@@ -14,7 +14,7 @@ import FeesList from "./FeesList";
 //Student Page Releted
 import ItemList from "./ItemList";
 import StudentListData from "./StudentListData";
-
+import CommonStudentList from "./CommonStudentList";
 //Student Fees Related
 import StudentPaymentSummary from "./StudentPaymentSummary";
 import FeesPayment from "./FeesPayment";
@@ -88,4 +88,5 @@ export {
   BatchDetails,
   ProfilePageCard,
   InfoSection,
+  CommonStudentList
 };

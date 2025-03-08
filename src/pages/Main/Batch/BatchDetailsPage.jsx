@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   BatchDetails,
   BatchInfoCard,
+  CommonStudentList,
   FeesStructure,
   ScheduleInfo,
   SecondaryNavbar,
@@ -19,6 +20,8 @@ import {
   FaClock,
   FaGraduationCap,
 } from "react-icons/fa";
+import { error } from "jquery";
+import { studentService } from "../../../services/StudentService";
 
 const BatchDetailsPage = () => {
   const { id } = useParams();
@@ -27,6 +30,10 @@ const BatchDetailsPage = () => {
   // State Variables
   const [isLoading, setIsLoading] = useState(true);
   const [batchData, setBatchData] = useState({});
+
+  // Students State Variables
+  const [isStudentLogin, setIsStudentLogin] = useState(true);
+  const [studentsData, setStudentsData] = useState([]);
 
   const fetchBatchData = async () => {
     try {
@@ -40,8 +47,27 @@ const BatchDetailsPage = () => {
     }
   };
 
+  const fetchStudentsData = async () => {
+    try {
+      const data = await studentService.studentsByBatch({
+        authToken: authToken,
+        batchId: id,
+      });
+      setStudentsData(data);
+    } catch {
+      console.error(error);
+    } finally {
+      setIsStudentLogin(false);
+    }
+  };
+
+  const fetchData = async () => {
+    await fetchBatchData();
+    await fetchStudentsData();
+  };
+
   useState(() => {
-    fetchBatchData();
+    fetchData();
   }, []);
 
   return (
@@ -53,49 +79,8 @@ const BatchDetailsPage = () => {
         <div className="container py-4 pb-100">
           <div className="row g-4">
             {/* Main Batch Info */}
-            {/* <div className="col-12">
-              <div className="card shadow-sm">
-                <div className="card-body">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <h2 className="card-title mb-0 text-primary fw-bold">
-                      {batchData.name}
-                    </h2>
-                    <span className="badge bg-primary-subtle text-primary-emphasis px-3 py-2 rounded-pill">
-                      {batchData.language.name}
-                    </span>
-                  </div>
-                  <hr className="border-light opacity-75" />
-                  <div className="row g-3">
-                    <div className="col-md-6">
-                      <div className="d-flex align-items-center">
-                        <FaGraduationCap className="text-primary fs-4 me-3" />
-                        <div>
-                          <small className="text-body-secondary">Board</small>
-                          <p className="mb-0 text-primary fw-semibold">
-                            {batchData.board.name}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="d-flex align-items-center">
-                        <FaBook className="text-info fs-4 me-3" />
-                        <div>
-                          <small className="text-body-secondary">Class</small>
-                          <p className="mb-0 text-primary fw-semibold">
-                            {batchData.classes
-                              .map((cls) => cls.name)
-                              .join(", ")}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
             <BatchInfoCard
-            batchId={batchData?.id}
+              batchId={batchData?.id}
               name={batchData?.name}
               board={batchData?.board}
               classes={batchData?.classes}
@@ -199,6 +184,11 @@ const BatchDetailsPage = () => {
               defaultSubjects={batchData?.subjects}
             />
           </div>
+          <CommonStudentList
+            headerText={"Students"}
+            isLoading={isStudentLogin}
+            data={studentsData}
+          />
         </div>
       )}
     </main>

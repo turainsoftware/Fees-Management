@@ -13,50 +13,13 @@ import { BsFillNutFill } from "react-icons/bs";
 import StudentContexts from "./Contexts/StudentContexts";
 import StudentProfileModal from "./Profile/StudentProfileModal";
 
-const StudentListData = ({
-  headerText,
-  data = [],
-  isLoading = false,
-  studentName,
-}) => {
+const CommonStudentList = ({ headerText, data = [], isLoading = false }) => {
   // State Values
   const screenWidth = window.innerWidth;
   const imageWidth = screenWidth >= 768 ? "25%" : "50%";
 
-  const [isRecent, setIsRecent] = useState(false);
-
-  // Profile
-
   //Contexts Values
   const { authToken } = useAuth();
-  const [filteredData, setFilteredData] = useState(data);
-
-  useEffect(() => {
-    if (studentName) {
-      const filtered = data.filter((student) =>
-        student.name.toLowerCase().includes(studentName.toLowerCase())
-      );
-      setFilteredData(filtered);
-    } else {
-      setFilteredData(data);
-    }
-  }, [studentName, data, isRecent]);
-
-  useEffect(() => {
-    if (isRecent) {
-      const sortedData = [...data].sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-      setFilteredData(sortedData);
-      return;
-    } else {
-      const sortedData = [...data].sort((a, b) => {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      });
-      setFilteredData(sortedData);
-      return;
-    }
-  }, [isRecent]);
 
   // For Profile Data
   const [contextVisible, setContextVisible] = useState(false);
@@ -88,29 +51,15 @@ const StudentListData = ({
   ) : (
     <>
       <section
-        className="pb-80 mb-3 student-list"
+        className="pb-80 mt-5 mb-3 student-list"
         style={{ marginBottom: "50px" }}
       >
         <div className="container">
           <div className="inner-contain light-blue-border bg-white radius-8">
             <div className="border-bottom d-flex align-items-center justify-content-between px-14 py-14">
               <h6 className="mb-0 fw-semibold">{headerText}</h6>
-              <Link
-                onClick={() => {
-                  setIsRecent((prev) => !prev);
-                }}
-                href="#"
-                className="d-flex align-items-center fs-6"
-              >
-                {isRecent ? (
-                  <i className="ri-sort-asc fs-20 me-1 primary-color"></i>
-                ) : (
-                  <i className="ri-sort-desc fs-20 me-1 primary-color"></i>
-                )}
-                <span className="fw-semibold primary-color">Sort</span>
-              </Link>
             </div>
-            {filteredData.length === 0 ? (
+            {data.length === 0 ? (
               <div className="container mt-5">
                 <div className="text-center">
                   <img
@@ -126,8 +75,8 @@ const StudentListData = ({
                 </div>
               </div>
             ) : (
-              Array.isArray(filteredData) &&
-              filteredData.map((student, index) => (
+              Array.isArray(data) &&
+              data.map((student, index) => (
                 <div
                   key={index}
                   className="px-14 d-flex align-items-center justify-content-between py-14 border-bottom"
@@ -239,4 +188,4 @@ const StudentListData = ({
   );
 };
 
-export default StudentListData;
+export default CommonStudentList;
