@@ -88,7 +88,7 @@ const CommonStudentList = ({
         className="pb-80 mt-4 mb-3 student-list"
         style={{ marginBottom: "50px" }}
       >
-        <div className="container">
+        <div className="">
           <div className="inner-contain light-blue-border bg-white radius-8">
             <div className="border-bottom d-flex align-items-center justify-content-between px-14 py-14">
               <h6 className="mb-0 fw-semibold">{headerText}</h6>
