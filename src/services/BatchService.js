@@ -214,6 +214,22 @@ class BatchService {
       return data;
     }
   }
+
+  async removeStudentFromBatch({ authToken, batchId, studentID }) {
+    const uri = `${this.baseUrl}/api/v1/batch/${batchId}/students/${studentID}`;
+    try {
+      const response = await axios.delete(uri, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data = await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
 }
 
 const batchService = new BatchService();

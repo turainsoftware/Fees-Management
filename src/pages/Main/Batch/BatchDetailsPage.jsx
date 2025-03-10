@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BatchDetails,
   BatchInfoCard,
@@ -34,6 +34,7 @@ const BatchDetailsPage = () => {
   // Students State Variables
   const [isStudentLogin, setIsStudentLogin] = useState(true);
   const [studentsData, setStudentsData] = useState([]);
+  const [isStudentReload, setIsStudentReload] = useState(1);
 
   const fetchBatchData = async () => {
     try {
@@ -66,9 +67,13 @@ const BatchDetailsPage = () => {
     await fetchStudentsData();
   };
 
-  useState(() => {
+  useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    fetchStudentsData();
+  }, [isStudentReload]);
 
   return (
     <main className="wrapper home-wrapper">
@@ -188,6 +193,8 @@ const BatchDetailsPage = () => {
             headerText={"Students"}
             isLoading={isStudentLogin}
             data={studentsData}
+            setIsStudentReload={setIsStudentReload}
+            batchId={id}
           />
         </div>
       )}

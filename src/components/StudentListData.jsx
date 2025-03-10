@@ -13,6 +13,8 @@ import { BsFillNutFill } from "react-icons/bs";
 import StudentContexts from "./Contexts/StudentContexts";
 import StudentProfileModal from "./Profile/StudentProfileModal";
 import DeleteStudent from "./Modals/DeleteStudent";
+import { notification } from "antd";
+import { batchService } from "../services/BatchService";
 
 const StudentListData = ({
   headerText,
@@ -20,6 +22,7 @@ const StudentListData = ({
   isLoading = false,
   studentName,
   batchId,
+  setIsStudentsReload,
 }) => {
   // State Values
   const screenWidth = window.innerWidth;
@@ -85,12 +88,32 @@ const StudentListData = ({
     }
   };
 
-  const handleRemoveStudent = () => {
+  const handleRemoveStudent = async () => {
     setIsDeleteLoading(true);
-    setTimeout(() => {
+    try {
+      const data = await batchService.removeStudentFromBatch({
+        authToken: authToken,
+        batchId: batchId,
+        studentID: selectedStudent.id,
+      });
+      console.log(data);
+      if (data?.status) {
+        setIsStudentsReload((prev) => prev + 1);
+        notification.success({
+          message: data?.message,
+          description: "Student removed successfully.",
+        });
+      }
+    } catch (error) {
+      notification.error({
+        message: "Something went wrong?",
+        description: "Failed to remove student. Please try again.",
+        duration: 5000
+      });
+    } finally {
       setIsDeleteLoading(false);
       setIsDelete(false);
-    }, 2000);
+    }
   };
 
   return isLoading ? (

@@ -9,12 +9,15 @@ import Empty from "./../assets/images/empty.svg";
 import StudentContexts from "./Contexts/StudentContexts";
 import StudentProfileModal from "./Profile/StudentProfileModal";
 import DeleteStudent from "./Modals/DeleteStudent";
+import { batchService } from "../services/BatchService";
+import { notification } from "antd";
 
 const CommonStudentList = ({
   headerText,
   data = [],
   isLoading = false,
   batchId,
+  setIsStudentReload,
 }) => {
   // State Values
   const screenWidth = window.innerWidth;
@@ -49,12 +52,32 @@ const CommonStudentList = ({
     }
   };
 
-  const handleRemoveStudent = () => {
+  const handleRemoveStudent = async () => {
     setIsDeleteLoading(true);
-    setTimeout(() => {
+    try {
+      const data = await batchService.removeStudentFromBatch({
+        authToken: authToken,
+        batchId: batchId,
+        studentID: selectedStudent.id,
+      });
+      console.log(data);
+      if (data?.status) {
+        setIsStudentReload((prev) => prev + 1);
+        notification.success({
+          message: data?.message,
+          description: "Student removed successfully.",
+        });
+      }
+    } catch (error) {
+      notification.error({
+        message: "Something went wrong?",
+        description: "Failed to remove student. Please try again.",
+        duration: 5000,
+      });
+    } finally {
       setIsDeleteLoading(false);
       setIsDelete(false);
-    }, 2000);
+    }
   };
 
   return isLoading ? (

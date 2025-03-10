@@ -17,6 +17,7 @@ const StudentList = () => {
   const [selectedBatch, setSelectedBatch] = useState({});
   const [studentData, setStudentData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isStudentReload, setIsStudentReload] = useState(1);
 
   const fetchBatches = async () => {
     try {
@@ -31,9 +32,9 @@ const StudentList = () => {
     fetchBatches();
   }, []);
 
-  useEffect(()=>{
-    setSearchName("")
-  },[selectedBatch])
+  useEffect(() => {
+    setSearchName("");
+  }, [selectedBatch]);
 
   const studentsByBatch = async () => {
     setIsLoading(true);
@@ -51,12 +52,13 @@ const StudentList = () => {
   };
 
   useEffect(() => {
-    if (selectedBatch.id) {  // Only fetch if a batch is selected
+    if (selectedBatch.id) {
+      // Only fetch if a batch is selected
       studentsByBatch();
     } else {
-      setStudentData([]);  // Reset student data when no batch is selected
+      setStudentData([]); // Reset student data when no batch is selected
     }
-  }, [selectedBatch]);
+  }, [selectedBatch, isStudentReload]);
 
   return (
     <main className="wrapper home-wrapper">
@@ -67,8 +69,8 @@ const StudentList = () => {
         batches={batches}
         selectedBatch={selectedBatch}
         setSelectedBatch={setSelectedBatch}
-        isLoading={isLoading}  // Pass loading state
-        hasStudents={studentData.length > 0}  // Pass whether students exist
+        isLoading={isLoading} // Pass loading state
+        hasStudents={studentData.length > 0} // Pass whether students exist
       />
       <StudentListData
         headerText={"Recent Students List"}
@@ -77,6 +79,7 @@ const StudentList = () => {
         isLoading={isLoading}
         studentName={searchName}
         batchId={selectedBatch.id}
+        setIsStudentsReload={setIsStudentReload}
       />
     </main>
   );
