@@ -123,7 +123,6 @@ const StudentList = ({ headerText, isRecent = true }) => {
                   }}
                   onContextMenu={(e) => {
                     e.preventDefault();
-
                     handleContext({
                       studentId: student.id,
                       x: e.clientX,
@@ -145,6 +144,15 @@ const StudentList = ({ headerText, isRecent = true }) => {
                             width: "40px",
                             height: "40px",
                             objectFit: "cover",
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleContext({
+                              studentId: student.id,
+                              x: e.clientX,
+                              y: e.clientY,
+                            });
+                            console.log("clicked")
                           }}
                         />
                       ) : (

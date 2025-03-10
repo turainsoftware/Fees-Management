@@ -108,7 +108,7 @@ const StudentListData = ({
       notification.error({
         message: "Something went wrong?",
         description: "Failed to remove student. Please try again.",
-        duration: 5000
+        duration: 5000,
       });
     } finally {
       setIsDeleteLoading(false);
@@ -194,6 +194,14 @@ const StudentListData = ({
                             width: "40px",
                             height: "40px",
                             objectFit: "cover",
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleContext({
+                              xPosition: e.clientX,
+                              yPosition: e.clientY,
+                              studentId: student.id,
+                            });
                           }}
                         />
                       ) : (

@@ -145,6 +145,14 @@ const CommonStudentList = ({
                             height: "40px",
                             objectFit: "cover",
                           }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleContext({
+                              xPosition: e.clientX,
+                              yPosition: e.clientY,
+                              studentId: student.id,
+                            });
+                          }}
                         />
                       ) : (
                         <div
