@@ -40,7 +40,6 @@ const BatchDetailsPage = () => {
     try {
       const data = await batchService.byId({ id: id, authToken: authToken });
       setBatchData(data);
-      console.log(data);
     } catch (error) {
       console.error("Error in fetching batch data:", error);
     } finally {

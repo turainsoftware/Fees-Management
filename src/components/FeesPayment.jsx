@@ -49,7 +49,6 @@ const FeesPayment = ({
 
   const handlePay = async ({ year, month, index}) => {
     setIsLoading(true);
-    console.log(index)
     setLoadingIndex(index)
     try {
       const data = await feesService.payFees({

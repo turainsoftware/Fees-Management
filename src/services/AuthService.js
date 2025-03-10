@@ -36,7 +36,6 @@ class AuthService {
       });
 
       const data = await response.data;
-      console.log(data);
       return data;
     } catch (error) {
       const data = await error.response.data;
@@ -65,7 +64,6 @@ class AuthService {
       languages: languages,
       profilePic: profileImage,
     };
-    console.log(payload);
     try {
       const response = await axios.post(uri, payload);
       const data = await response.data;

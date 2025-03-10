@@ -96,7 +96,6 @@ const StudentListData = ({
         batchId: batchId,
         studentID: selectedStudent.id,
       });
-      console.log(data);
       if (data?.status) {
         setIsStudentsReload((prev) => prev + 1);
         notification.success({

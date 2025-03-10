@@ -39,7 +39,6 @@ const PersonalDetails = ({
 
   useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 4);
-    console.log(randomNumber);
     if (gender === "Male") {
       setDefaultProfilePic(MaleStudents[randomNumber]);
     } else {

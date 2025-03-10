@@ -96,7 +96,6 @@ const ScheduleInfo = ({
         endTime: tempBatchEndTime,
       });
 
-      console.log(data);
       if (data.status) {
         // Update all state variables on successful save
       setSelectedDays(tempSelectedDays);

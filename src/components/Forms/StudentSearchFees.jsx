@@ -13,7 +13,6 @@ const StudentSearchFees = ({
   handleBatchSearch,
   handleSuggestionClick,
 }) => {
-  console.log(suggestions);
 
   return (
     <section className="student-register my-3">

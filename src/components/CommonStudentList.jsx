@@ -60,7 +60,6 @@ const CommonStudentList = ({
         batchId: batchId,
         studentID: selectedStudent.id,
       });
-      console.log(data);
       if (data?.status) {
         setIsStudentReload((prev) => prev + 1);
         notification.success({

@@ -45,9 +45,7 @@ class BatchService {
       subjects: subjects,
       classes: classes,
     };
-    console.log(payload);
     try {
-      console.log(JSON.stringify(payload));
       const response = await axios.post(uri, payload, {
         headers: {
           Authorization: `Bearer ${authToken}`,
@@ -200,7 +198,6 @@ class BatchService {
     classPayload,
   }) {
     const uri = `${this.baseUrl}/api/v1/batch/update-details?batchId=${batchId}&batchName=${batchName}&languageId=${languageId}&boardId=${boardId}`;
-    console.log(uri);
     try {
       const response = await axios.patch(uri, classPayload, {
         headers: {

@@ -287,7 +287,6 @@ const StudentRegisterForm = () => {
             pinCode: pincode,
             profilePic: defaultProfilePic,
           };
-          console.log(studentPayload);
           try {
             const data =
               await studentService.registerStudentWithoutProfilePicture({

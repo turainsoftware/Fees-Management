@@ -13,9 +13,6 @@ class StudentService {
     joiningYear,
     joiningMonth,
   }) {
-    // console.log(JSON.stringify(studentData));
-    console.log(joiningYear, joiningMonth);
-    console.log(studentData);
     const uri = `${this.baseUrl}/api/v1/student/registration`;
     try {
       const formData = new FormData();
@@ -47,9 +44,6 @@ class StudentService {
     joiningYear,
     joiningMonth,
   }) {
-    // console.log(JSON.stringify(studentData));
-    console.log(joiningYear, joiningMonth);
-    console.log(studentData);
     const uri = `${this.baseUrl}/api/v1/student/registration-no-profile-pic?batchId=${batchId}&joiningYear=${joiningYear}&joiningMonth=${joiningMonth} `;
     try {
       const response = await axios.post(uri, studentData, {
@@ -107,7 +101,6 @@ class StudentService {
     joiningYear,
   }) {
     const uri = `${this.baseUrl}/api/v1/student/assign-batch?studentId=${studentId}&batchId=${batchId}&joiningYear=${joiningYear}&joiningMonth=${joiningMonth}`;
-    console.log(joiningMonth, joiningYear);
     try {
       const response = await axios.patch(
         uri,

@@ -152,7 +152,6 @@ const StudentList = ({ headerText, isRecent = true }) => {
                               x: e.clientX,
                               y: e.clientY,
                             });
-                            console.log("clicked")
                           }}
                         />
                       ) : (
