@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal } from "antd";
+import { Image, Modal } from "antd";
 import { FaPhone, FaUserCircle } from "react-icons/fa";
 
 const StudentProfileModal = ({
@@ -22,7 +22,8 @@ const StudentProfileModal = ({
         {/* Profile Picture */}
         <div className="profile-picture">
           {studentData.profilePic ? (
-            <img
+            <Image
+              width={90}
               src={import.meta.env.VITE_PROFILEURL + studentData.profilePic}
               alt="Profile"
               className="profile-img"
