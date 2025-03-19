@@ -54,6 +54,7 @@ import Logout from "./Buttons/Logout";
 // Profiles
 import InfoSection from "./Profile/InfoSection";
 import ProfilePageCard from "./Profile/ProfilePageCard";
+import UploadProfilePicture from "./Modals/UploadProfilePicture";
 
 export {
   BatchInfoCard,
@@ -88,5 +89,6 @@ export {
   BatchDetails,
   ProfilePageCard,
   InfoSection,
-  CommonStudentList
+  CommonStudentList,
+  UploadProfilePicture,
 };

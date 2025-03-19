@@ -174,7 +174,7 @@ class TeacherService {
       return data;
     }
   }
-  
+
   // All the subjects of teachers
   async subjects({ authToken }) {
     try {
@@ -191,8 +191,7 @@ class TeacherService {
       return data;
     }
   }
-  
-  
+
   async languages({ authToken }) {
     try {
       const uri = `${this.baseUrl}/api/v1/teacher/languages`;
@@ -208,7 +207,7 @@ class TeacherService {
       return data;
     }
   }
-  
+
   async classes({ authToken }) {
     try {
       const uri = `${this.baseUrl}/api/v1/teacher/classes`;
@@ -224,8 +223,7 @@ class TeacherService {
       return data;
     }
   }
-  
-  
+
   async boards({ authToken }) {
     try {
       const uri = `${this.baseUrl}/api/v1/teacher/boards`;
@@ -242,8 +240,24 @@ class TeacherService {
     }
   }
 
-
   // Update Teacher End
+  async updateProfilePic({ authToken, profilePic }) {
+    try {
+      const uri = `${this.baseUrl}/api/v1/teacher/profile/update/profile-pic`;
+      const formData = new FormData();
+      formData.append("profile-pic", profilePic);
+      const response = await axios.patch(uri, formData, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      const data=await response.data;
+      return data;
+    } catch (error) {
+      const data = await error.response.data;
+      return data;
+    }
+  }
 }
 
 const teacherService = new TeacherService();

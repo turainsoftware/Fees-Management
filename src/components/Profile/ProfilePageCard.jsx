@@ -22,10 +22,19 @@ import {
   isValidMobile,
   isValidName,
 } from "../../utils/Validations";
+import Upload from "antd/es/upload/Upload";
+import { FiUpload } from "react-icons/fi";
+import UploadProfilePicture from "../Modals/UploadProfilePicture";
 
 function ProfilePageCard({ teacher, onUpdate }) {
   const [form] = Form.useForm();
+  console.log(teacher);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState(
+    import.meta.env.VITE_PROFILEURL + teacher.profilePic
+  );
+  const [selectedUploadImage, setSelectedUploadImage] = useState(null);
 
   const handleSubmit = async (values) => {
     if (
@@ -62,11 +71,27 @@ function ProfilePageCard({ teacher, onUpdate }) {
     <>
       <Card className="border-0" style={{ backgroundColor: "white" }}>
         <div className="d-flex justify-content-between mb-3">
-          <div className="text-center flex-grow-1">
+          <div className="text-center flex-grow-1 position-relative">
             <Avatar
               size={120}
               src={import.meta.env.VITE_PROFILEURL + teacher.profilePic}
               alt={teacher.name}
+            />
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<FaEdit />}
+              size="small"
+              style={{
+                position: "absolute",
+                top: 0,
+                right: "calc(50% - 60px)",
+                minWidth: 24,
+                height: 24,
+                backgroundColor: "hsl(228, 74%, 60%)",
+                border: "none",
+              }}
+              onClick={() => setIsProfileModalOpen(true)}
             />
             <h2 className="mt-3 mb-1 fw-bold">{teacher.name}</h2>
             <Tag
@@ -174,6 +199,17 @@ function ProfilePageCard({ teacher, onUpdate }) {
           </Form.Item>
         </Form>
       </Modal>
+
+      {/* Upload Profile Modal */}
+      <UploadProfilePicture
+        isProfileModalOpen={isProfileModalOpen}
+        setIsProfileModalOpen={setIsProfileModalOpen}
+        previewImage={previewImage}
+        setPreviewImage={setPreviewImage}
+        selectedUploadImage={selectedUploadImage}
+        setSelectedUploadImage={setSelectedUploadImage}
+        teacher={teacher}
+      />
     </>
   );
 }
